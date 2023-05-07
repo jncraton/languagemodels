@@ -15,8 +15,3 @@ def chat(userprompt):
     inputs = tokenizer(prompt, return_tensors="pt")
     outputs = model.generate(**inputs, max_new_tokens=128, repetition_penalty=1.2)
     return tokenizer.batch_decode(outputs, skip_special_tokens=True)[0]
-
-
-if __name__ == "__main__":
-    llm = LLM()
-    print(llm.generate("How do I make Ramen noodles?"))
