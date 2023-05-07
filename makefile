@@ -1,2 +1,2 @@
 clean:
-	rm -rf __pycache__ langaugemodels/__pycache__
+	rm -rf __pycache__ languagemodels/__pycache__
