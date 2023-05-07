@@ -12,7 +12,7 @@ accuracy = 0
 for test in tests:
     response = languagemodels.chat(test[0])
     if test[1] in response:
-        accuracy += 1/len(tests)
+        accuracy += 1 / len(tests)
     print(test[0], response)
 
 print(f"Overall accuracy: {accuracy}")
