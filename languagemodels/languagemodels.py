@@ -1,4 +1,11 @@
+import os
+import requests
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
+
+
+class InferenceException(Exception):
+    pass
+
 
 modelcache = {}
 tokenizercache = {}
@@ -19,6 +26,18 @@ def get_tokenizer(tokenizer):
 
 
 def generate_instruct(prompt):
+    if os.environ.get("textsynth-api-key"):
+        response = requests.post(
+            "https://api.textsynth.com/v1/engines/flan_t5_xxl/completions",
+            headers={"Authorization": "Bearer " + os.environ.get("textsynth-api-key")},
+            json={"prompt": prompt, "max_tokens": 200},
+        )
+        resp = response.json()
+        if "text" in resp:
+            return resp["text"]
+        else:
+            raise InferenceException(f"TextSynth error: {resp}")
+
     model = get_model("google/flan-t5-base")
     tokenizer = get_tokenizer("google/flan-t5-base")
 
