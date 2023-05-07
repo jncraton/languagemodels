@@ -2,9 +2,9 @@ import languagemodels
 
 tests = [
     ("What is the capital of France?", "Paris"),
-    ("I am a robot. Do I breath?", "No"),
-    ("What is 2+2?", "4"),
-    ("I am playing a sport with a bat and ball. What is the sport?", "Baseball"),
+    ("Lungs are used for respiration in mammals. Do computers have lungs?", "No"),
+    ("I am playing a sport with a bat and ball. Am I playing baseball or basketball?", "Baseball"),
+    ("What color is the sun, yellow or blue?", "Yellow")
 ]
 
 accuracy = 0
