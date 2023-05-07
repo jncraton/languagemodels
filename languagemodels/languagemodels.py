@@ -6,7 +6,7 @@ tokenizer = AutoTokenizer.from_pretrained("google/flan-t5-small")
 
 def chat(userprompt):
     prompt = f"System: "\
-             f"Agent responses will be correct, helpful, and harmless.\n"\
+             f"Agent responses will be truthful, helpful, and harmless.\n"\
              f"User: {userprompt}\n"\
              f"Agent: "
 
