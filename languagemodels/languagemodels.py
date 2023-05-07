@@ -12,7 +12,7 @@ def chat(userprompt):
 
     inputs = tokenizer(prompt, return_tensors="pt")
     outputs = model.generate(**inputs, max_new_tokens=128)
-    return tokenizer.batch_decode(outputs, skip_special_tokens=True)
+    return tokenizer.batch_decode(outputs, skip_special_tokens=True)[0]
 
 
 class LLM:
