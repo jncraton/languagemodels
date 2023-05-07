@@ -8,7 +8,7 @@ setuptools.setup(
     version="0.0.1",
     author="Jon Craton",
     author_email="jon@joncraton.com",
-    description="Simple inference interface for large language models",
+    description="Simple inference for large language models",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/jncraton/languagemodels",
