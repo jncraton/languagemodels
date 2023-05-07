@@ -2,6 +2,7 @@ all: test
 
 test: lint
 	python3 -m doctest languagemodels/languagemodels.py
+	python3 test.py
 
 lint:
 	flake8 --max-line-length 88 languagemodels/languagemodels.py test.py
