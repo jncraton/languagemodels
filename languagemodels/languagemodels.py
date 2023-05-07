@@ -18,10 +18,16 @@ def get_tokenizer(tokenizer):
     return tokenizercache[tokenizer]
 
 
-def chat(userprompt):
+def generate_instruct(prompt):
     model = get_model("google/flan-t5-base")
     tokenizer = get_tokenizer("google/flan-t5-base")
 
+    inputs = tokenizer(prompt, return_tensors="pt")
+    outputs = model.generate(**inputs, max_new_tokens=128, repetition_penalty=1.2)
+    return tokenizer.batch_decode(outputs, skip_special_tokens=True)[0]
+
+
+def chat(userprompt):
     prompt = (
         f"System: "
         f"Agent responses will be truthful, helpful, and harmless.\n"
@@ -29,6 +35,4 @@ def chat(userprompt):
         f"Agent: "
     )
 
-    inputs = tokenizer(prompt, return_tensors="pt")
-    outputs = model.generate(**inputs, max_new_tokens=128, repetition_penalty=1.2)
-    return tokenizer.batch_decode(outputs, skip_special_tokens=True)[0]
+    return generate_instruct(prompt)
