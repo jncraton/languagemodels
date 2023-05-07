@@ -1,7 +1,7 @@
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 
-model = AutoModelForSeq2SeqLM.from_pretrained("google/flan-t5-small")
-tokenizer = AutoTokenizer.from_pretrained("google/flan-t5-small")
+model = AutoModelForSeq2SeqLM.from_pretrained("google/flan-t5-base")
+tokenizer = AutoTokenizer.from_pretrained("google/flan-t5-base")
 
 
 def chat(userprompt):
