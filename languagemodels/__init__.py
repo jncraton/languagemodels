@@ -1,1 +1,1 @@
-from .languagemodels import LLM
+from .languagemodels import LLM, chat
