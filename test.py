@@ -11,7 +11,7 @@ accuracy = 0
 
 for test in tests:
     response = languagemodels.chat(test[0])
-    if test[1] in response:
+    if test[1].lower() in response.lower():
         accuracy += 1 / len(tests)
     print(test[0], response)
 
