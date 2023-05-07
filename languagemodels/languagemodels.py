@@ -11,7 +11,7 @@ def chat(userprompt):
              f"Agent: "
 
     inputs = tokenizer(prompt, return_tensors="pt")
-    outputs = model.generate(**inputs, max_new_tokens=128)
+    outputs = model.generate(**inputs, max_new_tokens=128, repetition_penalty=1.2)
     return tokenizer.batch_decode(outputs, skip_special_tokens=True)[0]
 
 
