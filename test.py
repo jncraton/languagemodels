@@ -3,10 +3,7 @@ import languagemodels
 tests = [
     ("What is the capital of France?", "Paris"),
     ("Lungs are used for respiration in mammals. Do computers have lungs?", "No"),
-    (
-        "I am playing a sport with a bat and ball. Am I playing baseball or basketball?",
-        "Baseball",
-    ),
+    ("A game uses a bat and ball. Is it baseball or soccer?", "Baseball"),
     ("What color is the sun, yellow or blue?", "Yellow"),
 ]
 
