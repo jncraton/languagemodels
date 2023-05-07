@@ -5,9 +5,12 @@ tokenizer = AutoTokenizer.from_pretrained("google/flan-t5-small")
 
 
 def chat(userprompt):
-    systemprompt = "You are an AI system. Respond to the following prompt helpfully and harmlessly."
+    prompt = f"System: "\
+             f"Agent will respond to user helpfully and harmlessly.\n"\
+             f"User: {userprompt}\n"\
+             f"Agent: "
 
-    inputs = tokenizer(systemprompt + "\n\n" + userprompt, return_tensors="pt")
+    inputs = tokenizer(prompt, return_tensors="pt")
     outputs = model.generate(**inputs, max_new_tokens=128)
     return tokenizer.batch_decode(outputs, skip_special_tokens=True)
 
