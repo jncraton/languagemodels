@@ -1,5 +1,6 @@
-from transformers import AutoModelForSeq2SeqLM, AutoTokenizer, pipeline
+import requests
 import os
+from transformers import AutoModelForSeq2SeqLM, AutoTokenizer, pipeline
 
 
 class InferenceException(Exception):
