@@ -69,7 +69,7 @@ def search(query, docs):
     'Paris is in France'
     """
 
-    model = 'sentence-transformers/multi-qa-MiniLM-L6-cos-v1'
+    model = "sentence-transformers/multi-qa-MiniLM-L6-cos-v1"
 
     if model not in modelcache:
         modelcache[model] = SentenceTransformer(model)
