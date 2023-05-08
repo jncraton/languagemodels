@@ -1,9 +1,8 @@
 import requests
-from sentence_transformers import SentenceTransformer, util
 import json
 
 from languagemodels.inference import modelcache, get_model, get_tokenizer, generate_instruct, get_pipeline
-from languagemodels.embeddings import encode
+from languagemodels.embeddings import get_dot_scores
 
 
 def do(prompt):
@@ -42,16 +41,7 @@ def match(query, docs):
     'Paris is in France'
     """
 
-    query_emb = encode(query)
-    doc_emb = encode(docs)
-
-    scores = util.dot_score(query_emb, doc_emb)[0].cpu().tolist()
-
-    doc_score_pairs = list(zip(docs, scores))
-
-    doc_score_pairs = sorted(doc_score_pairs, key=lambda x: x[1], reverse=True)
-
-    return doc_score_pairs[0][0]
+    return get_dot_scores(query, docs)[0][0]
 
 
 def search(topic):
