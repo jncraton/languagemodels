@@ -11,6 +11,7 @@ format:
 	black languagemodels/*.py test.py
 
 docs: languagemodels/languagemodels.py
+	mkdir -p doc
 	python3 -m pdoc -o doc languagemodels/languagemodels.py
 
 upload:
