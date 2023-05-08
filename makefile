@@ -10,7 +10,7 @@ lint:
 format:
 	black languagemodels/*.py test.py
 
-docs: languagemodels/languagemodels.py
+doc: languagemodels/languagemodels.py
 	mkdir -p doc
 	python3 -m pdoc -o doc languagemodels/languagemodels.py
 
@@ -24,3 +24,4 @@ clean:
 	rm -rf languagemodels/__pycache__
 	rm -rf dist
 	rm -rf build
+	rm -rf doc
