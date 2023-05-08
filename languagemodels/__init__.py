@@ -26,6 +26,17 @@ def do(prompt):
 
 
 def chat(userprompt):
+    """Respond to a prompt as a chat agent
+
+    >>> chat("What is Mars?") #doctest: +SKIP
+    'Mars is a planet in the solar system.'
+
+    >>> chat("Who is Obama?") #doctest: +SKIP
+    'Obama was president of the United States.'
+
+    >>> chat("Where is Berlin?") #doctest: +SKIP
+    'Berlin is located in Germany.'
+    """
     prompt = (
         f"System: Agent responses will be truthful, helpful, and harmless.\n"
         f"User: {userprompt}\n"
