@@ -1,5 +1,6 @@
 import languagemodels
 import time
+import resource
 
 tests = [
     ("What is the capital of France?", "Paris"),
@@ -10,11 +11,21 @@ tests = [
 
 accuracy = 0
 
+
+def print_memory():
+    memkb = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+    print(f"Current memory usage: {memkb/1e6:.1f}GB")
+
+
+print_memory()
+
 start = time.perf_counter_ns()
 
 languagemodels.chat("Test first run time")
 
 print(f"Initialization time: {(time.perf_counter_ns() - start) / 1e6:.0f}ms")
+
+print_memory()
 
 start = time.perf_counter_ns()
 
@@ -28,5 +39,7 @@ print(
     f"Average inference time: {(time.perf_counter_ns() - start)/len(tests)/1e6:.0f}ms"
 )
 print(f"Overall accuracy: {accuracy}")
+
+print_memory()
 
 assert accuracy >= 0.75
