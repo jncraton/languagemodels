@@ -1,6 +1,7 @@
 Language Models
 ===============
 
+[![docs](https://img.shields.io/badge/docs-online-brightgreen)](https://languagemodels.netlify.app/)
 [![Build](https://github.com/jncraton/languagemodels/actions/workflows/build.yml/badge.svg)](https://github.com/jncraton/languagemodels/actions/workflows/build.yml)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/722e625a-c6bc-4373-bd88-c017adc58c00/deploy-status)](https://app.netlify.com/sites/languagemodels/deploys)
 
@@ -44,3 +45,5 @@ True
 >>> lm.extract_answer("What color is the ball?", "There is a green ball and a red box")
 'green'
 ```
+
+[Full documentation](https://languagemodels.netlify.app/)
