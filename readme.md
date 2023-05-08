@@ -27,4 +27,7 @@ True
 
 >>> lm.search('Chemistry')
 'Chemistry is the scientific study...
+
+>>> lm.extract_answer("What color is the ball?", "There is a green ball and a red box")
+'green'
 ```

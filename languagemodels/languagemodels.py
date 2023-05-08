@@ -133,6 +133,23 @@ def search(topic):
         return summary
 
 
+def extract_answer(question, context):
+    """Extract an answer to a question from a provided context
+
+    >>> extract_answer("What color is the ball?", "There is a green ball and a red box")
+    'green'
+    >>> extract_answer("Who created Python?", search('Python'))
+    'Guido van Rossum'
+    """
+
+    model = "distilbert-base-cased-distilled-squad"
+
+    if model not in modelcache:
+        modelcache[model] = pipeline("question-answering", model=model)
+
+    return modelcache[model](question, context)["answer"]
+
+
 def is_positive(doc):
     """Returns true of a supplied string is positive
 
