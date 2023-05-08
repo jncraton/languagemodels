@@ -1,14 +1,9 @@
-import os
 import requests
 from transformers import pipeline
 from sentence_transformers import SentenceTransformer, util
 import json
 
-from languagemodels.cache import modelcache, get_model, get_tokenizer
-
-
-class InferenceException(Exception):
-    pass
+from languagemodels.inference import modelcache, get_model, get_tokenizer, generate_instruct
 
 
 def do(prompt):
@@ -25,25 +20,7 @@ def do(prompt):
     >>> do("Is the following positive or negative: I love Star Trek.")
     'positive'
     """
-    if os.environ.get("textsynth-api-key"):
-        response = requests.post(
-            "https://api.textsynth.com/v1/engines/flan_t5_xxl/completions",
-            headers={"Authorization": "Bearer " + os.environ.get("textsynth-api-key")},
-            json={"prompt": prompt, "max_tokens": 200},
-        )
-        resp = response.json()
-        if "text" in resp:
-            return resp["text"]
-        else:
-            raise InferenceException(f"TextSynth error: {resp}")
-
-    model = get_model("google/flan-t5-large")
-    tokenizer = get_tokenizer("google/flan-t5-large")
-
-    inputs = tokenizer(prompt, return_tensors="pt")
-    outputs = model.generate(**inputs, max_new_tokens=128, repetition_penalty=1.2)
-    return tokenizer.batch_decode(outputs, skip_special_tokens=True)[0]
-
+    return generate_instruct(prompt, max_tokens=200)
 
 def chat(userprompt):
     prompt = (
