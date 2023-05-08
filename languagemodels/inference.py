@@ -40,18 +40,15 @@ def generate_instruct(prompt, max_tokens=200):
         else:
             raise InferenceException(f"TextSynth error: {resp}")
 
-    model = get_model("google/flan-t5-large")
-    tokenizer = get_tokenizer("google/flan-t5-large")
+    generate = get_pipeline("text2text-generation", "google/flan-t5-large")
 
-    inputs = tokenizer(prompt, return_tensors="pt")
-    outputs = model.generate(
-        **inputs, max_new_tokens=max_tokens, repetition_penalty=1.2
-    )
-    return tokenizer.batch_decode(outputs, skip_special_tokens=True)[0]
+    return generate(prompt)[0]["generated_text"]
 
 
 def get_pipeline(task, model):
     if model not in modelcache:
-        modelcache[model] = pipeline(task, model=model)
+        modelcache[model] = pipeline(
+            task, model=model, model_kwargs={"low_cpu_mem_usage": True}
+        )
 
     return modelcache[model]
