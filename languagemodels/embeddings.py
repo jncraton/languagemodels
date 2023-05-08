@@ -3,6 +3,8 @@ from sentence_transformers import SentenceTransformer, util
 model = None
 
 def encode(docs):
+    """ Encode a list of documents into their embeddings
+    """
     global model
     
     if not model:
@@ -11,6 +13,8 @@ def encode(docs):
     return model.encode(docs)
 
 def get_dot_scores(query, docs):
+    """ Calculate dot products between a query a set of docs in embedding space
+    """
     query_emb = encode(query)
     doc_emb = encode(docs)
 
