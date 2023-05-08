@@ -3,15 +3,15 @@ Language Models
 
 [![Build](https://github.com/jncraton/languagemodels/actions/workflows/build.yml/badge.svg)](https://github.com/jncraton/languagemodels/actions/workflows/build.yml)
 
-Simple inference for large language models
+Simple building blocks for exploring large language models.
 
 Example
 -------
 
+Here's an example from a Python REPL session:
+
 ```python
-import languagemodels
-
-response = languagemodels.chat("What is the capital of France?")
-
-print(response)
+>>> import languagemodels
+>>> languagemodels.chat("What is the capital of France?")
+'The capital of France is Paris.'
 ```
