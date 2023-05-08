@@ -116,11 +116,8 @@ def is_positive(doc):
     False
     """
 
-    model = "distilbert-base-uncased-finetuned-sst-2-english"
+    classifier = get_pipeline("text-classification", "distilbert-base-uncased-finetuned-sst-2-english")
 
-    if model not in modelcache:
-        modelcache[model] = pipeline("text-classification", model=model)
-
-    prediction = modelcache[model](doc)
+    prediction = classifier(doc)
 
     return prediction[0]["label"] == "POSITIVE"
