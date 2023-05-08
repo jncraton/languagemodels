@@ -74,13 +74,13 @@ def chat(userprompt):
     return do(prompt)
 
 
-def search(query, docs):
+def match(query, docs):
     """Return closest matching document in `docs` using semantic search
 
-    >>> search("What is Mars?", ["Mars is a planet", "The sun is hot"])
+    >>> match("What is Mars?", ["Mars is a planet", "The sun is hot"])
     'Mars is a planet'
 
-    >>> search("Where is Paris?", ["Paris is rainy", "Paris is in France"])
+    >>> match("Where is Paris?", ["Paris is rainy", "Paris is in France"])
     'Paris is in France'
     """
 
@@ -101,17 +101,17 @@ def search(query, docs):
     return doc_score_pairs[0][0]
 
 
-def get_wiki(topic):
+def search(topic):
     """
     Return Wikipedia summary for a topic
 
     This function ignores the complexity of disambiguation pages and simply
     returns the first result that is not a disambiguation page
 
-    >>> get_wiki('Python') # doctest: +ELLIPSIS
+    >>> search('Python') # doctest: +ELLIPSIS
     'Python is a high-level...
 
-    >>> get_wiki('Chemistry') # doctest: +ELLIPSIS
+    >>> search('Chemistry') # doctest: +ELLIPSIS
     'Chemistry is the scientific study...
     """
 

@@ -1,1 +1,1 @@
-from .languagemodels import do, chat, is_positive, get_wiki
+from .languagemodels import do, chat, is_positive, match, search
