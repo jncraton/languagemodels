@@ -30,6 +30,17 @@ def get_tokenizer(tokenizer):
 
 
 def do(prompt):
+    """ Follow a single-turn instructional prompt
+
+    Examples:
+
+    >>> do("Translate to Spanish: Hello, world!")
+    'Hola, mundo!'
+    >>> do("Pick the sport: baseball, texas, chemistry")
+    'baseball'
+    >>> do("Is the following positive or negative: I love Star Trek.")
+    'positive'
+    """
     if os.environ.get("textsynth-api-key"):
         response = requests.post(
             "https://api.textsynth.com/v1/engines/flan_t5_xxl/completions",
