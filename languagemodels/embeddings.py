@@ -1,7 +1,10 @@
+from sentence_transformers import SentenceTransformer, util
+
 model = None
-cache = {}
 
 def encode(docs):
+    global model
+    
     if not model:
         model = SentenceTransformer("sentence-transformers/multi-qa-MiniLM-L6-cos-v1")
 

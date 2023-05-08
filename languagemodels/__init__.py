@@ -3,6 +3,7 @@ from sentence_transformers import SentenceTransformer, util
 import json
 
 from languagemodels.inference import modelcache, get_model, get_tokenizer, generate_instruct, get_pipeline
+from languagemodels.embeddings import encode
 
 
 def do(prompt):
@@ -41,13 +42,8 @@ def match(query, docs):
     'Paris is in France'
     """
 
-    model = "sentence-transformers/multi-qa-MiniLM-L6-cos-v1"
-
-    if model not in modelcache:
-        modelcache[model] = SentenceTransformer(model)
-
-    query_emb = modelcache[model].encode(query)
-    doc_emb = modelcache[model].encode(docs)
+    query_emb = encode(query)
+    doc_emb = encode(docs)
 
     scores = util.dot_score(query_emb, doc_emb)[0].cpu().tolist()
 
