@@ -65,8 +65,7 @@ def do(prompt):
 
 def chat(userprompt):
     prompt = (
-        f"System: "
-        f"Agent responses will be truthful, helpful, and harmless.\n"
+        f"System: Agent responses will be truthful, helpful, and harmless.\n"
         f"User: {userprompt}\n"
         f"Agent: "
     )
