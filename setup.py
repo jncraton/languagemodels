@@ -22,6 +22,7 @@ setuptools.setup(
     install_requires=[
         "torch",
         "transformers",
+        "sentence-transformers",
         "accelerate",
     ],
 )
