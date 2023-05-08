@@ -12,7 +12,7 @@ format:
 
 doc:
 	mkdir -p doc
-	python3 -m pdoc -o doc languagemodels/languagemodels.py
+	python3 -m pdoc -o doc languagemodels
 
 upload:
 	python3 setup.py sdist bdist_wheel
