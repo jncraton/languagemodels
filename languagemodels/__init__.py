@@ -3,7 +3,7 @@ from transformers import pipeline
 from sentence_transformers import SentenceTransformer, util
 import json
 
-from languagemodels.inference import modelcache, get_model, get_tokenizer, generate_instruct
+from languagemodels.inference import modelcache, get_model, get_tokenizer, generate_instruct, get_pipeline
 
 
 def do(prompt):
@@ -100,12 +100,9 @@ def extract_answer(question, context):
     'Guido van Rossum'
     """
 
-    model = "distilbert-base-cased-distilled-squad"
+    qa = get_pipeline("question-answering", "distilbert-base-cased-distilled-squad")
 
-    if model not in modelcache:
-        modelcache[model] = pipeline("question-answering", model=model)
-
-    return modelcache[model](question, context)["answer"]
+    return qa(question, context)["answer"]
 
 
 def is_positive(doc):
