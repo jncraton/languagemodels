@@ -29,7 +29,7 @@ def get_tokenizer(tokenizer):
     return tokenizercache[tokenizer]
 
 
-def generate_instruct(prompt):
+def do(prompt):
     if os.environ.get("textsynth-api-key"):
         response = requests.post(
             "https://api.textsynth.com/v1/engines/flan_t5_xxl/completions",
@@ -58,7 +58,7 @@ def chat(userprompt):
         f"Agent: "
     )
 
-    return generate_instruct(prompt)
+    return do(prompt)
 
 
 def search(query, docs):

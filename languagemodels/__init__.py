@@ -1,1 +1,1 @@
-from .languagemodels import chat, generate_instruct, get_wiki
+from .languagemodels import do, chat, get_wiki
