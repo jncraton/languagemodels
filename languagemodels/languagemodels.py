@@ -40,8 +40,8 @@ def generate_instruct(prompt):
         else:
             raise InferenceException(f"TextSynth error: {resp}")
 
-    model = get_model("google/flan-t5-base")
-    tokenizer = get_tokenizer("google/flan-t5-base")
+    model = get_model("google/flan-t5-large")
+    tokenizer = get_tokenizer("google/flan-t5-large")
 
     inputs = tokenizer(prompt, return_tensors="pt")
     outputs = model.generate(**inputs, max_new_tokens=128, repetition_penalty=1.2)
