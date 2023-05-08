@@ -5,6 +5,15 @@ Language Models
 
 Simple building blocks for exploring large language models.
 
+Installation
+------------
+
+This package can be installed using the following command:
+
+```sh
+pip install languagemodels
+```
+
 Example
 -------
 
