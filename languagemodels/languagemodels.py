@@ -87,17 +87,17 @@ def search(query, docs):
     return doc_score_pairs[0][0]
 
 
-def get_summary(topic):
+def get_wiki(topic):
     """
     Return Wikipedia summary for a topic
 
     This function ignores the complexity of disambiguation pages and simply
     returns the first result that is not a disambiguation page
 
-    >>> get_summary('Python') # doctest: +ELLIPSIS
+    >>> get_wiki('Python') # doctest: +ELLIPSIS
     'Python is a high-level...
 
-    >>> get_summary('Chemistry') # doctest: +ELLIPSIS
+    >>> get_wiki('Chemistry') # doctest: +ELLIPSIS
     'Chemistry is the scientific study...
     """
 
