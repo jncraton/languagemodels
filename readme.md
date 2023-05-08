@@ -19,6 +19,9 @@ Here's an example from a Python REPL session:
 >>> lm.do("Translate to English: Hola, mundo!")
 'Hello, world!'
 
+>>> lm.do("What is the capital of France?")
+'paris'
+
 >>> lm.is_positive("Language models are useful")
 True
 
