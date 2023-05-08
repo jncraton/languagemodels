@@ -2,6 +2,7 @@ import os
 import requests
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 from sentence_transformers import SentenceTransformer, util
+import json
 
 
 class InferenceException(Exception):
@@ -84,3 +85,35 @@ def search(query, docs):
     doc_score_pairs = sorted(doc_score_pairs, key=lambda x: x[1], reverse=True)
 
     return doc_score_pairs[0][0]
+
+
+def get_summary(topic):
+    """
+    Return Wikipedia summary for a topic
+
+    This function ignores the complexity of disambiguation pages and simply
+    returns the first result that is not a disambiguation page
+
+    >>> get_summary('Python') # doctest: +ELLIPSIS
+    'Python is a high-level...
+
+    >>> get_summary('Chemistry') # doctest: +ELLIPSIS
+    'Chemistry is the scientific study...
+    """
+
+    url = "https://api.wikimedia.org/core/v1/wikipedia/en/search/title"
+    response = requests.get(url, params={"q": topic, "limit": 5})
+    response = json.loads(response.text)
+
+    for page in response["pages"]:
+        wiki_result = requests.get(
+            f"https://en.wikipedia.org/w/api.php?action=query&prop=extracts|pageprops&"
+            f"exintro&explaintext&redirects=1&titles={page['title']}&format=json"
+        ).json()
+
+        first = wiki_result["query"]["pages"].popitem()[1]
+        if "disambiguation" in first["pageprops"]:
+            continue
+
+        summary = first["extract"]
+        return summary
