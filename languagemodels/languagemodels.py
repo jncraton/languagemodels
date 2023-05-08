@@ -13,7 +13,9 @@ tokenizercache = {}
 
 def get_model(model):
     if model not in modelcache:
-        modelcache[model] = AutoModelForSeq2SeqLM.from_pretrained(model)
+        modelcache[model] = AutoModelForSeq2SeqLM.from_pretrained(
+            model, low_cpu_mem_usage=True
+        )
 
     return modelcache[model]
 
