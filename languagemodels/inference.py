@@ -11,6 +11,11 @@ modelcache = {}
 
 
 def generate_instruct(prompt, max_tokens=200):
+    """ Generates one completion for a prompt using an instruction-tuned model
+
+    This may use a local model, or it may make an API call to an external
+    model if API keys are available.
+    """
     if os.environ.get("textsynth-api-key"):
         response = requests.post(
             "https://api.textsynth.com/v1/engines/flan_t5_xxl/completions",
@@ -29,6 +34,12 @@ def generate_instruct(prompt, max_tokens=200):
 
 
 def get_pipeline(task, model):
+    """ Gets a pipeline instance
+
+    This is thin wrapper around the pipeline constructor to provide caching
+    across calls.
+    """
+    
     if model not in modelcache:
         modelcache[model] = pipeline(
             task, model=model, model_kwargs={"low_cpu_mem_usage": True}
