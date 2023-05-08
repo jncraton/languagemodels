@@ -1,5 +1,4 @@
 import requests
-from transformers import pipeline
 from sentence_transformers import SentenceTransformer, util
 import json
 
