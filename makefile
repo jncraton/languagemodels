@@ -5,7 +5,7 @@ test: lint
 	python3 test.py
 
 lint:
-	flake8 --max-line-length 88 languagemodels/__init__.py languagemodels/cache.py test.py
+	flake8 --max-line-length 88 languagemodels/*.py test.py
 
 format:
 	black languagemodels/*.py test.py
