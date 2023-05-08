@@ -2,19 +2,19 @@ from sentence_transformers import SentenceTransformer, util
 
 model = None
 
+
 def encode(docs):
-    """ Encode a list of documents into their embeddings
-    """
+    """Encode a list of documents into their embeddings"""
     global model
-    
+
     if not model:
         model = SentenceTransformer("sentence-transformers/multi-qa-MiniLM-L6-cos-v1")
 
     return model.encode(docs)
 
+
 def get_dot_scores(query, docs):
-    """ Calculate dot products between a query a set of docs in embedding space
-    """
+    """Calculate dot products between a query a set of docs in embedding space"""
     query_emb = encode(query)
     doc_emb = encode(docs)
 

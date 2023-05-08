@@ -1,7 +1,7 @@
 import requests
 import json
 
-from languagemodels.inference import modelcache, get_model, get_tokenizer, generate_instruct, get_pipeline
+from languagemodels.inference import generate_instruct, get_pipeline
 from languagemodels.embeddings import get_dot_scores
 
 
@@ -20,6 +20,7 @@ def do(prompt):
     'positive'
     """
     return generate_instruct(prompt, max_tokens=200)
+
 
 def chat(userprompt):
     prompt = (
@@ -101,7 +102,9 @@ def is_positive(doc):
     False
     """
 
-    classifier = get_pipeline("text-classification", "distilbert-base-uncased-finetuned-sst-2-english")
+    classifier = get_pipeline(
+        "text-classification", "distilbert-base-uncased-finetuned-sst-2-english"
+    )
 
     prediction = classifier(doc)
 

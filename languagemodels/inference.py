@@ -1,6 +1,7 @@
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer, pipeline
 import os
 
+
 class InferenceException(Exception):
     pass
 
@@ -42,7 +43,9 @@ def generate_instruct(prompt, max_tokens=200):
     tokenizer = get_tokenizer("google/flan-t5-large")
 
     inputs = tokenizer(prompt, return_tensors="pt")
-    outputs = model.generate(**inputs, max_new_tokens=max_tokens, repetition_penalty=1.2)
+    outputs = model.generate(
+        **inputs, max_new_tokens=max_tokens, repetition_penalty=1.2
+    )
     return tokenizer.batch_decode(outputs, skip_special_tokens=True)[0]
 
 
@@ -51,4 +54,3 @@ def get_pipeline(task, model):
         modelcache[model] = pipeline(task, model=model)
 
     return modelcache[model]
-
