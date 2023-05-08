@@ -1,6 +1,6 @@
 import os
 import requests
-from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
+from transformers import AutoModelForSeq2SeqLM, AutoTokenizer, pipeline
 from sentence_transformers import SentenceTransformer, util
 import json
 
@@ -131,3 +131,24 @@ def get_wiki(topic):
 
         summary = first["extract"]
         return summary
+
+
+def is_positive(doc):
+    """Returns true of a supplied string is positive
+
+    >>> is_positive("I love you!")
+    True
+    >>> is_positive("That book was fine.")
+    True
+    >>> is_positive("That movie was terrible.")
+    False
+    """
+
+    model = "distilbert-base-uncased-finetuned-sst-2-english"
+
+    if model not in modelcache:
+        modelcache[model] = pipeline("text-classification", model=model)
+
+    prediction = modelcache[model](doc)
+
+    return prediction[0]["label"] == "POSITIVE"
