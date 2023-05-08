@@ -30,14 +30,16 @@ def get_tokenizer(tokenizer):
 
 
 def do(prompt):
-    """ Follow a single-turn instructional prompt
+    """Follow a single-turn instructional prompt
 
     Examples:
 
     >>> do("Translate to Spanish: Hello, world!")
     'Hola, mundo!'
+
     >>> do("Pick the sport: baseball, texas, chemistry")
     'baseball'
+
     >>> do("Is the following positive or negative: I love Star Trek.")
     'positive'
     """
@@ -73,7 +75,8 @@ def chat(userprompt):
 
 
 def search(query, docs):
-    """
+    """Return closest matching document in `docs` using semantic search
+
     >>> search("What is Mars?", ["Mars is a planet", "The sun is hot"])
     'Mars is a planet'
 
