@@ -1,16 +1,16 @@
 all: test
 
 test: lint
-	python3 -m doctest languagemodels/languagemodels.py
+	python3 -m doctest languagemodels/__init__.py
 	python3 test.py
 
 lint:
-	flake8 --max-line-length 88 languagemodels/languagemodels.py test.py
+	flake8 --max-line-length 88 languagemodels/__init__.py languagemodels/cache.py test.py
 
 format:
 	black languagemodels/*.py test.py
 
-doc: languagemodels/languagemodels.py
+doc:
 	mkdir -p doc
 	python3 -m pdoc -o doc languagemodels/languagemodels.py
 
