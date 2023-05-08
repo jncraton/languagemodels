@@ -11,7 +11,11 @@ Example
 Here's an example from a Python REPL session:
 
 ```python
->>> import languagemodels
->>> languagemodels.chat("What is the capital of France?")
+>>> import languagemodels as lm
+>>> lm.chat("What is the capital of France?")
 'The capital of France is Paris.'
+>>> lm.do("Translate to English: Hola, mundo!")
+'Hello, world!'
+>>> lm.is_positive("Language models are useful")
+True
 ```
