@@ -4,10 +4,10 @@ test: lint
 	python3 -m doctest languagemodels/*.py
 
 lint:
-	flake8 --max-line-length 88 languagemodels/*.py test.py
+	flake8 --max-line-length 88 languagemodels/*.py
 
 format:
-	black languagemodels/*.py test.py
+	black languagemodels/*.py
 
 doc:
 	mkdir -p doc
