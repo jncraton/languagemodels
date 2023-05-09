@@ -11,6 +11,13 @@ modelcache = {}
 
 
 def generate_ts(engine, prompt, max_tokens=200):
+    """Generates a single text response for a prompt from a textsynth server
+
+    The server and API key are provided as environment variables:
+
+    ts_server is the server such as http://localhost:8080
+    ts_key is the API key
+    """
     apikey = os.environ.get("ts_key") or ""
     server = os.environ.get("ts_server") or "https://api.textsynth.com"
 
