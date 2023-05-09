@@ -43,9 +43,9 @@ def chat(userprompt):
 
     prompt = (
         f"Currently {now}.\n"
-        f"Agent responses are true helpful and harmless.\n"
+        f"Assistant responses are true helpful and harmless.\n"
         f"User: {userprompt}\n"
-        f"Agent: "
+        f"Assistant: "
     )
 
     return do(prompt)
