@@ -1,5 +1,6 @@
 import requests
 import json
+import datetime
 
 from languagemodels.inference import generate_instruct, get_pipeline
 from languagemodels.embeddings import get_dot_scores
@@ -37,8 +38,12 @@ def chat(userprompt):
     >>> chat("Where is Berlin?") #doctest: +SKIP
     'Berlin is located in Germany.'
     """
+
+    now = datetime.datetime.now().strftime("%A, %B %d, %Y at %I:%M%p")
+
     prompt = (
-        f"System: Agent responses will be truthful, helpful, and harmless.\n"
+        f"Currently {now}.\n"
+        f"Agent responses true truthful helpful and harmless.\n"
         f"User: {userprompt}\n"
         f"Agent: "
     )
