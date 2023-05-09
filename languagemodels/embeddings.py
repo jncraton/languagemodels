@@ -14,7 +14,14 @@ def encode(docs):
 
 
 def get_dot_scores(query, docs):
-    """Calculate dot products between a query a set of docs in embedding space"""
+    """Calculate similarity between query and a set of docs
+
+    This is implemented by computing embeddings for the query and all
+    documents in `docs`. Once embeddings are computed, the dot
+    product is used to compute the similarity between each of the
+    docs and the query. The text content of the most similar document is
+    returned.
+    """
     query_emb = encode(query)
     doc_emb = encode(docs)
 
