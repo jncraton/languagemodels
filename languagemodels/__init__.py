@@ -3,7 +3,7 @@ import json
 import datetime
 
 from languagemodels.inference import generate_instruct, get_pipeline
-from languagemodels.embeddings import get_dot_scores, RetrievalContext
+from languagemodels.embeddings import RetrievalContext
 
 docs = RetrievalContext()
 
@@ -53,21 +53,8 @@ def chat(userprompt):
     return do(prompt)
 
 
-def match(query, docs):
-    """Return closest matching document in `docs` using semantic search
-
-    >>> match("What is Mars?", ["Mars is a planet", "The sun is hot"])
-    'Mars is a planet'
-
-    >>> match("Where is Paris?", ["Paris is rainy", "Paris is in France"])
-    'Paris is in France'
-    """
-
-    return get_dot_scores(query, docs)[0][0]
-
-
 def store_doc(doc):
-    """ Store document for later retrieval
+    """Store document for later retrieval
 
     >>> store_doc("The sky is blue.")
     """
