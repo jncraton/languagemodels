@@ -3,7 +3,9 @@ import json
 import datetime
 
 from languagemodels.inference import generate_instruct, get_pipeline
-from languagemodels.embeddings import get_dot_scores
+from languagemodels.embeddings import get_dot_scores, RetrievalContext
+
+docs = RetrievalContext()
 
 
 def do(prompt):
@@ -62,6 +64,25 @@ def match(query, docs):
     """
 
     return get_dot_scores(query, docs)[0][0]
+
+
+def store_doc(doc):
+    """ Store document for later retrieval
+
+    >>> store_doc("The sky is blue.")
+    """
+    docs.store(doc)
+
+
+def search_docs(query):
+    """Search stored documents
+
+    >>> store_doc("The sky is blue.")
+    >>> store_doc("Paris is in France.")
+    >>> search_docs("Where is Paris?")
+    'Paris is in France.'
+    """
+    return docs.get_match(query)
 
 
 def search(topic):

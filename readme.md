@@ -36,7 +36,9 @@ Here's an example from a Python REPL session:
 >>> lm.is_positive("Language models are useful")
 True
 
->>> lm.match("What is Mars?", ["Mars is a planet", "The sun is hot"])
+>>> lm.store_doc("Mars is a planet")
+>>> lm.store_doc("The sun is hot")
+>>> lm.search_docs("What is Mars?")
 'Mars is a planet'
 
 >>> lm.search('Chemistry')
