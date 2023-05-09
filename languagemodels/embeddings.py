@@ -8,7 +8,9 @@ def encode(docs):
     global model
 
     if not model:
-        model = SentenceTransformer("flax-sentence-embeddings/all_datasets_v4_MiniLM-L6")
+        model = SentenceTransformer(
+            "flax-sentence-embeddings/all_datasets_v4_MiniLM-L6"
+        )
 
     return model.encode(docs)
 
