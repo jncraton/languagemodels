@@ -10,23 +10,30 @@ class InferenceException(Exception):
 modelcache = {}
 
 
+def generate_ts(engine, prompt, max_tokens=200):
+    apikey = os.environ.get("ts_key") or ""
+    server = os.environ.get("ts_server") or "https://api.textsynth.com"
+
+    response = requests.post(
+        f"{server}/v1/engines/{engine}/completions",
+        headers={"Authorization": f"Bearer {apikey}"},
+        json={"prompt": prompt, "max_tokens": max_tokens},
+    )
+    resp = response.json()
+    if "text" in resp:
+        return resp["text"]
+    else:
+        raise InferenceException(f"TextSynth error: {resp}")
+
+
 def generate_instruct(prompt, max_tokens=200):
     """Generates one completion for a prompt using an instruction-tuned model
 
     This may use a local model, or it may make an API call to an external
     model if API keys are available.
     """
-    if os.environ.get("textsynth-api-key"):
-        response = requests.post(
-            "https://api.textsynth.com/v1/engines/flan_t5_xxl/completions",
-            headers={"Authorization": "Bearer " + os.environ.get("textsynth-api-key")},
-            json={"prompt": prompt, "max_tokens": max_tokens},
-        )
-        resp = response.json()
-        if "text" in resp:
-            return resp["text"]
-        else:
-            raise InferenceException(f"TextSynth error: {resp}")
+    if os.environ.get("ts_key") or os.environ.get("ts_server"):
+        return generate_ts("flan_t5_xxl_q4", prompt, max_tokens)
 
     generate = get_pipeline("text2text-generation", "google/flan-t5-large")
 
