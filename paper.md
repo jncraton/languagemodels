@@ -24,9 +24,7 @@ Early research indicates that there are many tasks that have been performed by h
 
 The field of machine learning is undergoing a period of rapid progress. Current tools are built on a half-century of growth, discovery, and complex mathematics that are not easily accessible to students beginning to learn the basics of programming. This package seeks to radically lower the barriers to entry on applying these tools to solve problems.
 
-There are many software tools already available for working with large language models [@hftransformers; @pytorch; @tensorflow; @langchain; @llamacpp; @gpt4all].
-
-While these options serve the needs of software engineers, researches, and hobbyist, they do not provide the cleanest interface for new learners. Some focus on performance over simplicity of installation, and other provide numerous options and error cases that can be painful for inexperienced programmers.
+There are many software tools already available for working with large language models [@hftransformers; @pytorch; @tensorflow; @langchain; @llamacpp; @gpt4all]. While these options serve the needs of software engineers, researches, and hobbyist, they do not provide the cleanest interface for new learners. Some focus on performance over simplicity of installation, and other provide numerous options and error cases that can be painful for inexperienced programmers.
 
 # Example Usage
 
