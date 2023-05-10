@@ -135,21 +135,23 @@ def extract_answer(question, context):
     return qa(question, context)["answer"]
 
 
-def is_positive(doc):
+def classify(doc, label1, label2):
     """Returns true of a supplied string is positive
 
-    >>> is_positive("I love you!")
-    True
-    >>> is_positive("That book was fine.")
-    True
-    >>> is_positive("That movie was terrible.")
-    False
+    >>> classify("I love you!","positive","negative")
+    'positive'
+    >>> classify("That book was fine.","positive","negative")
+    'positive'
+    >>> classify("That movie was terrible.","positive","negative")
+    'negative'
     """
 
     classifier = get_pipeline(
-        "text-classification", "distilbert-base-uncased-finetuned-sst-2-english"
+        "zero-shot-classification", "valhalla/distilbart-mnli-12-1"
     )
 
-    prediction = classifier(doc)
+    result = classifier(doc, [label1, label2])
 
-    return prediction[0]["label"] == "POSITIVE"
+    top = max(zip(result["scores"], result["labels"]), key=lambda r: r[0])
+
+    return top[1]

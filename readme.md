@@ -36,8 +36,8 @@ Here's an example from a Python REPL session:
 >>> lm.do("What is the capital of France?")
 'paris'
 
->>> lm.is_positive("Language models are useful")
-True
+>>> lm.classify("Language models are useful", "positive", "negative")
+'positive'
 
 >>> lm.store_doc("Mars is a planet")
 >>> lm.store_doc("The sun is hot")
