@@ -22,9 +22,9 @@ Large language models are beginning to change how software is designed. The deve
 
 Early research indicates that there are many tasks that have been performed by humans that will be transformed by LLMs [@eloundou2023gpts]. For example, large language models that have been trained on code [@codex] are already being used as capable pair programmers via tools such as Microsoft's Copilot. In order build with these technologies in the software of the future, students today must understand their capabilities and begin to learn new paradigms for programming.
 
-The field of machine learning is undergoing a period of rapid progress. Current tools are built on a half-century of growth, discovery, and complex mathematics that are not easily accessible to students beginning to learn the basics of programming. This package seeks to radically lower the barriers to entry on applying these tools to solve problems.
+Many existing tools are built for researchers of machine learning engineers and are not easily accessible to students beginning to learn the basics of programming. This package seeks to radically lower the barriers to entry when applying these tools to solve problems.
 
-There are many software tools already available for working with large language models [@hftransformers; @pytorch; @tensorflow; @langchain; @llamacpp; @gpt4all]. While these options serve the needs of software engineers, researches, and hobbyist, they do not provide the cleanest interface for new learners. This package seeks to meet that need.
+There are many software tools already available for working with large language models [@hftransformers; @pytorch; @tensorflow; @langchain; @llamacpp; @gpt4all]. While these options serve the needs of software engineers, researches, and hobbyists, they may not be simple enough for new learners. This package seeks to meet that need.
 
 # Example Usage
 
