@@ -73,6 +73,8 @@ def chat(userprompt: str) -> str:
 def store_doc(doc: str) -> None:
     """Store document for later retrieval
 
+    :param doc: A plain text document to store.
+
     >>> store_doc("The sky is blue.")
     """
     docs.store(doc)
@@ -80,6 +82,8 @@ def store_doc(doc: str) -> None:
 
 def search_docs(query: str) -> str:
     """Search stored documents
+
+    A single document that best matches `query` will be returned.
 
     >>> store_doc("The sky is blue.")
     >>> store_doc("Paris is in France.")
@@ -120,11 +124,19 @@ def fetch_wiki(topic: str) -> str:
         summary = first["extract"]
         return summary
     else:
-        return 'No matching wiki page found.'
+        return "No matching wiki page found."
 
 
 def extract_answer(question: str, context: str) -> str:
-    """Extract an answer to a question from a provided context
+    """Extract an answer to a `question` from a provided `context`
+
+    The returned answer will always be a substring extracted from `context`.
+    It may not always be a correct or meaningful answer, but it will never be
+    an arbitrary hallucination.
+
+    :param question: A question to answer using knowledge from context
+    :param context: Knowledge used to answer the question
+    :return: Answer to the question.
 
     >>> extract_answer("What color is the ball?", "There is a green ball and a red box")
     'green'
@@ -138,7 +150,13 @@ def extract_answer(question: str, context: str) -> str:
 
 
 def classify(doc: str, label1: str, label2: str) -> str:
-    """Returns true of a supplied string is positive
+    """Performs binary classification on an input
+
+    :param doc: A plain text input document to classify
+    :param label1: The first label to classify against
+    :param label2: The second label to classify against
+    :return: The closest matching class. The return value will always be
+    `label1` or `label2`
 
     >>> classify("I love you!","positive","negative")
     'positive'
@@ -146,6 +164,8 @@ def classify(doc: str, label1: str, label2: str) -> str:
     'positive'
     >>> classify("That movie was terrible.","positive","negative")
     'negative'
+    >>> classify("The submarine is diving", "ocean", "space")
+    'ocean'
     """
 
     classifier = get_pipeline(
