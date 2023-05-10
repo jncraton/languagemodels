@@ -89,17 +89,17 @@ def search_docs(query):
     return docs.get_match(query)
 
 
-def search(topic):
+def fetch_wiki(topic):
     """
     Return Wikipedia summary for a topic
 
     This function ignores the complexity of disambiguation pages and simply
     returns the first result that is not a disambiguation page
 
-    >>> search('Python') # doctest: +ELLIPSIS
+    >>> fetch_wiki('Python') # doctest: +ELLIPSIS
     'Python is a high-level...
 
-    >>> search('Chemistry') # doctest: +ELLIPSIS
+    >>> fetch_wiki('Chemistry') # doctest: +ELLIPSIS
     'Chemistry is the scientific study...
     """
 
@@ -126,7 +126,7 @@ def extract_answer(question, context):
 
     >>> extract_answer("What color is the ball?", "There is a green ball and a red box")
     'green'
-    >>> extract_answer("Who created Python?", search('Python'))
+    >>> extract_answer("Who created Python?", fetch_wiki('Python'))
     'Guido van Rossum'
     """
 

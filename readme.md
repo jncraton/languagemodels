@@ -44,7 +44,7 @@ Here's an example from a Python REPL session:
 >>> lm.search_docs("What is Mars?")
 'Mars is a planet'
 
->>> lm.search('Chemistry')
+>>> lm.fetch_wiki('Chemistry')
 'Chemistry is the scientific study...
 
 >>> lm.extract_answer("What color is the ball?", "There is a green ball and a red box")
