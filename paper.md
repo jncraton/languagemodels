@@ -18,7 +18,7 @@ bibliography: paper.bib
 
 There are many software tools already available for working with large language models. Some of the most popular are :
 
-- Huggingface Transformers `wolf2020huggingfaces`
+- Huggingface Transformers [@wolf2020huggingfaces]
 - [llama.cpp](https://github.com/ggerganov/llama.cpp)
 - [GPT4All](https://github.com/nomic-ai/gpt4all)
 
