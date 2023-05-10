@@ -18,22 +18,23 @@ bibliography: paper.bib
 
 # Statement of Need
 
-Large language models are beginning to transform how software is developed. Since the development of the transformer in 2017 [@vaswani2017attention], this architecture has become the tool of choice for many NLP problems. It has been applied to continually improve the state of the art in many NLP tasks [@bert; @gpt2; @gpt3; @t5; @palm; @flan-t5; @bubeck2023sparks]. Early research indicates that there are many tasks that have been performed by humans that will be transformed by LLMs [@eloundou2023gpts].  
+Large language models are beginning to change how software is developed. The development of the transformer [@vaswani2017attention] has led to rapid progress on many NLP and generative tasks [@bert; @gpt2; @gpt3; @t5; @palm; @flan-t5; @bubeck2023sparks].
 
-Large language models that have been trained on code [@codex] are already being used as capable pair programmers via tools such as Microsoft's Copilot.
+Early research indicates that there are many tasks that have been performed by humans that will be transformed by LLMs [@eloundou2023gpts]. For example, large language models that have been trained on code [@codex] are already being used as capable pair programmers via tools such as Microsoft's Copilot. In order build with these technologies in the software of the future, students today must understand their capabilities and begin to learn new paradigms for programming.
+
+The field of machine learning is undergoing a period of rapid progress. Current tools are built on a half-century of growth, discovery, and complex mathematics that are not easily accessible to students beginning to learn the basics of programming. This package seeks to radically lower the barriers to entry on applying these tools to solve problems.
 
 There are many software tools already available for working with large language models. Some of the most popular are :
 
 - Huggingface Transformers [@hftransformers]
+- PyTorch [@pytorch]
+- TensorFlow [@tensorflow]
 - [llama.cpp](https://github.com/ggerganov/llama.cpp)
 - [GPT4All](https://github.com/nomic-ai/gpt4all)
 
 While these options serve the needs of researches and hobbyist, they do not provide the cleanest interface for new learners. Some focus on performance over simplicity of installation, and other provide numerous options and error cases that can be painful for inexperienced programmers.
 
-This package seeks to be as simple as possible so that someone with no experience in the field of computer science could pick up these tools and begin to experiment with them. The following are the goals for the package:
-
-- Use simple types. Where possible, built-in types such as strings, Booleans, and numbers should be favored. Even lists and dictionaries should be avoided to keep the interface as simple as possible for new programmers.
-- Avoid classes.
+This package use basic types and simple functions while removing the need for opaque boilerplate and configuration options that are not meaningful to new learners.
 
 Let's look at a comparison between Transformers and this package. Here's transformers:
 
@@ -71,6 +72,6 @@ This intentionally trades flexibility and adaptability for simplicity.
 The design of this software package allows its internals to be loosely coupled to the models and inference engines that it uses. At the time of creation, there is rapid progress being made to speed up inference on consumer hardware, but much of this software is difficult to install and may not work easily for all learners.
 This package currently uses the HuggingFace Transformers library [@hftransformers] which uses PyTorch [@pytorch] internally for inference.
 
-The current model used is a variant of the T5 base model [@t5] that has been fine-tuned to better follow instructions [@flan-t5]. As models and inference options become more mature, it should be possible to swap this out with a more powerful that is still able to run on commodity hardware such as Llama [@llama]. 
+The current model uses is a variant of the T5 base model [@t5] that has been fine-tuned to better follow instructions [@flan-t5]. As models and inference options become more mature, it will be possible to swap this out with a more powerful that is still able to run on commodity hardware such as Llama [@llama]. In addition to simple local inference, it is also possible to provide API keys to the package to allow access to more powerful hosted inference services.
 
 # References
