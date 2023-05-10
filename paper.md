@@ -70,6 +70,13 @@ Despite its simplicity, this package provides a number of building blocks that c
 - `get_wiki` - Retrieve Wikipedia lead section for a topic of interest
 - `extract_answer` - Barebones extractive QA
 
+In order make this as simple as possible, the package includes the following features under the hood:
+
+- Local LLM inference via `transformers`
+- Transparent model caching to allow fast repeated inference with explicit model initialization
+- Opinionated model selections to allow the software to run easily and effectively on as many devices as possible
+- Local document embedding and vector search
+
 # Implementation
 
 The design of this software package allows its internals to be loosely coupled to the models and inference engines that it uses. At the time of creation, there is rapid progress being made to speed up inference on consumer hardware, but much of this software is difficult to install and may not work easily for all learners.
