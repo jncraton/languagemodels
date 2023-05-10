@@ -18,6 +18,10 @@ bibliography: paper.bib
 
 # Statement of Need
 
+Large language models are beginning to transform how software is developed. Since the development of the transformer in 2017 [@vaswani2017attention], this architecture has become the tool of choice for many NLP problems. It has been applied to continually improve the state of the art in many NLP tasks [@bert; @gpt2; @gpt3; @t5; @palm; @flan-t5; @bubeck2023sparks]. Early research indicates that there are many tasks that have been performed by humans that will be transformed by LLMs [@eloundou2023gpts].  
+
+Large language models that have been trained on code [@codex] are already being used as capable pair programmers via tools such as Microsoft's Copilot.
+
 There are many software tools already available for working with large language models. Some of the most popular are :
 
 - Huggingface Transformers [@hftransformers]
@@ -66,5 +70,7 @@ This intentionally trades flexibility and adaptability for simplicity.
 
 The design of this software package allows its internals to be loosely coupled to the models and inference engines that it uses. At the time of creation, there is rapid progress being made to speed up inference on consumer hardware, but much of this software is difficult to install and may not work easily for all learners.
 This package currently uses the HuggingFace Transformers library [@hftransformers] which uses PyTorch [@pytorch] internally for inference.
+
+The current model used is a variant of the T5 base model [@t5] that has been fine-tuned to better follow instructions [@flan-t5]. As models and inference options become more mature, it should be possible to swap this out with a more powerful that is still able to run on commodity hardware such as Llama [@llama]. 
 
 # References
