@@ -16,9 +16,11 @@ date: 15 June 2023
 bibliography: paper.bib
 ---
 
+# Statement of Need
+
 There are many software tools already available for working with large language models. Some of the most popular are :
 
-- Huggingface Transformers [@wolf2020huggingfaces]
+- Huggingface Transformers [@hftransformers]
 - [llama.cpp](https://github.com/ggerganov/llama.cpp)
 - [GPT4All](https://github.com/nomic-ai/gpt4all)
 
@@ -59,5 +61,10 @@ response_text = lm.do("What color is the sky?")
 ```
 
 This intentionally trades flexibility and adaptability for simplicity.
+
+# Implementation
+
+The design of this software package allows its internals to be loosely coupled to the models and inference engines that it uses. At the time of creation, there is rapid progress being made to speed up inference on consumer hardware, but much of this software is difficult to install and may not work easily for all learners.
+This package currently uses the HuggingFace Transformers library [@hftransformers] which uses PyTorch [@pytorch] internally for inference.
 
 # References
