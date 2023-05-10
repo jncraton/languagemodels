@@ -37,7 +37,7 @@ While these options serve the needs of software engineers, researches, and hobby
 
 # Example Usage
 
-This package use basic types and simple functions while removing the need for opaque boilerplate and configuration options that are not meaningful to new learners. Here's an example using the transformers package to produce a single prompt completion:
+This package uses basic types and simple functions while removing the need for opaque boilerplate and configuration options that are not meaningful to new learners. Here's an example using the transformers package to produce a single prompt completion:
 
 ```python
 from transformers import pipeline
@@ -70,7 +70,14 @@ This intentionally trades flexibility and adaptability for simplicity.
 
 # Features
 
-Despite its simplicity, this package provides a number of building blocks that can be composed to build 
+Despite its simplicity, this package provides a number of building blocks that can be composed to build applications that mimic the architectures of contemporary tools such as Phind or Bing Chat. Some of the included tools are:
+
+- `do` - Complete an instructional prompt
+- `chat` - Respond to a chat prompt
+- `store_doc` - Add document embedding to the internal document database
+- `search_docs` - Retrieve a single document via semantic search over embeddings
+- `get_wiki` - Retrieve Wikipedia lead section for a topic of interest
+- `extract_answer` - Barebones extractive QA
 
 # Implementation
 
