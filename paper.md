@@ -29,14 +29,15 @@ There are many software tools already available for working with large language 
 - Huggingface Transformers [@hftransformers]
 - PyTorch [@pytorch]
 - TensorFlow [@tensorflow]
+- LangChain [@langchain]
 - llama.cpp [@llamacpp]
 - GPT4All [@gpt4all]
 
-While these options serve the needs of researches and hobbyist, they do not provide the cleanest interface for new learners. Some focus on performance over simplicity of installation, and other provide numerous options and error cases that can be painful for inexperienced programmers.
+While these options serve the needs of software engineers, researches, and hobbyist, they do not provide the cleanest interface for new learners. Some focus on performance over simplicity of installation, and other provide numerous options and error cases that can be painful for inexperienced programmers.
 
-This package use basic types and simple functions while removing the need for opaque boilerplate and configuration options that are not meaningful to new learners.
+# Example Usage
 
-Let's look at a comparison between Transformers and this package. Here's transformers:
+This package use basic types and simple functions while removing the need for opaque boilerplate and configuration options that are not meaningful to new learners. Here's an example using the transformers package to produce a single prompt completion:
 
 ```python
 from transformers import pipeline
@@ -54,7 +55,7 @@ That's not a lot of code, but it does include a lot of magic that could be off-p
 
 - `text2text-generation` is a magic string that is meaningless unless you understand the various transformer model architectures
 - `google/flan-t5-large` is opaque unless you are familiar with the various models available to the public.
-- `model_kwargs={"low_cpu_mem_usage": True}` is especially confusing. Even if you've used `transformers` this may not be familiar. By default, models are loaded in memory then transfered to the inference device (often a GPU). This happens in one large allocation by default. This flag initializes the model in chunks to save CPU memory and allows us to load larger model than we would otherwise be able to when performing CPU inference.
+- `model_kwargs={"low_cpu_mem_usage": True}` is especially confusing. Even if you've used `transformers` this may not be familiar. By default, models are loaded in memory then transfered to the inference device (often a GPU). This happens in one large allocation by default. This flag initializes the model in chunks to save CPU memory and allows us to load larger models than we would otherwise be able to when performing CPU inference.
 - Unpacking the result is more complicated than necessary. We have a list of dictionaries of results to pull apart to examine the result that we want.
 
 Here's how this works with this package:
@@ -66,6 +67,10 @@ response_text = lm.do("What color is the sky?")
 ```
 
 This intentionally trades flexibility and adaptability for simplicity.
+
+# Features
+
+Despite its simplicity, this package provides a number of building blocks that can be composed to build 
 
 # Implementation
 
