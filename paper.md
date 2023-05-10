@@ -29,8 +29,8 @@ There are many software tools already available for working with large language 
 - Huggingface Transformers [@hftransformers]
 - PyTorch [@pytorch]
 - TensorFlow [@tensorflow]
-- [llama.cpp](https://github.com/ggerganov/llama.cpp)
-- [GPT4All](https://github.com/nomic-ai/gpt4all)
+- llama.cpp [@llamacpp]
+- GPT4All [@gpt4all]
 
 While these options serve the needs of researches and hobbyist, they do not provide the cleanest interface for new learners. Some focus on performance over simplicity of installation, and other provide numerous options and error cases that can be painful for inexperienced programmers.
 
