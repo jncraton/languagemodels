@@ -24,6 +24,9 @@ Here's an example from a Python REPL session:
 ```python
 >>> import languagemodels as lm
 
+>>> lm.complete("She hid in her room until")
+'she was sure she was safe'
+
 >>> lm.chat("What is the capital of France?")
 'The capital of France is Paris.'
 

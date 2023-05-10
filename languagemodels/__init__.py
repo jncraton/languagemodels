@@ -28,6 +28,23 @@ def do(prompt):
     return generate_instruct(prompt, max_tokens=200)
 
 
+def complete(prompt):
+    """Provide one completion for a given open-ended prompt
+
+    Examples:
+
+    >>> complete("Luke thought that he") #doctest: +SKIP
+    'was going to be a doctor.'
+
+    >>> complete("There are many mythical creatures who") #doctest: +SKIP
+    'are able to fly'
+
+    >>> complete("She hid in her room until") #doctest: +SKIP
+    'she was sure she was safe'
+    """
+    return generate_instruct(prompt, max_tokens=200)
+
+
 def chat(userprompt):
     """Respond to a prompt as a chat agent
 
