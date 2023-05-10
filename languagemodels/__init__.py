@@ -119,6 +119,8 @@ def fetch_wiki(topic: str) -> str:
 
         summary = first["extract"]
         return summary
+    else:
+        return 'No matching wiki page found.'
 
 
 def extract_answer(question: str, context: str) -> str:
