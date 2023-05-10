@@ -8,7 +8,7 @@ from languagemodels.embeddings import RetrievalContext
 docs = RetrievalContext()
 
 
-def do(prompt):
+def do(prompt: str) -> str:
     """Follow a single-turn instructional prompt
 
     Examples:
@@ -28,7 +28,7 @@ def do(prompt):
     return generate_instruct(prompt, max_tokens=200)
 
 
-def complete(prompt):
+def complete(prompt: str) -> str:
     """Provide one completion for a given open-ended prompt
 
     Examples:
@@ -45,7 +45,7 @@ def complete(prompt):
     return generate_instruct(prompt, max_tokens=200)
 
 
-def chat(userprompt):
+def chat(userprompt: str) -> str:
     """Respond to a prompt as a chat agent
 
     >>> chat("What is Mars?") #doctest: +SKIP
@@ -70,7 +70,7 @@ def chat(userprompt):
     return do(prompt)
 
 
-def store_doc(doc):
+def store_doc(doc: str) -> None:
     """Store document for later retrieval
 
     >>> store_doc("The sky is blue.")
@@ -78,7 +78,7 @@ def store_doc(doc):
     docs.store(doc)
 
 
-def search_docs(query):
+def search_docs(query: str) -> str:
     """Search stored documents
 
     >>> store_doc("The sky is blue.")
@@ -89,7 +89,7 @@ def search_docs(query):
     return docs.get_match(query)
 
 
-def fetch_wiki(topic):
+def fetch_wiki(topic: str) -> str:
     """
     Return Wikipedia summary for a topic
 
@@ -121,7 +121,7 @@ def fetch_wiki(topic):
         return summary
 
 
-def extract_answer(question, context):
+def extract_answer(question: str, context: str) -> str:
     """Extract an answer to a question from a provided context
 
     >>> extract_answer("What color is the ball?", "There is a green ball and a red box")
@@ -135,7 +135,7 @@ def extract_answer(question, context):
     return qa(question, context)["answer"]
 
 
-def classify(doc, label1, label2):
+def classify(doc: str, label1: str, label2: str) -> str:
     """Returns true of a supplied string is positive
 
     >>> classify("I love you!","positive","negative")
