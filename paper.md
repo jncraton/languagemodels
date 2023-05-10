@@ -1,5 +1,5 @@
 ---
-title: 'langaugemodels: A Python package for learners to explore large language models'
+title: 'langaugemodels: A Python Package for Learners Exploring Large Language Models'
 tags:
   - Python
   - machine learning
@@ -60,7 +60,7 @@ That's not a lot of code, but it does include a lot of magic that could be off-p
 
 Here's how this works with this package:
 
-```
+```python
 from languagemodels import lm
 
 response_text = lm.do("What color is the sky?")
