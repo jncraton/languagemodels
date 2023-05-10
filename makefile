@@ -13,6 +13,9 @@ doc:
 	mkdir -p doc
 	python3 -m pdoc -o doc languagemodels
 
+paper.pdf: paper.md paper.bib
+	pandoc $< --bibliography=paper.bib --citeproc -o $@
+
 upload:
 	python3 setup.py sdist bdist_wheel
 	python3 -m twine upload dist/*
