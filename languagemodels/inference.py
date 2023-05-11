@@ -44,7 +44,7 @@ def generate_instruct(prompt, max_tokens=200):
 
     generate = get_pipeline("text2text-generation", "google/flan-t5-large")
 
-    return generate(prompt)[0]["generated_text"]
+    return generate(prompt, repetition_penalty=1.2)[0]["generated_text"]
 
 
 def get_pipeline(task, model):
