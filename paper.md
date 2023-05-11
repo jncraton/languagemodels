@@ -10,7 +10,7 @@ authors:
     orcid: 0009-0007-6543-8571
     affiliation: 1
 affiliations:
- - name: Anderson University
+ - name: Department of Computer Science, Anderson University
    index: 1
 date: 15 June 2023
 bibliography: paper.bib
