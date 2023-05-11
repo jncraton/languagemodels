@@ -41,7 +41,7 @@ def complete(prompt: str) -> str:
     >>> complete("She hid in her room until") #doctest: +SKIP
     'she was sure she was safe'
     """
-    return generate_instruct(prompt, max_tokens=200)
+    return generate_instruct(prompt, max_tokens=200, temperature=0.7)
 
 
 def store_doc(doc: str) -> None:

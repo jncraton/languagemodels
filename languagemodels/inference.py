@@ -33,7 +33,7 @@ def generate_ts(engine, prompt, max_tokens=200):
         raise InferenceException(f"TextSynth error: {resp}")
 
 
-def generate_instruct(prompt, max_tokens=200):
+def generate_instruct(prompt, max_tokens=200, temperature=.1, repetition_penalty=1.2):
     """Generates one completion for a prompt using an instruction-tuned model
 
     This may use a local model, or it may make an API call to an external
@@ -44,7 +44,12 @@ def generate_instruct(prompt, max_tokens=200):
 
     generate = get_pipeline("text2text-generation", "google/flan-t5-large")
 
-    return generate(prompt, repetition_penalty=1.2)[0]["generated_text"]
+    return generate(
+        prompt,
+        repetition_penalty=repetition_penalty,
+        temperature=temperature,
+        do_sample=temperature > .1,
+    )[0]["generated_text"]
 
 
 def get_pipeline(task, model):
