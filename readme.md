@@ -16,39 +16,77 @@ This package can be installed using the following command:
 pip install languagemodels
 ```
 
-Example
--------
+Example Usage
+-------------
 
-Here's an example from a Python REPL session:
+Here are some usage examples as Python REPL sessions. This should work in the REPL, notebooks, or in traditional scripts and applications.
+
+### Text Completions
 
 ```python
 >>> import languagemodels as lm
 
 >>> lm.complete("She hid in her room until")
 'she was sure she was safe'
+```
 
->>> lm.chat("What is the capital of France?")
-'The capital of France is Paris.'
+### Instruction Following
+
+```python
+>>> import languagemodels as lm
 
 >>> lm.do("Translate to English: Hola, mundo!")
 'Hello, world!'
 
 >>> lm.do("What is the capital of France?")
 'paris'
+```
+
+### Chat Responses
+
+```python
+>>> import languagemodels as lm
+
+>>> lm.chat("What is the capital of France?")
+'The capital of France is Paris.'
+```
+
+### Classification
+
+```python
+>>> import languagemodels as lm
 
 >>> lm.classify("Language models are useful", "positive", "negative")
 'positive'
+```
+
+### Semantic Search
+
+```
+>>> import languagemodels as lm
 
 >>> lm.store_doc("Mars is a planet")
 >>> lm.store_doc("The sun is hot")
 >>> lm.search_docs("What is Mars?")
 'Mars is a planet'
+```
 
->>> lm.fetch_wiki('Chemistry')
-'Chemistry is the scientific study...
+### Extractive Question Answering
+
+```
+>>> import languagemodels as lm
 
 >>> lm.extract_answer("What color is the ball?", "There is a green ball and a red box")
 'green'
+```
+
+### External Retrieval
+
+```
+>>> import languagemodels as lm
+
+>>> lm.fetch_wiki('Chemistry')
+'Chemistry is the scientific study...
 ```
 
 [Full documentation](https://languagemodels.netlify.app/)
