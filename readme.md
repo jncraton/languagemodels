@@ -42,15 +42,6 @@ Here are some usage examples as Python REPL sessions. This should work in the RE
 'paris'
 ```
 
-### Chat Responses
-
-```python
->>> import languagemodels as lm
-
->>> lm.chat("What is the capital of France?")
-'The capital of France is Paris.'
-```
-
 ### Classification
 
 ```python

@@ -45,31 +45,6 @@ def complete(prompt: str) -> str:
     return generate_instruct(prompt, max_tokens=200)
 
 
-def chat(userprompt: str) -> str:
-    """Respond to a prompt as a chat agent
-
-    >>> chat("What is Mars?") #doctest: +SKIP
-    'Mars is a planet in the solar system.'
-
-    >>> chat("Who is Obama?") #doctest: +SKIP
-    'Obama was president of the United States.'
-
-    >>> chat("Where is Berlin?") #doctest: +SKIP
-    'Berlin is located in Germany.'
-    """
-
-    now = datetime.datetime.now().strftime("%A, %B %d, %Y at %I:%M%p")
-
-    prompt = (
-        f"Currently {now}.\n"
-        f"Assistant responses are true helpful and harmless.\n"
-        f"User: {userprompt}\n"
-        f"Assistant: "
-    )
-
-    return do(prompt)
-
-
 def store_doc(doc: str) -> None:
     """Store document for later retrieval
 
