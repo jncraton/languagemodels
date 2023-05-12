@@ -10,6 +10,9 @@ docs = RetrievalContext()
 def do(prompt: str) -> str:
     """Follow a single-turn instructional prompt
 
+    :param prompt: Instructional prompt to follow
+    :return: Completion returned from the language model
+
     Examples:
 
     >>> do("Translate to Spanish: Hello, world!")
@@ -29,6 +32,9 @@ def do(prompt: str) -> str:
 
 def complete(prompt: str) -> str:
     """Provide one completion for a given open-ended prompt
+
+    :param prompt: Prompt to use as input to the model
+    :return: Completion returned from the language model
 
     Examples:
 
@@ -59,6 +65,9 @@ def search_docs(query: str) -> str:
 
     A single document that best matches `query` will be returned.
 
+    :param prompt: Query to compare to stored documents
+    :return: Content of the closest matching document
+
     >>> store_doc("The sky is blue.")
     >>> store_doc("Paris is in France.")
     >>> search_docs("Where is Paris?")
@@ -73,6 +82,9 @@ def fetch_wiki(topic: str) -> str:
 
     This function ignores the complexity of disambiguation pages and simply
     returns the first result that is not a disambiguation page
+
+    :param topic: Topic to search for on Wikipedia
+    :return: Text content of the lead section of the most popular matching article
 
     >>> fetch_wiki('Python') # doctest: +ELLIPSIS
     'Python is a high-level...
