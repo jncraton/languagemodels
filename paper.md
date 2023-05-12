@@ -34,7 +34,7 @@ lm.complete("Once there was a")
 
 Large language models are beginning to change how software is designed. The development of the transformer [@vaswani2017attention] has led to rapid progress on many NLP and generative tasks [@bert; @gpt2; @gpt3; @t5; @palm; @flan-t5; @bubeck2023sparks]. These models continue to become more powerful as they scale up in both parameters [@kaplan2020scaling] as well as training data [@hoffmann2022training].
 
-Early research indicates that there are many tasks that have been performed by humans that can be transformed by LLMs [@eloundou2023gpts]. For example, large language models that have been trained on code [@codex] are already being used as capable pair programmers via tools such as Microsoft's Copilot. In order build with these technologies in the software of the future, students today must understand their capabilities and begin to learn new paradigms for programming.
+Early research indicates that there are many tasks that have been performed by humans that can be transformed by LLMs [@eloundou2023gpts]. For example, large language models that have been trained on code [@codex] are already being used as capable pair programmers via tools such as Microsoft's Copilot. In order build with these technologies, students must understand their capabilities and begin to learn new paradigms for programming.
 
 There are many software tools already available for working with large language models [@hftransformers; @pytorch; @tensorflow; @langchain; @llamacpp; @gpt4all]. While these options serve the needs of software engineers, researches, and hobbyists, they may not be simple enough for new learners. This package seeks to radically lower the barriers to entry when applying these tools to solve problems.
 
