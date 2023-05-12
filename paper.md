@@ -1,5 +1,5 @@
 ---
-title: 'langaugemodels: A Python Package for Exploring Natural Language Processing
+title: 'langaugemodels: A Python Package for Exploring Natural Language Processing'
 tags:
   - Python
   - machine learning
