@@ -94,4 +94,10 @@ This package currently uses the HuggingFace Transformers library [@hftransformer
 
 The current model uses is a variant of the T5 base model [@t5] that has been fine-tuned to better follow instructions [@flan-t5]. As models and inference options become more mature, it will be possible to swap this out with a more powerful that is still able to run on commodity hardware such as Llama [@llama]. In addition to simple local inference, it is also possible to provide API keys to the package to allow access to more powerful hosted inference services.
 
+# Future Work
+
+This package creates a platform for the creation of simple NLP labs for use in introductory computer science courses. Additional work is needed to design particular learning modules to meet the needs of learners.
+
+Continued development efforts will focus on improving inference accuracy and efficiency while keeping the interface stable and supporting all reasonable platforms.
+
 # References
