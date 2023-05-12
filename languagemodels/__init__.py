@@ -166,6 +166,31 @@ def fetch_wiki(topic: str) -> str:
         return "No matching wiki page found."
 
 
+def fetch_weather(latitude, longitude):
+    """Fetch the current weather for a supplied longitude and latitude
+
+    Weather is provided by the US government and this function only supports
+    locations in the United States.
+
+    :param latitude: Latitude value representing this location
+    :param longitude: Longitude value representing this location
+    :return: Plain text description of the current weather forecast
+
+    >>> fetch_weather(41.8, -87.6) # doctest: +SKIP
+    'Scattered showers and thunderstorms before 1pm with a high of 73.'
+    """
+
+    res = requests.get(f"https://api.weather.gov/points/{latitude},{longitude}")
+    points = json.loads(res.text)
+    forecast_url = points["properties"]["forecast"]
+
+    res = requests.get(forecast_url)
+    forecast = json.loads(res.text)
+    current = forecast["properties"]["periods"][0]
+
+    return current["detailedForecast"]
+
+
 def get_date() -> str:
     """Returns the current date and time in natural language
 

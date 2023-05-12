@@ -81,6 +81,9 @@ Here are some usage examples as Python REPL sessions. This should work in the RE
 
 >>> lm.fetch_wiki('Chemistry')
 'Chemistry is the scientific study...
+
+>>> lm.fetch_weather(41.8, -87.6)
+'Partly cloudy with a chance of rain...
 ```
 
 ### Misc Text Tools
