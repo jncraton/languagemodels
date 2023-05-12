@@ -1,5 +1,5 @@
 ---
-title: 'langaugemodels: A Python Package for Learners Exploring Natural Language Process'
+title: 'langaugemodels: A Python Package for Exploring Natural Language Processing
 tags:
   - Python
   - machine learning
@@ -82,10 +82,10 @@ Despite its simplicity, this package provides a number of building blocks that c
 
 In order make this as simple as possible, the package includes the following features under the hood:
 
-- Local LLM inference via `transformers`
-- Transparent model caching to allow fast repeated inference with explicit model initialization
-- Opinionated model selections to allow the software to run easily and effectively on as many devices as possible
-- Local document embedding and vector search
+- Local LLM inference via `transformers` or remote API inference
+- Transparent model caching to allow fast repeated inference without explicit model initialization
+- Preselected models to allow the software to run easily and effectively on as many devices as possible
+- Simple document embedding and vector search
 
 # Implementation
 
