@@ -165,8 +165,9 @@ def fetch_wiki(topic: str) -> str:
     else:
         return "No matching wiki page found."
 
+
 def get_date() -> str:
-    """ Returns the current date and time in natural language
+    """Returns the current date and time in natural language
 
     >>> get_date() # doctest: +SKIP
     'Friday, May 12, 2023 at 09:27AM'
