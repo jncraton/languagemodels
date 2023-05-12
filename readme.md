@@ -7,6 +7,8 @@ Language Models
 
 Simple building blocks for exploring large language models.
 
+![Translation hello world example](media/hello.gif)
+
 Installation
 ------------
 
