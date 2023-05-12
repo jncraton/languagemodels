@@ -5,7 +5,7 @@ Language Models
 [![Build](https://github.com/jncraton/languagemodels/actions/workflows/build.yml/badge.svg)](https://github.com/jncraton/languagemodels/actions/workflows/build.yml)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/722e625a-c6bc-4373-bd88-c017adc58c00/deploy-status)](https://app.netlify.com/sites/languagemodels/deploys)
 
-Simple building blocks for exploring large language models.
+Simple building blocks for exploring natural language processing.
 
 ![Translation hello world example](media/hello.gif)
 
