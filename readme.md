@@ -83,4 +83,13 @@ Here are some usage examples as Python REPL sessions. This should work in the RE
 'Chemistry is the scientific study...
 ```
 
+### Misc Text Tools
+
+```python
+>>> import languagemodels as lm
+
+>>> get_date()
+'Friday, May 12, 2023 at 09:27AM'
+```
+
 [Full documentation](https://languagemodels.netlify.app/)

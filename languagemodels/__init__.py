@@ -1,4 +1,5 @@
 import requests
+import datetime
 import json
 
 from languagemodels.inference import generate_instruct, get_pipeline
@@ -163,3 +164,14 @@ def fetch_wiki(topic: str) -> str:
         return summary
     else:
         return "No matching wiki page found."
+
+def get_date() -> str:
+    """ Returns the current date and time in natural language
+
+    >>> get_date() # doctest: +SKIP
+    'Friday, May 12, 2023 at 09:27AM'
+    """
+
+    now = datetime.datetime.now()
+
+    return now.strftime("%A, %B %d, %Y at %I:%M%p")
