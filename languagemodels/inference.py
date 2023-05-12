@@ -33,7 +33,7 @@ def generate_ts(engine, prompt, max_tokens=200):
         raise InferenceException(f"TextSynth error: {resp}")
 
 
-def generate_instruct(prompt, max_tokens=200, temperature=.1, repetition_penalty=1.2):
+def generate_instruct(prompt, max_tokens=200, temperature=0.1, repetition_penalty=1.2):
     """Generates one completion for a prompt using an instruction-tuned model
 
     This may use a local model, or it may make an API call to an external
@@ -48,7 +48,7 @@ def generate_instruct(prompt, max_tokens=200, temperature=.1, repetition_penalty
         prompt,
         repetition_penalty=repetition_penalty,
         temperature=temperature,
-        do_sample=temperature > .1,
+        do_sample=temperature > 0.1,
     )[0]["generated_text"]
 
 
