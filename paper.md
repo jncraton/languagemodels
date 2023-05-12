@@ -20,6 +20,16 @@ bibliography: paper.bib
 
 `languagemodels` is a Python package for educators and learners exploring the applications of large language models. It strives to be as simple as possible to setup and use while providing many of the key building blocks used in modern LLM-driven applications.
 
+This package should work in most Python environments. The following is the most trivial example that will work in notebook environments.
+
+```python
+%pip install languagemodels
+
+import languagemodels as lm
+
+lm.complete("Once there was a")
+```
+
 # Statement of Need
 
 Large language models are beginning to change how software is designed. The development of the transformer [@vaswani2017attention] has led to rapid progress on many NLP and generative tasks [@bert; @gpt2; @gpt3; @t5; @palm; @flan-t5; @bubeck2023sparks]. These models continue to become more powerful as they scale up in both parameters [@kaplan2020scaling] as well as training data [@hoffmann2022training].
