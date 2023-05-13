@@ -28,6 +28,8 @@ Early research suggests that there are many tasks performed by humans that can b
 
 There are many software tools already available for working with large language models [@hftransformers; @pytorch; @tensorflow; @langchain; @llamacpp; @gpt4all]. While these options serve the needs of software engineers, researchers, and hobbyists, they may not be simple enough for new learners. This package aims to radically lower the barriers to entry for using these tools to solve problems.
 
+\newpage
+
 # Example Usage
 
 This package eliminates boilerplate and configuration options that are meaningless to new learners, and uses basic types and simple functions. Here's an example from a Python REPL session:
@@ -75,6 +77,8 @@ The package includes the following features under the hood
 - Local LLM inference via `transformers` or remote API inference
 - Transparent model caching to allow fast repeated inference without explicit model initialization
 - Pre-defined models to allow the software to run easily and effectively on as many devices as possible
+
+\newpage
 
 # Implementation
 
