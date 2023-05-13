@@ -96,3 +96,16 @@ Here are some usage examples as Python REPL sessions. This should work in the RE
 ```
 
 [Full documentation](https://languagemodels.netlify.app/)
+
+Projects
+--------
+
+This package can be used to do the heavy lifting for a number of learning projects:
+
+- Basic chatbot
+- Chatbot with information retrieval
+- Chatbot with access to real-time information
+- Text classification
+- Extractive question answering
+- Semantic search
+- Document question answering
