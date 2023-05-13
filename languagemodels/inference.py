@@ -47,6 +47,7 @@ def generate_instruct(prompt, max_tokens=200, temperature=0.1, repetition_penalt
     return generate(
         prompt,
         repetition_penalty=repetition_penalty,
+        top_p=0.9,
         temperature=temperature,
         do_sample=temperature > 0.1,
     )[0]["generated_text"]
