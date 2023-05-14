@@ -22,7 +22,7 @@ bibliography: paper.bib
 
 # Statement of Need
 
-Large language models are starting to change the way software is designed. The development of the transformer [@vaswani2017attention] has led to rapid progress in many NLP and generative tasks [@bert; @gpt2; @gpt3; @t5; @palm; @flan-t5; @bubeck2023sparks]. These models are becoming more powerful as they scale in both parameters [@kaplan2020scaling] and training data [@hoffmann2022training].
+Large language models are starting to change the way software is designed [@mialon2023augmented]. The development of the transformer [@vaswani2017attention] has led to rapid progress in many NLP and generative tasks [@zhao2023survey; @bert; @gpt2; @gpt3; @t5; @palm; @flan-t5; @bubeck2023sparks]. These models are becoming more powerful as they scale in both parameters [@kaplan2020scaling] and training data [@hoffmann2022training].
 
 Early research suggests that there are many tasks performed by humans that can be transformed by LLMs [@eloundou2023gpts]. For example, large language models trained on code [@codex] are already being used as capable pair programmers via tools such as Microsoft's Copilot. To build with these technologies, students need to understand their capabilities and begin to learn new paradigms for programming.
 
