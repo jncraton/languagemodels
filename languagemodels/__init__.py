@@ -54,12 +54,8 @@ def do(prompt: str) -> str:
 def chat(prompt: str) -> str:
     """Get new message from chat-optimized language model
 
-    Input is a list of messages. The list of messages is concatenated using
-    backend-appropriate formatting and used to prompt an LLM. The output of
-    the LLM is returned.
-
-    The prompt for this model is provided as a series of messages as a single
-    plain-text prompt. Several special tokens are used to delineate chat
+    The `prompt` for this model is provided as a series of messages as a single
+    plain-text string. Several special tokens are used to delineate chat
     messages.
 
     - `<|system|>` - Indicates the start of a system message providing
@@ -68,6 +64,8 @@ def chat(prompt: str) -> str:
     message.
     - `<|assistant|>` - Indicates the start of an assistant message.
     - `<|endoftext|>` - Used to terminal all message types.
+
+    The completion from the language model is returned.
 
     :param message: List of message as (role, content) tuples
     :return: Completion returned from the language model
