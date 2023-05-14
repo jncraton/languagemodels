@@ -1,6 +1,7 @@
 import requests
 import os
 from transformers import pipeline
+import re
 
 
 class InferenceException(Exception):
@@ -89,11 +90,22 @@ def convert_chat(prompt):
     ...                     "<|prompter|>We good?<|endoftext|>" \\
     ...                     "<|assistant|>")
     'A friend\\n\\nUser:Hi\\n\\nAssistant:Yo\\n\\nUser:We good?\\n\\nAssistant:'
+
+    >>> convert_chat("<|user|>Who are you?<|endoftext|>" \\
+    ...              "<|assistant|>")
+    Traceback (most recent call last):
+        ....
+    inference.InferenceException: Invalid special token in chat prompt: <|user|>
     """
 
     prompt = prompt.replace("<|system|>", "")
     prompt = prompt.replace("<|endoftext|>", "\n\n")
     prompt = prompt.replace("<|prompter|>", "User:")
     prompt = prompt.replace("<|assistant|>", "Assistant:")
+
+    special_token_match = re.search(r"<\|.*?\|>", prompt)
+    if special_token_match:
+        token_text = special_token_match.group(0)
+        raise InferenceException(f"Invalid special token in chat prompt: {token_text}")
 
     return prompt
