@@ -51,6 +51,48 @@ def do(prompt: str) -> str:
     return generate_instruct(prompt, max_tokens=200)
 
 
+def chat(messages) -> str:
+    """Get new message from chat-optimized language model
+
+    Input is a list of messages. The list of messages is concatenated using
+    backend appropriate formatting and used to prompt an LLM. The output of
+    the LLM is returned.
+
+    :param message: List of message as (role, content) tuples
+    :return: Completion returned from the language model
+
+    >>> chat([
+    ...   ('system', 'A kind helpful and harmless assistant'),
+    ...   ('user', 'Hi'),
+    ...]
+    'Hello'
+
+    Alternate approach:
+
+    >>> chat("System: A kind helpful and harmless assistant\n\n" \
+    ...      "User: Hi\n\new")
+    'Hello'
+
+    OpenAssistant special token approach:
+
+    The prompt for this model is provided as a series of messages as a single
+    plain-text prompt. Several special tokens are used to delineate chat 
+    messages.
+
+    - `<|system|>` - Indicates the start of a system message providing 
+    instructions about how the assistant should behave.
+    - `<|prompter|>` - Indicates the start of a prompter (typically user)
+    message.
+    - `<|assistant|>` - Indicates the start of an assistant message.
+    - `<|endoftext|>` - Used to terminal all message types.
+
+    >>> chat("<|system|>A kind helpful and harmless assistant<|endoftext|>" \
+    ...      "<|prompter|>What time is it?<|endoftext|>" \
+    ...      "<|assistant|>")
+    'It is 5:15pm.'
+    """
+
+
 def extract_answer(question: str, context: str) -> str:
     """Extract an answer to a `question` from a provided `context`
 
