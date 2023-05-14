@@ -54,7 +54,7 @@ This package eliminates boilerplate and configuration options that are meaningle
 
 >>> lm.store_doc("Mars is a planet")
 >>> lm.store_doc("The sun is hot")
->>> lm.search_docs("What is Mars?")
+>>> lm.load_doc("What is Mars?")
 'Mars is a planet'
 
 >>> lm.fetch_wiki('Chemistry')
@@ -67,8 +67,9 @@ Despite its simplicity, this package provides a number of building blocks that c
 
 - Text generation via the `complete` function
 - Instruction following with the `do` function
+- Chat style inference using `chat` function
 - Zero-shot classification with the `classify` function
-- Semantic search via a document store using the `store_doc' and `search_docs' functions
+- Semantic search via a document store using the `store_doc' and `load_doc' functions
 - Extractive question answering using the `extract_answer` function
 - Basic web retrieval using the `fetch_wiki` function
 
