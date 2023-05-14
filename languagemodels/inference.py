@@ -66,3 +66,34 @@ def get_pipeline(task, model):
         )
 
     return modelcache[model]
+
+
+def convert_chat(prompt):
+    """Converts a chat prompt using special tokens to a plain-text prompt
+
+    This is useful for prompting generic models that have not been fine-tuned
+    for chat using specialized tokens.
+
+    >>> convert_chat("<|system|>A helpful assistant<|endoftext|>" \\
+    ...                     "<|prompter|>What time is it?<|endoftext|>" \\
+    ...                     "<|assistant|>")
+    'A helpful assistant\\n\\nUser:What time is it?\\n\\nAssistant:'
+
+    >>> convert_chat("<|prompter|>Who are you?<|endoftext|>" \\
+    ...                     "<|assistant|>")
+    'User:Who are you?\\n\\nAssistant:'
+
+    >>> convert_chat("<|system|>A friend<|endoftext|>" \\
+    ...                     "<|prompter|>Hi<|endoftext|>" \\
+    ...                     "<|assistant|>Yo<|endoftext|>" \\
+    ...                     "<|prompter|>We good?<|endoftext|>" \\
+    ...                     "<|assistant|>")
+    'A friend\\n\\nUser:Hi\\n\\nAssistant:Yo\\n\\nUser:We good?\\n\\nAssistant:'
+    """
+
+    prompt = prompt.replace("<|system|>", "")
+    prompt = prompt.replace("<|endoftext|>", "\n\n")
+    prompt = prompt.replace("<|prompter|>", "User:")
+    prompt = prompt.replace("<|assistant|>", "Assistant:")
+
+    return prompt
