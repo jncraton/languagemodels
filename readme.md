@@ -61,7 +61,7 @@ Here are some usage examples as Python REPL sessions. This should work in the RE
 
 >>> lm.store_doc("Mars is a planet")
 >>> lm.store_doc("The sun is hot")
->>> lm.search_docs("What is Mars?")
+>>> lm.load_doc("What is Mars?")
 'Mars is a planet'
 ```
 

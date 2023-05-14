@@ -143,17 +143,17 @@ def store_doc(doc: str) -> None:
     docs.store(doc)
 
 
-def search_docs(query: str) -> str:
-    """Search stored documents
+def load_doc(query: str) -> str:
+    """Load a matching document
 
     A single document that best matches `query` will be returned.
 
-    :param prompt: Query to compare to stored documents
+    :param query: Query to compare to stored documents
     :return: Content of the closest matching document
 
     >>> store_doc("The sky is blue.")
     >>> store_doc("Paris is in France.")
-    >>> search_docs("Where is Paris?")
+    >>> load_doc("Where is Paris?")
     'Paris is in France.'
     """
     return docs.get_match(query)
