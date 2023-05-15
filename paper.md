@@ -63,7 +63,7 @@ This package eliminates boilerplate and configuration options that are meaningle
 
 # Features
 
-Despite its simplicity, this package provides a number of building blocks that can be combined to build applications that mimic the architectures of modern tools such as Phind or Bing Chat. Some of the tools included are:
+Despite its simplicity, this package provides a number of building blocks that can be combined to build applications that mimic the architectures of modern software products. Some of the tools included are:
 
 - Text generation via the `complete` function
 - Instruction following with the `do` function
