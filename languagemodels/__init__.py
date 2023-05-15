@@ -65,6 +65,16 @@ def chat(prompt: str) -> str:
     - `<|assistant|>` - Indicates the start of an assistant message.
     - `<|endoftext|>` - Used to terminal all message types.
 
+    A complete prompt may look something like this:
+
+    ```
+    <|system|>Assistant is helpful and harmless<|endoftext|>
+    <|prompter|>What is the capital of Germany?<|endoftext|>
+    <|assistant|>The capital of Germany is Berlin.<|endoftext|>
+    <|prompter|>How many people live there?<|endoftext|>
+    <|assistant|>
+    ```
+
     The completion from the language model is returned.
 
     :param message: List of message as (role, content) tuples
