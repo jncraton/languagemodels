@@ -67,7 +67,7 @@ Despite its simplicity, this package provides a number of building blocks that c
 
 - Text generation via the `complete` function
 - Instruction following with the `do` function
-- Chat style inference using `chat` function
+- Chat-style inference using `chat` function
 - Zero-shot classification with the `classify` function
 - Semantic search via a document store using the `store_doc' and `load_doc' functions
 - Extractive question answering using the `extract_answer` function
