@@ -76,19 +76,19 @@ def convert_chat(prompt):
     for chat using specialized tokens.
 
     >>> convert_chat("<|system|>A helpful assistant<|endoftext|>" \\
-    ...                     "<|prompter|>What time is it?<|endoftext|>" \\
-    ...                     "<|assistant|>")
+    ...              "<|prompter|>What time is it?<|endoftext|>" \\
+    ...              "<|assistant|>")
     'A helpful assistant\\n\\nUser:What time is it?\\n\\nAssistant:'
 
     >>> convert_chat("<|prompter|>Who are you?<|endoftext|>" \\
-    ...                     "<|assistant|>")
+    ...              "<|assistant|>")
     'User:Who are you?\\n\\nAssistant:'
 
     >>> convert_chat("<|system|>A friend<|endoftext|>" \\
-    ...                     "<|prompter|>Hi<|endoftext|>" \\
-    ...                     "<|assistant|>Yo<|endoftext|>" \\
-    ...                     "<|prompter|>We good?<|endoftext|>" \\
-    ...                     "<|assistant|>")
+    ...              "<|prompter|>Hi<|endoftext|>" \\
+    ...              "<|assistant|>Yo<|endoftext|>" \\
+    ...              "<|prompter|>We good?<|endoftext|>" \\
+    ...              "<|assistant|>")
     'A friend\\n\\nUser:Hi\\n\\nAssistant:Yo\\n\\nUser:We good?\\n\\nAssistant:'
 
     >>> convert_chat("<|user|>Who are you?<|endoftext|>" \\
