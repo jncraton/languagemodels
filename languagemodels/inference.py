@@ -44,7 +44,7 @@ def generate_oa(engine, prompt, max_tokens=200, temperature=0):
     apikey = os.environ.get("oa_key")
 
     response = requests.post(
-        f"https://api.openai.com/v1/completions",
+        "https://api.openai.com/v1/completions",
         headers={
             "Authorization": f"Bearer {apikey}",
             "Content-Type": "application/json",
@@ -60,7 +60,7 @@ def generate_oa(engine, prompt, max_tokens=200, temperature=0):
 
     try:
         return resp["choices"][0]["text"]
-    except:
+    except KeyError:
         raise InferenceException(f"OpenAI error: {resp}")
 
 
