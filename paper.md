@@ -75,9 +75,9 @@ Despite its simplicity, this package provides a number of building blocks that c
 
 The package includes the following features under the hood
 
-- Local LLM inference via `transformers` or remote API inference
+- Local LLM inference on CPU for broad device support
 - Transparent model caching to allow fast repeated inference without explicit model initialization
-- Pre-defined models to allow the software to run easily and effectively on as many devices as possible
+- Pre-selected models to allow the software to run easily and effectively on as many devices as possible
 
 \newpage
 
