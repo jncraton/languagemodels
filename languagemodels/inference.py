@@ -34,6 +34,36 @@ def generate_ts(engine, prompt, max_tokens=200):
         raise InferenceException(f"TextSynth error: {resp}")
 
 
+def generate_oa(engine, prompt, max_tokens=200, temperature=0):
+    """Generates a single text response for a prompt using OpenAI
+
+    The server and API key are provided as environment variables:
+
+    oa_key is the API key
+    """
+    apikey = os.environ.get("oa_key")
+
+    response = requests.post(
+        f"https://api.openai.com/v1/completions",
+        headers={
+            "Authorization": f"Bearer {apikey}",
+            "Content-Type": "application/json",
+        },
+        json={
+            "model": engine,
+            "prompt": prompt,
+            "max_tokens": max_tokens,
+            "temperature": temperature,
+        },
+    )
+    resp = response.json()
+
+    try:
+        return resp["choices"][0]["text"]
+    except:
+        raise InferenceException(f"OpenAI error: {resp}")
+
+
 def generate_instruct(prompt, max_tokens=200, temperature=0.1, repetition_penalty=1.2):
     """Generates one completion for a prompt using an instruction-tuned model
 
@@ -42,6 +72,9 @@ def generate_instruct(prompt, max_tokens=200, temperature=0.1, repetition_penalt
     """
     if os.environ.get("ts_key") or os.environ.get("ts_server"):
         return generate_ts("flan_t5_xxl_q4", prompt, max_tokens)
+
+    if os.environ.get("oa_key"):
+        return generate_oa("text-babbage-001", prompt, max_tokens)
 
     generate = get_pipeline("text2text-generation", "google/flan-t5-large")
 
