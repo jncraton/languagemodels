@@ -84,12 +84,22 @@ def convert_chat(prompt):
     ...              "<|assistant|>")
     'User:Who are you?\\n\\nAssistant:'
 
+    >>> convert_chat("<|prompter|>What is 1+1?<|endoftext|>\\n\\n" \\
+    ...              "<|assistant|>")
+    'User:What is 1+1?\\n\\nAssistant:'
+
     >>> convert_chat("<|system|>A friend<|endoftext|>" \\
     ...              "<|prompter|>Hi<|endoftext|>" \\
     ...              "<|assistant|>Yo<|endoftext|>" \\
     ...              "<|prompter|>We good?<|endoftext|>" \\
     ...              "<|assistant|>")
     'A friend\\n\\nUser:Hi\\n\\nAssistant:Yo\\n\\nUser:We good?\\n\\nAssistant:'
+    >>> convert_chat("\\n<|system|>Be nice<|endoftext|>" \\
+    ...              "<|prompter|>brb\\n<|endoftext|>" \\
+    ...              "<|assistant|>k<|endoftext|>" \\
+    ...              "<|prompter|>back<|endoftext|>" \\
+    ...              "<|assistant|>")
+    'Be nice\\n\\nUser:brb\\n\\nAssistant:k\\n\\nUser:back\\n\\nAssistant:'
 
     >>> convert_chat("<|user|>Who are you?<|endoftext|>" \\
     ...              "<|assistant|>")
@@ -98,10 +108,10 @@ def convert_chat(prompt):
     inference.InferenceException: Invalid special token in chat prompt: <|user|>
     """
 
-    prompt = prompt.replace("<|system|>", "")
-    prompt = prompt.replace("<|endoftext|>", "\n\n")
-    prompt = prompt.replace("<|prompter|>", "User:")
-    prompt = prompt.replace("<|assistant|>", "Assistant:")
+    prompt = re.sub(r"\s*<\|system\|>\s*", "", prompt)
+    prompt = re.sub(r"\s*<\|prompter\|>\s*", "User:", prompt)
+    prompt = re.sub(r"\s*<\|assistant\|>\s*", "Assistant:", prompt)
+    prompt = re.sub(r"\s*<\|endoftext\|>\s*", "\n\n", prompt)
 
     special_token_match = re.search(r"<\|.*?\|>", prompt)
     if special_token_match:
