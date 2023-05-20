@@ -3,7 +3,7 @@ title: 'languagemodels: A Python Package for Exploring Modern Natural Language P
 tags:
   - Python
   - machine learning
-  - language modelling
+  - language modeling
   - nlp
 authors:
   - name: Jonathan L. Craton
