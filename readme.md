@@ -11,6 +11,8 @@ A Python package providing simple building blocks for exploring natural language
 
 ![Translation hello world example](media/hello.gif)
 
+This package is designed to be as simple as possible for folks who have limited or no programming experience. The interfaces to this package are all simple functions using only basic types. The complexity of large language models is hidden from view while providing free local inference using light-weight, open models.
+
 Installation
 ------------
 
