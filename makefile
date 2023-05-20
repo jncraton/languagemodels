@@ -16,6 +16,10 @@ doc:
 paper.pdf: paper.md paper.bib
 	pandoc $< --citeproc -o $@
 
+spellcheck:
+	aspell -c --dont-backup readme.md
+	aspell -c --dont-backup paper.md
+
 upload:
 	python3 setup.py sdist bdist_wheel
 	python3 -m twine upload dist/*
