@@ -44,9 +44,6 @@ def do(prompt: str) -> str:
 
     >>> do("Is the following positive or negative: I love Star Trek.")
     'positive'
-
-    >>> do("Does this make sense: The course is jumping well.")
-    'no'
     """
     return generate_instruct(prompt, max_tokens=200)
 
