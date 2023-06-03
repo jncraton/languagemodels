@@ -18,7 +18,12 @@ def print_tokens(prompt: str) -> None:
 
     This function is provided for exploratory purposes only. It may return
     different tokens than the underlying model and may not match the
-    tokenization of any backend API being used
+    tokenization of any backend API being used.
+
+    :param prompt: Prompt to use as input to tokenizer
+    :return: Nothing
+
+    Examples:
 
     >>> print_tokens("Hello world")
     ' Hello' (token 8774)
@@ -104,7 +109,7 @@ def chat(prompt: str) -> str:
 
     The completion from the language model is returned.
 
-    :param message: List of message as (role, content) tuples
+    :param message: Prompt using formatting described above
     :return: Completion returned from the language model
 
     >>> chat("<|system|>It is 5:15pm. Assistant is helpful<|endoftext|>" \\
