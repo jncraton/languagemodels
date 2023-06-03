@@ -1,6 +1,6 @@
 import requests
 import os
-from transformers import pipeline
+from transformers import pipeline, T5Tokenizer
 import re
 
 
@@ -9,6 +9,20 @@ class InferenceException(Exception):
 
 
 modelcache = {}
+
+
+def list_tokens(prompt):
+    tokenizer = T5Tokenizer.from_pretrained("google/flan-t5-large")
+    input_ids = tokenizer.encode(
+        prompt,
+        return_tensors="pt",
+    )
+
+    ids = [int(id) for id in input_ids[0]]
+
+    tokens = tokenizer.convert_ids_to_tokens(input_ids[0], skip_special_tokens=True)
+
+    return list(zip(tokens, ids))
 
 
 def generate_ts(engine, prompt, max_tokens=200):

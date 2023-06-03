@@ -2,10 +2,33 @@ import requests
 import datetime
 import json
 
-from languagemodels.inference import generate_instruct, get_pipeline, convert_chat
+from languagemodels.inference import (
+    generate_instruct,
+    get_pipeline,
+    convert_chat,
+    list_tokens,
+)
 from languagemodels.embeddings import RetrievalContext
 
 docs = RetrievalContext()
+
+
+def print_tokens(prompt: str) -> None:
+    """Prints a list of tokens in a prompt
+
+    This function is provided for exploratory purposes only. It may return
+    different tokens than the underlying model and may not match the
+    tokenization of any backend API being used
+
+    >>> print_tokens("Hello world")
+    Hello (token 8774)
+    world (token 296)
+    """
+
+    tokens = list_tokens(prompt)
+
+    for token in tokens:
+        print(f"{token[0].replace('▁','')} (token {token[1]})")
 
 
 def complete(prompt: str) -> str:
