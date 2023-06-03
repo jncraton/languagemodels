@@ -21,14 +21,21 @@ def print_tokens(prompt: str) -> None:
     tokenization of any backend API being used
 
     >>> print_tokens("Hello world")
-    Hello (token 8774)
-    world (token 296)
+    ' Hello' (token 8774)
+    ' world' (token 296)
+
+    >>> print_tokens("Hola mundo")
+    ' Hol' (token 5838)
+    'a' (token 9)
+    ' mun' (token 13844)
+    'd' (token 26)
+    'o' (token 32)
     """
 
     tokens = list_tokens(prompt)
 
     for token in tokens:
-        print(f"{token[0].replace('▁','')} (token {token[1]})")
+        print(f"'{token[0].replace('▁',' ')}' (token {token[1]})")
 
 
 def complete(prompt: str) -> str:
