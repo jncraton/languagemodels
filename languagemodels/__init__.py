@@ -71,8 +71,8 @@ def do(prompt: str) -> str:
 
     Examples:
 
-    >>> do("Translate to Spanish: Hello, world!")
-    'Hola, mundo!'
+    >>> do("Translate Spanish to English: Hola mundo!")
+    'Hello world!'
 
     >>> do("Pick the sport: baseball, texas, chemistry")
     'baseball'
