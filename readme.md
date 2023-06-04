@@ -11,7 +11,10 @@ A Python package providing simple building blocks for exploring natural language
 
 ![Translation hello world example](media/hello.gif)
 
-This package is designed to be as simple as possible for folks who have limited or no programming experience. The interfaces to this package are all simple functions using only basic types. The complexity of large language models is hidden from view while providing free local inference using light-weight, open models.
+Target Audience
+---------------
+
+This package is designed to be as simple as possible for **students**, **educators**, and **hobbyists** exploring how large language models intersect with modern software development. The interfaces to this package are all simple functions using standard types. The complexity of large language models is hidden from view while providing free local inference using light-weight, open models. All included models are free for educational and commercial use, no API keys are required, and all inference is performed locally by default.
 
 Installation
 ------------
@@ -58,6 +61,8 @@ Here are some usage examples as Python REPL sessions. This should work in the RE
 ```
 
 ### Semantic Search
+
+Semantic search uses an [embedding](https://en.wikipedia.org/wiki/Sentence_embedding) model and vector search under the hood, but that is hidden from view.
 
 ```python
 >>> import languagemodels as lm
@@ -126,3 +131,5 @@ This package can be used to do the heavy lifting for a number of learning projec
 - Extractive question answering
 - Semantic search
 - Document question answering
+
+Several example programs and notebooks are included in the `examples` directory.
