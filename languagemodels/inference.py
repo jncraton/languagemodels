@@ -92,7 +92,7 @@ def generate_instruct(prompt, max_tokens=200, temperature=0.1, repetition_penalt
         return generate_oa("text-babbage-001", prompt, max_tokens)
 
     if 'test' not in modelcache:
-        modelcache[model] = (
+        modelcache['test'] = (
             AutoTokenizer.from_pretrained("t5-small"),
             ctranslate2.Translator("flan-t5-base-ct2"),
         )
