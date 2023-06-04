@@ -14,7 +14,7 @@ A Python package providing simple building blocks for exploring natural language
 Target Audience
 ---------------
 
-This package is designed to be as simple as possible for **students**, **educators**, and **hobbyists** exploring how large language models intersect with modern software development. The interfaces to this package are all simple functions using standard types. The complexity of large language models is hidden from view while providing free local inference using light-weight, open models. All included models are free for educational and commercial use, no API keys are required, and all inference is performed locally by default.
+This package is designed to be as simple as possible for **learners**, **educators**, and **hobbyists** exploring how large language models intersect with modern software development. The interfaces to this package are all simple functions using standard types. The complexity of large language models is hidden from view while providing free local inference using light-weight, open models. All included models are free for educational and commercial use, no API keys are required, and all inference is performed locally by default.
 
 Installation
 ------------
