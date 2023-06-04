@@ -81,6 +81,23 @@ def generate_oa(engine, prompt, max_tokens=200, temperature=0):
         raise InferenceException(f"OpenAI error: {resp}")
 
 
+def get_model(model_name):
+    if model_name not in modelcache:
+        tokenizer_path = hf_hub_download(model_name, "spiece.model")
+        model_path = hf_hub_download(model_name, "model.bin")
+        model_base_path = model_path.replace("model.bin", "")
+
+        tokenizer = sentencepiece.SentencePieceProcessor()
+        tokenizer.Load(tokenizer_path)
+
+        modelcache[model_name] = (
+            tokenizer,
+            ctranslate2.Translator(model_base_path),
+        )
+
+    return modelcache[model_name]
+
+
 def generate_instruct(prompt, max_tokens=200, temperature=0.1, repetition_penalty=1.2):
     """Generates one completion for a prompt using an instruction-tuned model
 
@@ -93,22 +110,7 @@ def generate_instruct(prompt, max_tokens=200, temperature=0.1, repetition_penalt
     if os.environ.get("oa_key"):
         return generate_oa("text-babbage-001", prompt, max_tokens)
 
-    if "test" not in modelcache:
-        model_name = "jncraton/LaMini-Flan-T5-783M-ct2-int8"
-
-        tokenizer_path = hf_hub_download(model_name, "spiece.model")
-        model_path = hf_hub_download(model_name, "model.bin")
-        model_base_path = model_path.replace("model.bin", "")
-
-        tokenizer = sentencepiece.SentencePieceProcessor()
-        tokenizer.Load(tokenizer_path)
-
-        modelcache["test"] = (
-            tokenizer,
-            ctranslate2.Translator(model_base_path),
-        )
-
-    tokenizer, model = modelcache["test"]
+    tokenizer, model = get_model("jncraton/LaMini-Flan-T5-783M-ct2-int8")
 
     input_tokens = tokenizer.EncodeAsPieces(prompt) + ["</s>"]
     results = model.translate_batch([input_tokens])
