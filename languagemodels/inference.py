@@ -1,8 +1,10 @@
 import requests
 import os
-from transformers import pipeline, T5Tokenizer, AutoTokenizer
+from transformers import pipeline, T5Tokenizer
+from huggingface_hub import snapshot_download
 import ctranslate2
 import re
+import sentencepiece
 
 
 class InferenceException(Exception):
@@ -91,20 +93,24 @@ def generate_instruct(prompt, max_tokens=200, temperature=0.1, repetition_penalt
     if os.environ.get("oa_key"):
         return generate_oa("text-babbage-001", prompt, max_tokens)
 
-    if 'test' not in modelcache:
-        modelcache['test'] = (
-            AutoTokenizer.from_pretrained("t5-small"),
-            ctranslate2.Translator("flan-t5-base-ct2"),
+    if "test" not in modelcache:
+        model_path = snapshot_download(repo_id="jncraton/flan-t5-base-ct2-int8")
+        tokenizer = sentencepiece.SentencePieceProcessor()
+        tokenizer.Load(f"{model_path}/spiece.model")
+
+        modelcache["test"] = (
+            tokenizer,
+            ctranslate2.Translator(model_path),
         )
 
-    tokenizer, model = modelcache['test']
+    tokenizer, model = modelcache["test"]
 
-    input_tokens = tokenizer.convert_ids_to_tokens(tokenizer.encode(prompt))
+    input_tokens = tokenizer.EncodeAsPieces(prompt) + ["</s>"]
     results = model.translate_batch([input_tokens])
 
     output_tokens = results[0].hypotheses[0]
 
-    return tokenizer.decode(tokenizer.convert_tokens_to_ids(output_tokens))
+    return tokenizer.DecodePieces(output_tokens)
 
 
 def get_pipeline(task, model):
