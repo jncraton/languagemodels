@@ -1,6 +1,7 @@
 import requests
 import os
-from transformers import pipeline, T5Tokenizer
+from transformers import pipeline, T5Tokenizer, AutoTokenizer
+import ctranslate2
 import re
 
 
@@ -90,15 +91,20 @@ def generate_instruct(prompt, max_tokens=200, temperature=0.1, repetition_penalt
     if os.environ.get("oa_key"):
         return generate_oa("text-babbage-001", prompt, max_tokens)
 
-    generate = get_pipeline("text2text-generation", "google/flan-t5-large")
+    if 'test' not in modelcache:
+        modelcache[model] = (
+            AutoTokenizer.from_pretrained("t5-small"),
+            ctranslate2.Translator("flan-t5-base-ct2"),
+        )
 
-    return generate(
-        prompt,
-        repetition_penalty=repetition_penalty,
-        top_p=0.9,
-        temperature=temperature,
-        do_sample=temperature > 0.1,
-    )[0]["generated_text"]
+    tokenizer, model = modelcache['test']
+
+    input_tokens = tokenizer.convert_ids_to_tokens(tokenizer.encode(prompt))
+    results = model.translate_batch([input_tokens])
+
+    output_tokens = results[0].hypotheses[0]
+
+    return tokenizer.decode(tokenizer.convert_tokens_to_ids(output_tokens))
 
 
 def get_pipeline(task, model):
