@@ -1,6 +1,6 @@
 import requests
 import os
-from transformers import pipeline, T5Tokenizer
+from transformers import pipeline
 from huggingface_hub import hf_hub_download
 import ctranslate2
 import re
@@ -15,15 +15,12 @@ modelcache = {}
 
 
 def list_tokens(prompt):
-    tokenizer = T5Tokenizer.from_pretrained("google/flan-t5-large")
-    input_ids = tokenizer.encode(
-        prompt,
-        return_tensors="pt",
-    )
+    tokenizer_path = hf_hub_download("t5-small", "spiece.model")
+    tokenizer = sentencepiece.SentencePieceProcessor()
+    tokenizer.Load(tokenizer_path)
 
-    ids = [int(id) for id in input_ids[0]]
-
-    tokens = tokenizer.convert_ids_to_tokens(input_ids[0], skip_special_tokens=True)
+    tokens = tokenizer.EncodeAsPieces(prompt)
+    ids = tokenizer.EncodeAsIds(prompt)
 
     return list(zip(tokens, ids))
 
