@@ -75,10 +75,10 @@ def do(prompt: str) -> str:
     'Hello world!'
 
     >>> do("Pick the sport: baseball, texas, chemistry")
-    'baseball'
+    'Baseball.'
 
     >>> do("Is the following positive or negative: I love Star Trek.")
-    'positive'
+    'Positive.'
     """
     return generate_instruct(prompt, max_tokens=200)
 
@@ -113,9 +113,9 @@ def chat(prompt: str) -> str:
     :return: Completion returned from the language model
 
     >>> chat("<|system|>It is 5:15pm. Assistant is helpful<|endoftext|>" \\
-    ...      "<|prompter|>Do you know what time it is?<|endoftext|>" \\
+    ...      "<|prompter|>What time is it?<|endoftext|>" \\
     ...      "<|assistant|>")
-    'It is 5:15pm.'
+    '5:15pm.'
     """
 
     prompt = convert_chat(prompt)

@@ -94,7 +94,7 @@ def generate_instruct(prompt, max_tokens=200, temperature=0.1, repetition_penalt
         return generate_oa("text-babbage-001", prompt, max_tokens)
 
     if "test" not in modelcache:
-        model_path = snapshot_download(repo_id="jncraton/flan-t5-large-ct2-int8")
+        model_path = snapshot_download(repo_id="jncraton/LaMini-Flan-T5-248M-ct2-int8")
         tokenizer = sentencepiece.SentencePieceProcessor()
         tokenizer.Load(f"{model_path}/spiece.model")
 
