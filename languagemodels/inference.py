@@ -1,6 +1,5 @@
 import requests
 import os
-from transformers import pipeline
 from huggingface_hub import hf_hub_download
 import ctranslate2
 import re
@@ -79,9 +78,9 @@ def generate_oa(engine, prompt, max_tokens=200, temperature=0):
 
 
 def get_model(model_name):
-    if os.environ.get("LANGUAGEMODELS_SIZE") == 'base':
-        model_name = model_name.replace('large', 'base')
-        model_name = model_name.replace('783M', '248M')
+    if os.environ.get("LANGUAGEMODELS_SIZE") == "base":
+        model_name = model_name.replace("large", "base")
+        model_name = model_name.replace("783M", "248M")
 
     if model_name not in modelcache:
         tokenizer_path = hf_hub_download(model_name, "spiece.model")
@@ -119,21 +118,6 @@ def generate_instruct(prompt, max_tokens=200, temperature=0.1, repetition_penalt
     output_tokens = results[0].hypotheses[0]
 
     return tokenizer.DecodePieces(output_tokens)
-
-
-def get_pipeline(task, model):
-    """Gets a pipeline instance
-
-    This is thin wrapper around the pipeline constructor to provide caching
-    across calls.
-    """
-
-    if model not in modelcache:
-        modelcache[model] = pipeline(
-            task, model=model, model_kwargs={"low_cpu_mem_usage": True}
-        )
-
-    return modelcache[model]
 
 
 def convert_chat(prompt):

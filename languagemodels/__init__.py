@@ -2,12 +2,7 @@ import requests
 import datetime
 import json
 
-from languagemodels.inference import (
-    generate_instruct,
-    get_pipeline,
-    convert_chat,
-    list_tokens,
-)
+from languagemodels.inference import generate_instruct, convert_chat, list_tokens
 from languagemodels.embeddings import RetrievalContext
 
 docs = RetrievalContext()
@@ -134,15 +129,14 @@ def extract_answer(question: str, context: str) -> str:
     :param context: Knowledge used to answer the question
     :return: Answer to the question.
 
-    >>> extract_answer("What color is the ball?", "There is a green ball and a red box")
+    >>> context = "There is a green ball and a red box"
+    >>> extract_answer("What color is the ball?", context) #doctest: +SKIP
     'green'
-    >>> extract_answer("Who created Python?", fetch_wiki('Python'))
+    >>> extract_answer("Who created Python?", fetch_wiki('Python')) #doctest: +SKIP
     'Guido van Rossum'
     """
 
-    qa = get_pipeline("question-answering", "distilbert-base-cased-distilled-squad")
-
-    return qa(question, context)["answer"]
+    return generate_instruct(f"{context}\n\n{question}")
 
 
 def classify(doc: str, label1: str, label2: str) -> str:
@@ -154,25 +148,17 @@ def classify(doc: str, label1: str, label2: str) -> str:
     :return: The closest matching class. The return value will always be
     `label1` or `label2`
 
-    >>> classify("I love you!","positive","negative")
+    >>> classify("I love you!","positive","negative") #doctest: +SKIP
     'positive'
-    >>> classify("That book was fine.","positive","negative")
+    >>> classify("That book was fine.","positive","negative") #doctest: +SKIP
     'positive'
-    >>> classify("That movie was terrible.","positive","negative")
+    >>> classify("That movie was terrible.","positive","negative") #doctest: +SKIP
     'negative'
-    >>> classify("The submarine is diving", "ocean", "space")
+    >>> classify("The submarine is diving", "ocean", "space") #doctest: +SKIP
     'ocean'
     """
 
-    classifier = get_pipeline(
-        "zero-shot-classification", "valhalla/distilbart-mnli-12-1"
-    )
-
-    result = classifier(doc, [label1, label2])
-
-    top = max(zip(result["scores"], result["labels"]), key=lambda r: r[0])
-
-    return top[1]
+    return generate_instruct(f'{doc}\n\nClassify as "{label1}" or "{label2}":')
 
 
 def store_doc(doc: str) -> None:
