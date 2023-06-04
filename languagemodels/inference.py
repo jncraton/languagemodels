@@ -79,6 +79,10 @@ def generate_oa(engine, prompt, max_tokens=200, temperature=0):
 
 
 def get_model(model_name):
+    if os.environ.get("LANGUAGEMODELS_SIZE") == 'base':
+        model_name = model_name.replace('large', 'base')
+        model_name = model_name.replace('783M', '248M')
+
     if model_name not in modelcache:
         tokenizer_path = hf_hub_download(model_name, "spiece.model")
         model_path = hf_hub_download(model_name, "model.bin")
