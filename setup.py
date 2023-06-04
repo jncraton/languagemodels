@@ -24,5 +24,8 @@ setuptools.setup(
         "transformers",
         "sentence-transformers",
         "accelerate",
-    ],
+        "sentencepiece",
+        "huggingface_hub",
+        "ctranslate2",
+       ],
 )
