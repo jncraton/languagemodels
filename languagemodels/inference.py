@@ -1,7 +1,7 @@
 import requests
 import os
 from transformers import pipeline, T5Tokenizer
-from huggingface_hub import snapshot_download
+from huggingface_hub import hf_hub_download
 import ctranslate2
 import re
 import sentencepiece
@@ -94,13 +94,18 @@ def generate_instruct(prompt, max_tokens=200, temperature=0.1, repetition_penalt
         return generate_oa("text-babbage-001", prompt, max_tokens)
 
     if "test" not in modelcache:
-        model_path = snapshot_download(repo_id="jncraton/LaMini-Flan-T5-783M-ct2-int8")
+        model_name = "jncraton/LaMini-Flan-T5-783M-ct2-int8"
+
+        tokenizer_path = hf_hub_download(model_name, "spiece.model")
+        model_path = hf_hub_download(model_name, "model.bin")
+        model_base_path = model_path.replace("model.bin", "")
+
         tokenizer = sentencepiece.SentencePieceProcessor()
-        tokenizer.Load(f"{model_path}/spiece.model")
+        tokenizer.Load(tokenizer_path)
 
         modelcache["test"] = (
             tokenizer,
-            ctranslate2.Translator(model_path),
+            ctranslate2.Translator(model_base_path),
         )
 
     tokenizer, model = modelcache["test"]
