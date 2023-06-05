@@ -83,6 +83,8 @@ def get_model(model_name):
         model_name = model_name.replace("783M", "248M")
 
     if model_name not in modelcache:
+        hf_hub_download(model_name, "config.json")
+        hf_hub_download(model_name, "shared_vocabulary.txt")
         tokenizer_path = hf_hub_download(model_name, "spiece.model")
         model_path = hf_hub_download(model_name, "model.bin")
         model_base_path = model_path.replace("/model.bin", "")
