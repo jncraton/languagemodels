@@ -158,7 +158,7 @@ def classify(doc: str, label1: str, label2: str) -> str:
     'ocean'
     """
 
-    return generate_instruct(f'{doc}\n\nClassify as "{label1}" or "{label2}":')
+    return generate_instruct(f'Classify as {label1} or {label2}: {doc}', max_tokens=5)
 
 
 def store_doc(doc: str) -> None:
