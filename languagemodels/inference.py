@@ -171,15 +171,14 @@ def parse_chat(prompt):
     >>> parse_chat('''
     ...              A helpful assistant
     ...
-    ...              User: What time is it?
+    ...              User: First para
     ...
-    ...              Missing role
+    ...              Second para
     ...
     ...              Assistant:
     ...              ''')
-    Traceback (most recent call last):
-        ....
-    inference.InferenceException: Invalid chat message: Missing role
+    [{'role': 'system', 'content': 'A helpful assistant'},
+     {'role': 'user', 'content': 'First para\\n\\nSecond para'}]
 
     >>> parse_chat('''
     ...              A helpful assistant
@@ -195,29 +194,29 @@ def parse_chat(prompt):
     inference.InferenceException: Invalid chat role: invalidrole
     """
 
-    messages = prompt.split("\n\n")
-    messages = [m.strip() for m in messages]
+    if not re.match("^\s*\w+:", prompt):
+        prompt = "System: " + prompt
 
-    if not re.match(r"\w+:", messages[0]):
-        messages[0] = "System: " + messages[0]
+    prompt = '\n\n' + prompt
 
-    def parse_message(message):
-        match = re.match(r"(\w+):(.*)", message)
+    chunks = re.split(r'[\r\n]\s*(\w+):', prompt, flags=re.M)
+    chunks = [m.strip() for m in chunks if m.strip()]
 
-        if not match:
-            raise InferenceException(f"Invalid chat message: {message}")
+    messages = []
 
-        role = match.group(1).lower()
+    for i in range(0, len(chunks), 2):
+        role = chunks[i].lower()
 
-        if role not in ['system', 'user', 'assistant']:
-            raise InferenceException(f"Invalid chat role: {role}")
+        try:
+            content = chunks[i+1]
+            content = re.sub(r"\s*\n\n\s*", "\n\n", content)
+        except IndexError:
+            content = ""
+        messages.append({"role": role, "content": content})
 
-        return {
-            "role": role,
-            "content": match.group(2).strip(),
-        }
-
-    messages = [parse_message(m) for m in messages]
+    for message in messages:
+        if message['role'] not in ['system', 'user', 'assistant']:
+            raise InferenceException(f"Invalid chat role: {message['role']}")
 
     if messages[-1]['role'] != 'assistant':
         raise InferenceException("Chat prompt must end with 'Assistant:'")
