@@ -2,7 +2,7 @@ import requests
 import datetime
 import json
 
-from languagemodels.inference import generate_instruct, convert_chat, list_tokens
+from languagemodels.inference import generate_instruct, parse_chat, list_tokens
 from languagemodels.embeddings import RetrievalContext
 
 docs = RetrievalContext()
@@ -85,21 +85,24 @@ def chat(prompt: str) -> str:
     plain-text string. Several special tokens are used to delineate chat
     messages.
 
-    - `<|system|>` - Indicates the start of a system message providing
+    - `system:` - Indicates the start of a system message providing
     instructions about how the assistant should behave.
-    - `<|prompter|>` - Indicates the start of a prompter (typically user)
+    - `user:` - Indicates the start of a prompter (typically user)
     message.
-    - `<|assistant|>` - Indicates the start of an assistant message.
-    - `<|endoftext|>` - Used to terminal all message types.
+    - `assistant:` - Indicates the start of an assistant message.
 
     A complete prompt may look something like this:
 
     ```
-    <|system|>Assistant is helpful and harmless<|endoftext|>
-    <|prompter|>What is the capital of Germany?<|endoftext|>
-    <|assistant|>The capital of Germany is Berlin.<|endoftext|>
-    <|prompter|>How many people live there?<|endoftext|>
-    <|assistant|>
+    Assistant is helpful and harmless
+
+    User: What is the capital of Germany?
+
+    Assistant: The capital of Germany is Berlin.
+
+    User: How many people live there?
+
+    Assistant:
     ```
 
     The completion from the language model is returned.
@@ -107,13 +110,25 @@ def chat(prompt: str) -> str:
     :param message: Prompt using formatting described above
     :return: Completion returned from the language model
 
-    >>> chat("<|system|>It is 5:15pm. Assistant is helpful<|endoftext|>" \\
-    ...      "<|prompter|>What time is it?<|endoftext|>" \\
-    ...      "<|assistant|>")
+    >>> chat('''
+    ...      System: It is 5:15pm. Assistant is helpful.
+    ...
+    ...      User: What time is it?
+    ...
+    ...      Assistant:
+    ...      ''')
     '5:15pm.'
     """
 
-    prompt = convert_chat(prompt)
+    messages = parse_chat(prompt)
+
+    messages = [f"{m['role'].title()}: {m['content']}" for m in messages]
+
+    prompt = "\n\n".join(messages)
+
+    prompt = prompt.lstrip("System: ")
+
+    prompt = prompt + "\n\nAssistant:"
 
     return generate_instruct(prompt, max_tokens=200)
 

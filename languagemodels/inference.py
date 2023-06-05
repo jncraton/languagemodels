@@ -131,53 +131,98 @@ def generate_instruct(prompt, max_tokens=200, temperature=0.1, repetition_penalt
     return tokenizer.DecodePieces(output_tokens)
 
 
-def convert_chat(prompt):
+def parse_chat(prompt):
     """Converts a chat prompt using special tokens to a plain-text prompt
 
     This is useful for prompting generic models that have not been fine-tuned
     for chat using specialized tokens.
 
-    >>> convert_chat("<|system|>A helpful assistant<|endoftext|>" \\
-    ...              "<|prompter|>What time is it?<|endoftext|>" \\
-    ...              "<|assistant|>")
-    'A helpful assistant\\n\\nUser:What time is it?\\n\\nAssistant:'
-
-    >>> convert_chat("<|prompter|>Who are you?<|endoftext|>" \\
-    ...              "<|assistant|>")
-    'User:Who are you?\\n\\nAssistant:'
-
-    >>> convert_chat("<|prompter|>What is 1+1?<|endoftext|>\\n\\n" \\
-    ...              "<|assistant|>")
-    'User:What is 1+1?\\n\\nAssistant:'
-
-    >>> convert_chat("<|system|>A friend<|endoftext|>" \\
-    ...              "<|prompter|>Hi<|endoftext|>" \\
-    ...              "<|assistant|>Yo<|endoftext|>" \\
-    ...              "<|prompter|>We good?<|endoftext|>" \\
-    ...              "<|assistant|>")
-    'A friend\\n\\nUser:Hi\\n\\nAssistant:Yo\\n\\nUser:We good?\\n\\nAssistant:'
-    >>> convert_chat("\\n<|system|>Be nice<|endoftext|>" \\
-    ...              "<|prompter|>brb\\n<|endoftext|>" \\
-    ...              "<|assistant|>k<|endoftext|>" \\
-    ...              "<|prompter|>back<|endoftext|>" \\
-    ...              "<|assistant|>")
-    'Be nice\\n\\nUser:brb\\n\\nAssistant:k\\n\\nUser:back\\n\\nAssistant:'
-
-    >>> convert_chat("<|user|>Who are you?<|endoftext|>" \\
-    ...              "<|assistant|>")
+    >>> parse_chat('User: What time is it?')
     Traceback (most recent call last):
         ....
-    inference.InferenceException: Invalid special token in chat prompt: <|user|>
+    inference.InferenceException: Chat prompt must end with 'Assistant:'
+
+    >>> parse_chat('''User: What time is it?
+    ...
+    ...               Assistant:''')
+    [{'role': 'user', 'content': 'What time is it?'}]
+
+    >>> parse_chat('''
+    ...              A helpful assistant
+    ...
+    ...              User: What time is it?
+    ...
+    ...              Assistant:
+    ...              ''')
+    [{'role': 'system', 'content': 'A helpful assistant'},
+     {'role': 'user', 'content': 'What time is it?'}]
+
+    >>> parse_chat('''
+    ...              A helpful assistant
+    ...
+    ...              User: What time is it?
+    ...
+    ...              Assistant: The time is
+    ...              ''')
+    Traceback (most recent call last):
+        ....
+    inference.InferenceException: Final assistant message must be blank
+
+    >>> parse_chat('''
+    ...              A helpful assistant
+    ...
+    ...              User: What time is it?
+    ...
+    ...              Missing role
+    ...
+    ...              Assistant:
+    ...              ''')
+    Traceback (most recent call last):
+        ....
+    inference.InferenceException: Invalid chat message: Missing role
+
+    >>> parse_chat('''
+    ...              A helpful assistant
+    ...
+    ...              User: What time is it?
+    ...
+    ...              InvalidRole: Nothing
+    ...
+    ...              Assistant:
+    ...              ''')
+    Traceback (most recent call last):
+        ....
+    inference.InferenceException: Invalid chat role: invalidrole
     """
 
-    prompt = re.sub(r"\s*<\|system\|>\s*", "", prompt)
-    prompt = re.sub(r"\s*<\|prompter\|>\s*", "User:", prompt)
-    prompt = re.sub(r"\s*<\|assistant\|>\s*", "Assistant:", prompt)
-    prompt = re.sub(r"\s*<\|endoftext\|>\s*", "\n\n", prompt)
+    messages = prompt.split("\n\n")
+    messages = [m.strip() for m in messages]
 
-    special_token_match = re.search(r"<\|.*?\|>", prompt)
-    if special_token_match:
-        token_text = special_token_match.group(0)
-        raise InferenceException(f"Invalid special token in chat prompt: {token_text}")
+    if not re.match(r"\w+:", messages[0]):
+        messages[0] = "System: " + messages[0]
 
-    return prompt
+    def parse_message(message):
+        match = re.match(r"(\w+):(.*)", message)
+
+        if not match:
+            raise InferenceException(f"Invalid chat message: {message}")
+
+        role = match.group(1).lower()
+
+        if role not in ['system', 'user', 'assistant']:
+            raise InferenceException(f"Invalid chat role: {role}")
+
+        return {
+            "role": role,
+            "content": match.group(2).strip(),
+        }
+
+    messages = [parse_message(m) for m in messages]
+
+    if messages[-1]['role'] != 'assistant':
+        raise InferenceException("Chat prompt must end with 'Assistant:'")
+
+    if messages[-1]['content'] != '':
+        raise InferenceException("Final assistant message must be blank")
+
+    return messages[:-1]
