@@ -119,7 +119,12 @@ def generate_instruct(prompt, max_tokens=200, temperature=0.1, repetition_penalt
     tokenizer, model = get_model("jncraton/LaMini-Flan-T5-248M-ct2-int8")
 
     input_tokens = tokenizer.EncodeAsPieces(prompt) + ["</s>"]
-    results = model.translate_batch([input_tokens])
+    results = model.translate_batch(
+        [input_tokens],
+        repetition_penalty=repetition_penalty,
+        max_decoding_length=max_tokens,
+        sampling_temperature=temperature,
+    )
 
     output_tokens = results[0].hypotheses[0]
 
