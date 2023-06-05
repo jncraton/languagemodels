@@ -20,10 +20,6 @@ setuptools.setup(
     ],
     python_requires='>=3.8',
     install_requires=[
-        "torch",
-        "transformers",
-        "sentence-transformers",
-        "accelerate",
         "sentencepiece",
         "huggingface_hub",
         "ctranslate2",
