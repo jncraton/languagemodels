@@ -197,9 +197,9 @@ def parse_chat(prompt):
     if not re.match(r"^\s*\w+:", prompt):
         prompt = "System: " + prompt
 
-    prompt = '\n\n' + prompt
+    prompt = "\n\n" + prompt
 
-    chunks = re.split(r'[\r\n]\s*(\w+):', prompt, flags=re.M)
+    chunks = re.split(r"[\r\n]\s*(\w+):", prompt, flags=re.M)
     chunks = [m.strip() for m in chunks if m.strip()]
 
     messages = []
@@ -208,20 +208,20 @@ def parse_chat(prompt):
         role = chunks[i].lower()
 
         try:
-            content = chunks[i+1]
+            content = chunks[i + 1]
             content = re.sub(r"\s*\n\n\s*", "\n\n", content)
         except IndexError:
             content = ""
         messages.append({"role": role, "content": content})
 
     for message in messages:
-        if message['role'] not in ['system', 'user', 'assistant']:
+        if message["role"] not in ["system", "user", "assistant"]:
             raise InferenceException(f"Invalid chat role: {message['role']}")
 
-    if messages[-1]['role'] != 'assistant':
+    if messages[-1]["role"] != "assistant":
         raise InferenceException("Chat prompt must end with 'Assistant:'")
 
-    if messages[-1]['content'] != '':
+    if messages[-1]["content"] != "":
         raise InferenceException("Final assistant message must be blank")
 
     return messages[:-1]
