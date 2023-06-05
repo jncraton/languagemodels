@@ -4,9 +4,9 @@ import resource
 
 tests = [
     ("What is the capital of France?", "Paris"),
-    ("Lungs are used for respiration in mammals. Do computers have lungs?", "No"),
+    ("Lungs are used for respiration in mammals. Computers are machines that do not respirate. Would you expect computers to have lungs?", "No"),
     ("A game uses a bat and ball. Is it baseball or soccer?", "Baseball"),
-    ("What color is the sun, yellow or blue?", "Yellow"),
+    ("Is grass green or blue?", "Green"),
 ]
 
 accuracy = 0
@@ -16,7 +16,7 @@ def mem_used_gb():
     return resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1e6
 
 
-print(f"Memory used before loading models: {mem_used_gb():.1f}GB")
+print(f"Memory used before loading models: {mem_used_gb():.2f}GB")
 
 start = time.perf_counter_ns()
 
@@ -24,7 +24,7 @@ languagemodels.chat("Test first run time")
 
 print(f"Initialization time: {(time.perf_counter_ns() - start) / 1e6:.0f}ms")
 
-print(f"Memory used after running chat inference: {mem_used_gb():.1f}GB")
+print(f"Memory used after running chat inference: {mem_used_gb():.2f}GB")
 
 start = time.perf_counter_ns()
 
@@ -39,4 +39,4 @@ print(
 )
 print(f"Overall accuracy: {accuracy}")
 
-print(f"Memory used after running tests: {mem_used_gb():.1f}GB")
+print(f"Memory used after running tests: {mem_used_gb():.2f}GB")
