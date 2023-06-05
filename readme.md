@@ -133,3 +133,10 @@ This package can be used to do the heavy lifting for a number of learning projec
 - Document question answering
 
 Several example programs and notebooks are included in the `examples` directory.
+
+Attribution
+-----------
+
+- [CTranslate2](https://github.com/OpenNMT/CTranslate2)
+- [LaMini-Flan-T5](https://huggingface.co/MBZUAI/LaMini-Flan-T5-783M)
+- [Flan-T5](https://huggingface.co/google/flan-t5-large)
