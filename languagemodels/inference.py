@@ -194,7 +194,7 @@ def parse_chat(prompt):
     inference.InferenceException: Invalid chat role: invalidrole
     """
 
-    if not re.match("^\s*\w+:", prompt):
+    if not re.match(r"^\s*\w+:", prompt):
         prompt = "System: " + prompt
 
     prompt = '\n\n' + prompt
