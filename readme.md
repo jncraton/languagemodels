@@ -110,11 +110,12 @@ System Requirements
 
 This package uses large language models to complete natural language prompts. These models are resource intensive in terms of initial network bandwidth, memory usage, and compute. This package defaults to downloading model weights and computing outputs using the local CPU. The base resource requirements for this are:
 
-|         | Required   | Recommended    |
-| ------- | ---------- | -------------- |
-| CPU     | Any        | AVX512 support |
-| RAM     | 8GB        | 16GB           |
-| Storage | 4GB        | 4GB            |
+|         | Base (Default) | Recommended    |
+| ------- | -------------- | -------------- |
+| CPU     | Any            | AVX512 support |
+| GPU     | Not required   | Not required   |
+| RAM     | 512MB          | 16GB           |
+| Storage | 512MB          | 4GB            |
 
 This package will use approximately 5GB of network data to download models initially.
 
