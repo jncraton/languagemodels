@@ -62,7 +62,7 @@ Here are some usage examples as Python REPL sessions. This should work in the RE
 
 ### Semantic Search
 
-Semantic search uses an [embedding](https://en.wikipedia.org/wiki/Sentence_embedding) model and vector search under the hood, but that is hidden from view.
+Semantic search is provided to retrieve documents that may provide helpful context from a document store.
 
 ```python
 >>> import languagemodels as lm

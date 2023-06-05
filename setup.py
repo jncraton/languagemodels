@@ -23,5 +23,6 @@ setuptools.setup(
         "sentencepiece",
         "huggingface_hub",
         "ctranslate2",
+        "Whoosh",
        ],
 )

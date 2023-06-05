@@ -1,8 +1,9 @@
-def cosine_similarity(a, b):
-    dot_product = sum(ai * bi for ai, bi in zip(a, b))
-    magnitude_a = sum(ai ** 2 for ai in a) ** 0.5
-    magnitude_b = sum(bi ** 2 for bi in b) ** 0.5
-    return dot_product / (magnitude_a * magnitude_b)
+import tempfile
+import re
+
+from whoosh.index import create_in
+from whoosh.fields import Schema, TEXT
+from whoosh.qparser import QueryParser, OrGroup
 
 
 class RetrievalContext:
@@ -31,23 +32,22 @@ class RetrievalContext:
         self.clear()
 
     def clear(self):
-        self.docs = []
-        self.embeddings = []
+        schema = Schema(content=TEXT(stored=True))
+        self.index = create_in(tempfile.gettempdir(), schema)
 
     def store(self, doc):
-        if doc not in self.docs:
-            self.docs.append(doc)
-            self.embeddings.append([1.0])  # TODO Implement embeddings
+        writer = self.index.writer()
+        writer.add_document(content=doc)
+        writer.commit()
 
     def get_match(self, query):
-        if len(self.docs) == 0:
-            return None
+        with self.index.searcher() as searcher:
+            query = re.sub(r'[,\.\?\!\:\;]', ' ', query)
+            qp = QueryParser("content", self.index.schema, group=OrGroup)
+            query = qp.parse(query)
+            results = searcher.search(query)
 
-        query_embedding = [1.0]  # TODO Implement embeddings
-
-        scores = [cosine_similarity(query_embedding, e) for e in self.embeddings]
-
-        doc_score_pairs = list(zip(self.docs, scores))
-
-        doc_score_pairs = sorted(doc_score_pairs, key=lambda x: x[1], reverse=True)
-        return doc_score_pairs[0][0]
+            try:
+                return results[0]["content"]
+            except IndexError:
+                return None
