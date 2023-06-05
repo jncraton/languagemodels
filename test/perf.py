@@ -1,9 +1,9 @@
+import sys
+print(sys.path)
+
 import languagemodels
 import time
 import resource
-
-import sys
-print(sys.path)
 
 tests = [
     ("What is the capital of France?", "Paris"),
