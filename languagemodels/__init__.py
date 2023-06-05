@@ -179,8 +179,8 @@ def load_doc(query: str) -> str:
     :param query: Query to compare to stored documents
     :return: Content of the closest matching document
 
-    >>> store_doc("The sky is blue.")
     >>> store_doc("Paris is in France.")
+    >>> store_doc("The sky is blue.")
     >>> load_doc("Where is Paris?")
     'Paris is in France.'
     """
