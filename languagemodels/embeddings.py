@@ -42,7 +42,7 @@ class RetrievalContext:
 
     def get_match(self, query):
         with self.index.searcher() as searcher:
-            query = re.sub(r'[,\.\?\!\:\;]', ' ', query)
+            query = re.sub(r"[,\.\?\!\:\;]", " ", query)
             qp = QueryParser("content", self.index.schema, group=OrGroup)
             query = qp.parse(query)
             results = searcher.search(query)
