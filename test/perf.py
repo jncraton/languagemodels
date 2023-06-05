@@ -2,6 +2,9 @@ import languagemodels
 import time
 import resource
 
+import sys
+print(sys.path)
+
 tests = [
     ("What is the capital of France?", "Paris"),
     ("Lungs are used for respiration in mammals. Computers are machines that do not respirate. Would you expect computers to have lungs?", "No"),
