@@ -78,9 +78,13 @@ def generate_oa(engine, prompt, max_tokens=200, temperature=0):
 
 
 def get_model(model_name):
-    if os.environ.get("LANGUAGEMODELS_SIZE") == "base":
-        model_name = model_name.replace("large", "base")
-        model_name = model_name.replace("783M", "248M")
+    if os.environ.get("LANGUAGEMODELS_SIZE") == "small":
+        model_name = model_name.replace("base", "small")
+        model_name = model_name.replace("248M", "77M")
+
+    if os.environ.get("LANGUAGEMODELS_SIZE") == "large":
+        model_name = model_name.replace("base", "large")
+        model_name = model_name.replace("248M", "783M")
 
     if model_name not in modelcache:
         hf_hub_download(model_name, "config.json")
@@ -112,7 +116,7 @@ def generate_instruct(prompt, max_tokens=200, temperature=0.1, repetition_penalt
     if os.environ.get("oa_key"):
         return generate_oa("text-babbage-001", prompt, max_tokens)
 
-    tokenizer, model = get_model("jncraton/LaMini-Flan-T5-783M-ct2-int8")
+    tokenizer, model = get_model("jncraton/LaMini-Flan-T5-248M-ct2-int8")
 
     input_tokens = tokenizer.EncodeAsPieces(prompt) + ["</s>"]
     results = model.translate_batch([input_tokens])

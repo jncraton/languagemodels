@@ -1,8 +1,11 @@
 all: test
 
 test: lint
-	env LANGUAGEMODELS_SIZE=base python3 -m doctest languagemodels/*.py
 	python3 -m doctest languagemodels/*.py
+	env LANGUAGEMODELS_SIZE=large python3 -m doctest languagemodels/*.py
+	env LANGUAGEMODELS_SIZE=small python3 test/perf.py
+	env LANGUAGEMODELS_SIZE=base python3 test/perf.py
+	env LANGUAGEMODELS_SIZE=large python3 test/perf.py
 
 lint:
 	flake8 --max-line-length 88 languagemodels/*.py
