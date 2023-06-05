@@ -197,11 +197,11 @@ def fetch_wiki(topic: str) -> str:
     :param topic: Topic to search for on Wikipedia
     :return: Text content of the lead section of the most popular matching article
 
-    >>> fetch_wiki('Python') # doctest: +ELLIPSIS
-    'Python is a high-level...
+    >>> fetch_wiki('Python')
+    'Python is a high-level...'
 
-    >>> fetch_wiki('Chemistry') # doctest: +ELLIPSIS
-    'Chemistry is the scientific study...
+    >>> fetch_wiki('Chemistry')
+    'Chemistry is the scientific study...'
     """
 
     url = "https://api.wikimedia.org/core/v1/wikipedia/en/search/title"
