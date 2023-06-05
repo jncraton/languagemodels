@@ -2,9 +2,9 @@ all: test
 
 test: lint
 	python3 -m doctest languagemodels/*.py
+	python3 test/perf.py
 	env LANGUAGEMODELS_SIZE=large python3 -m doctest languagemodels/*.py
 	env LANGUAGEMODELS_SIZE=small python3 test/perf.py
-	env LANGUAGEMODELS_SIZE=base python3 test/perf.py
 	env LANGUAGEMODELS_SIZE=large python3 test/perf.py
 
 lint:
