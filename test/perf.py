@@ -1,6 +1,3 @@
-import sys
-print(sys.path)
-
 import languagemodels
 import time
 import resource
