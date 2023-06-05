@@ -87,7 +87,7 @@ def get_model(model_name):
         hf_hub_download(model_name, "shared_vocabulary.txt")
         tokenizer_path = hf_hub_download(model_name, "spiece.model")
         model_path = hf_hub_download(model_name, "model.bin")
-        model_base_path = re.sub('[\\/]model.bin', '', model_path)
+        model_base_path = model_path[:-10]
 
         tokenizer = sentencepiece.SentencePieceProcessor()
         tokenizer.Load(tokenizer_path)
