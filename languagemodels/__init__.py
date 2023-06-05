@@ -117,7 +117,7 @@ def chat(prompt: str) -> str:
     ...
     ...      Assistant:
     ...      ''')
-    '5:15pm.'
+    '...5:15pm...'
     """
 
     messages = parse_chat(prompt)
