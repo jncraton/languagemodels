@@ -122,6 +122,13 @@ def chat(prompt: str) -> str:
 
     messages = parse_chat(prompt)
 
+    # Suppress starts of all assistant messages to avoid repeat generation
+    suppress = [
+        "Assistant: " + m["content"].split(" ")[0]
+        for m in messages
+        if m["role"] == "assistant"
+    ]
+
     messages = [f"{m['role'].title()}: {m['content']}" for m in messages]
 
     prompt = "\n\n".join(messages)
@@ -135,6 +142,7 @@ def chat(prompt: str) -> str:
         repetition_penalty=1.3,
         temperature=0.7,
         prefix="Assistant: ",
+        suppress=suppress,
     )
 
     # Remove duplicate assistant being generated

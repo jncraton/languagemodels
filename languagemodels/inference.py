@@ -105,7 +105,12 @@ def get_model(model_name):
 
 
 def generate_instruct(
-    prompt, max_tokens=200, temperature=0.1, repetition_penalty=1.2, prefix=""
+    prompt,
+    max_tokens=200,
+    temperature=0.1,
+    repetition_penalty=1.2,
+    prefix="",
+    suppress=[],
 ):
     """Generates one completion for a prompt using an instruction-tuned model
 
@@ -120,6 +125,8 @@ def generate_instruct(
 
     tokenizer, model = get_model("jncraton/LaMini-Flan-T5-248M-ct2-int8")
 
+    suppress = [tokenizer.EncodeAsPieces(s) for s in suppress]
+
     input_tokens = tokenizer.EncodeAsPieces(prompt) + ["</s>"]
     results = model.translate_batch(
         [input_tokens],
@@ -127,6 +134,8 @@ def generate_instruct(
         repetition_penalty=repetition_penalty,
         max_decoding_length=max_tokens,
         sampling_temperature=temperature,
+        sampling_topk=40,
+        suppress_sequences=suppress,
     )
 
     output_tokens = results[0].hypotheses[0]
