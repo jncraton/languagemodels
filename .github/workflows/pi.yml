@@ -12,5 +12,6 @@ jobs:
         base_image: raspios_lite_arm64:latest
         commands: |
             sudo apt install -y python3 python3-pip
+            pip3 install flake8
             pip3 install -r requirements.txt
             make test
