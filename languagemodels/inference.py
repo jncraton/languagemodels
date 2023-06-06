@@ -14,6 +14,11 @@ modelcache = {}
 
 
 def list_tokens(prompt):
+    """Generates a list of tokens for a supplied prompt
+
+    >>> list_tokens("Hello, world!")
+    [('▁Hello', 8774), (',', 6), ('▁world', 296), ('!', 55)]
+    """
     tokenizer, _ = get_model("jncraton/LaMini-Flan-T5-248M-ct2-int8")
 
     tokens = tokenizer.EncodeAsPieces(prompt)
