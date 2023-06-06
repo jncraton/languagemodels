@@ -23,7 +23,7 @@ if st.session_state.message:
         "User: Hi\n\n"
         "Assistant: Hello.\n\n"
         "User: Who are you?\n\n"
-        "Assistant: My name is Sidney. I'm a barista in Chicago.\n\n"
+        "Assistant: I'm an AI assistant.\n\n"
         f"{st.session_state.dialog}"
     )
 
