@@ -32,11 +32,11 @@ def generate_ts(engine, prompt, max_tokens=200):
 
     The server and API key are provided as environment variables:
 
-    ts_server is the server such as http://localhost:8080
-    ts_key is the API key
+    LANGUAGEMODELS_TS_SERVER is the server such as http://localhost:8080
+    LANGUAGEMODELS_TS_KEY is the API key
     """
-    apikey = os.environ.get("ts_key") or ""
-    server = os.environ.get("ts_server") or "https://api.textsynth.com"
+    apikey = os.environ.get("LANGUAGEMODELS_TS_KEY") or ""
+    server = os.environ.get("LANGUAGEMODELS_TS_SERVER") or "https://api.textsynth.com"
 
     response = requests.post(
         f"{server}/v1/engines/{engine}/completions",
@@ -55,9 +55,9 @@ def generate_oa(engine, prompt, max_tokens=200, temperature=0):
 
     The server and API key are provided as environment variables:
 
-    oa_key is the API key
+    LANGUAGEMODELS_OA_KEY is the API key
     """
-    apikey = os.environ.get("oa_key")
+    apikey = os.environ.get("LANGUAGEMODELS_OA_KEY")
 
     response = requests.post(
         "https://api.openai.com/v1/completions",
