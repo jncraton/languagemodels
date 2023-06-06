@@ -1,4 +1,4 @@
-name: x64 (Linux, Mac, Windows)
+name: x64 Desktop
 
 on: [push]
 

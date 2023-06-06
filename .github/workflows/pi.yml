@@ -1,4 +1,4 @@
-name: ARM64 (Raspberry Pi)
+name: ARM64 Pi
 
 on: [push]
 
