@@ -14,9 +14,7 @@ modelcache = {}
 
 
 def list_tokens(prompt):
-    tokenizer_path = hf_hub_download("t5-small", "spiece.model")
-    tokenizer = sentencepiece.SentencePieceProcessor()
-    tokenizer.Load(tokenizer_path)
+    tokenizer, _ = get_model("jncraton/LaMini-Flan-T5-248M-ct2-int8")
 
     tokens = tokenizer.EncodeAsPieces(prompt)
     ids = tokenizer.EncodeAsIds(prompt)
