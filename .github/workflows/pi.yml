@@ -1,3 +1,7 @@
+name: ARM (Raspberry Pi)
+
+on: [push]
+
 jobs:
   build:
     runs-on: ubuntu-latest
