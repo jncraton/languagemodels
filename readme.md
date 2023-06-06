@@ -125,7 +125,7 @@ Projects Ideas
 
 This package can be used to do the heavy lifting for a number of learning projects:
 
-- Basic chatbot
+- [Basic chatbot](https://jncraton-languagemodels-examplesstreamlitchat-g68aa2.streamlit.app/)
 - Chatbot with information retrieval
 - Chatbot with access to real-time information
 - Tool use
