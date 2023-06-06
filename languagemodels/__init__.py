@@ -128,9 +128,15 @@ def chat(prompt: str) -> str:
 
     prompt = prompt.lstrip("System: ")
 
-    prompt = prompt + "\n\nAssistant:"
+    prompt = prompt + "\n\nAssistant: "
 
-    return generate_instruct(prompt, max_tokens=200)
+    response = generate_instruct(prompt, max_tokens=200)
+
+    # Hack to remove duplicate assistant being generated
+    if response.startswith('Assistant:'):
+        response = response[10:]
+
+    return response.strip()
 
 
 def extract_answer(question: str, context: str) -> str:
