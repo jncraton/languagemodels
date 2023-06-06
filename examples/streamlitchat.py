@@ -5,7 +5,7 @@ st.title("Chatbot")
 
 
 def reset():
-    st.session_state.dialog = "<|system|>Assistant is happy and helpful<|endoftext|>\n\n"
+    st.session_state.dialog = ""
     st.session_state.message = ""
 
 
@@ -15,17 +15,20 @@ if "dialog" not in st.session_state:
 
 if st.session_state.message:
     # Add new message to dialog
-    st.session_state.dialog += f"<|prompter|>{st.session_state.message}<|endoftext|>\n\n<|assistant|>"
+    st.session_state.dialog += f"User: {st.session_state.message}\n\nAssistant: "
     st.session_state.message = ""
 
     # Prompt LLM to get response
     response = lm.chat(
-        f"<|system|>Assistant is an AI who is kind honest and helpful<|endoftext|>\n\n"
+        "User: Hi\n\n"
+        "Assistant: Hello.\n\n"
+        "User: Who are you?\n\n"
+        "Assistant: My name is Sidney. I'm a barista in Chicago.\n\n"
         f"{st.session_state.dialog}"
     )
 
     # Display full dialog
-    st.session_state.dialog += response + "<|endoftext|>\n\n"
+    st.session_state.dialog += response + "\n\n"
 
     st.write(st.session_state.dialog)
 
