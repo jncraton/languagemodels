@@ -55,7 +55,16 @@ def complete(prompt: str) -> str:
     >>> complete("She hid in her room until") #doctest: +SKIP
     'she was sure she was safe'
     """
-    return generate_instruct(prompt, max_tokens=200, temperature=0.7)
+
+    result = generate_instruct(
+        f"Write a sentence", max_tokens=200, temperature=0.7, prefix=prompt
+    )
+
+    if result.startswith(prompt):
+        prefix_length = len(prompt)
+        return result[prefix_length:]
+    else:
+        return result
 
 
 def do(prompt: str) -> str:
