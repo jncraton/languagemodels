@@ -20,10 +20,6 @@ if st.session_state.message:
 
     # Prompt LLM to get response
     response = lm.chat(
-        "User: Hi\n\n"
-        "Assistant: Hello.\n\n"
-        "User: Who are you?\n\n"
-        "Assistant: I'm an AI assistant.\n\n"
         f"{st.session_state.dialog}"
     )
 
