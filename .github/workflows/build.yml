@@ -1,4 +1,4 @@
-name: Build
+name: x64 (Linux, Mac, Windows)
 
 on: [push]
 
