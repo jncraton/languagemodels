@@ -57,7 +57,7 @@ def complete(prompt: str) -> str:
     """
 
     result = generate_instruct(
-        f"Write a sentence", max_tokens=200, temperature=0.7, prefix=prompt
+        "Write a sentence", max_tokens=200, temperature=0.7, prefix=prompt
     )
 
     if result.startswith(prompt):
