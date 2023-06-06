@@ -104,7 +104,9 @@ def get_model(model_name):
     return modelcache[model_name]
 
 
-def generate_instruct(prompt, max_tokens=200, temperature=0.1, repetition_penalty=1.2):
+def generate_instruct(
+    prompt, max_tokens=200, temperature=0.1, repetition_penalty=1.2, prefix=""
+):
     """Generates one completion for a prompt using an instruction-tuned model
 
     This may use a local model, or it may make an API call to an external
@@ -121,6 +123,7 @@ def generate_instruct(prompt, max_tokens=200, temperature=0.1, repetition_penalt
     input_tokens = tokenizer.EncodeAsPieces(prompt) + ["</s>"]
     results = model.translate_batch(
         [input_tokens],
+        target_prefix=[tokenizer.EncodeAsPieces(prefix)],
         repetition_penalty=repetition_penalty,
         max_decoding_length=max_tokens,
         sampling_temperature=temperature,
