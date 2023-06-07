@@ -18,14 +18,24 @@ Target Audience
 
 This package is designed to be as simple as possible for **learners** and **educators** exploring how large language models intersect with modern software development. The interfaces to this package are all simple functions using standard types. The complexity of large language models is hidden from view while providing free local inference using light-weight, open models. All included models are free for educational use, no API keys are required, and all inference is performed locally by default.
 
-Installation
-------------
+Installation and Getting Started
+--------------------------------
 
 This package can be installed using the following command:
 
 ```sh
 pip install languagemodels
 ```
+
+Once installed, you should be able to interact with the package in Python as follows:
+
+```python
+>>> import languagemodels as lm
+>>> lm.do("What color is the sky?")
+'The color of the sky is blue.'
+```
+
+This will require downloading a significant amount of data (~250MB) on the first run. Models will be cached for later use and subsequent calls should be quick.
 
 Model Performance
 -----------------
