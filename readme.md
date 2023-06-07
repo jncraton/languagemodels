@@ -72,13 +72,13 @@ Here are some usage examples as Python REPL sessions. This should work in the RE
 
 ```python
 >>> chat('''
-...      System: Respond as a helpful assistant. It is 5:15pm.
+...      System: Respond as a helpful assistant.
 ...
 ...      User: What time is it?
 ...
 ...      Assistant:
 ...      ''')
-'It is 5:15pm.'
+'I'm sorry, but as an AI language model, I don't have access to real-time information. Please provide me with the specific time you are asking for so that I can assist you better.'
 ```
 
 ### External Retrieval
@@ -96,6 +96,19 @@ Helper functions are provided to retrieve text from external sources that can be
 
 >>> lm.get_date()
 'Friday, May 12, 2023 at 09:27AM'
+```
+
+Here's an example showing how this can be used (compare to previous chat example):
+
+```python
+>>> chat(f'''
+...      System: Respond as a helpful assistant. It is {lm.get_date()}
+...
+...      User: What time is it?
+...
+...      Assistant:
+...      ''')
+'It is currently Wednesday, June 07, 2023 at 12:53PM.'
 ```
 
 ### Semantic Search
