@@ -125,9 +125,14 @@ class RetrievalContext:
 
         doc_score_pairs = sorted(doc_score_pairs, key=lambda x: x[1], reverse=True)
 
-        num_chunks = int(max_tokens / self.chunk_size)
+        chunks = []
+        tokens = 0
 
-        chunks = [chunk[0] for chunk in doc_score_pairs[0:num_chunks]]
+        for chunk, score in doc_score_pairs:
+            chunk_tokens = len(self.chunk_tokenizer.EncodeAsPieces(chunk))
+            if tokens + chunk_tokens <= max_tokens and score > .1:
+                chunks.append(chunk)
+                tokens += chunk_tokens
 
         context = "\n\n".join(chunks)
 
