@@ -1,18 +1,19 @@
 import languagemodels as lm
 
 prompt = (
-    f"<|system|>Currently {lm.get_date()}.\n"
-    f"Assistant responses are true helpful and harmless.<|endoftext|>"
+    f"System: Reply as a helpful assistant. Currently {lm.get_date()}."
 )
 
 while True:
-    user_message = input('User: ')
+    user_message = input('\nUser: ')
 
-    prompt += f"<|prompter|>{user_message}<|endoftext|><|assistant|>"
+    prompt += f"\n\nUser: {user_message}"
 
     print(prompt)
 
-    response = lm.chat(prompt)
-    print(f"Assistant: {response}")
+    prompt += "\n\nAssistant:"
 
-    prompt += f"{response}<|endoftext|>"
+    response = lm.chat(prompt)
+    print(f"\nAssistant: {response}")
+
+    prompt += f" {response}"
