@@ -83,6 +83,8 @@ Here are some usage examples as Python REPL sessions. This should work in the RE
 
 ### External Retrieval
 
+Helper functions are provided to retrieve text from external sources that can be used to augment prompt context.
+
 ```python
 >>> import languagemodels as lm
 
