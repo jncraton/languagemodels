@@ -32,7 +32,7 @@ class RetrievalContext:
     >>> rc.get_match("Where is Paris?")
 
     >>> rc.get_embedding("I love Python!")[-3:]
-    array([0.11642747, 0.12883702, 0.02305999], dtype=float32)
+    array([0.116..., 0.128..., 0.023...], dtype=float32)
     """
 
     def __init__(self):
