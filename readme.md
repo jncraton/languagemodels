@@ -68,22 +68,17 @@ Here are some usage examples as Python REPL sessions. This should work in the RE
 'paris'
 ```
 
-### Classification
+### Chat
 
 ```python
->>> import languagemodels as lm
-
->>> lm.classify("Language models are useful", "positive", "negative")
-'positive'
-```
-
-### Extractive Question Answering
-
-```python
->>> import languagemodels as lm
-
->>> lm.extract_answer("What color is the ball?", "There is a green ball and a red box")
-'green'
+>>> chat('''
+...      System: Respond as a helpful assistant. It is 5:15pm.
+...
+...      User: What time is it?
+...
+...      Assistant:
+...      ''')
+'It is 5:15pm.'
 ```
 
 ### External Retrieval
