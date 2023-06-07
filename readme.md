@@ -131,6 +131,16 @@ This package uses large language models to complete natural language prompts. Th
 
 This package will use approximately 5GB of network data to download models initially.
 
+Advanced Usage
+--------------
+
+This package is not meant for advanced usage. If you are looking for something more powerful you could explore [transformers](https://huggingface.co/docs/transformers) from Hugging Face.
+
+### Large models
+
+The default model used for inference is around 250M parameters. There is a larger model that can be enable if you don't mind things working a little more slowly. This can be enabled by setting the `LANGUAGEMODELS_SIZE` environment variable to `large`.
+
+
 Projects Ideas
 --------------
 
