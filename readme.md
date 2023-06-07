@@ -150,13 +150,14 @@ Projects Ideas
 
 This package can be used to do the heavy lifting for a number of learning projects:
 
-- [Basic chatbot](https://jncraton-languagemodels-examplesstreamlitchat-g68aa2.streamlit.app/)
+- CLI Chatbot (see examples/chat.py)
+- [Streamlit chatbot](https://jncraton-languagemodels-examplesstreamlitchat-g68aa2.streamlit.app/) (see examples/streamlitchat.py)
 - Chatbot with information retrieval
 - Chatbot with access to real-time information
 - Tool use
 - Text classification
 - Extractive question answering
-- Semantic search
+- Semantic search over documents
 - Document question answering
 
 Several example programs and notebooks are included in the `examples` directory.
