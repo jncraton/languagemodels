@@ -38,6 +38,28 @@ def print_tokens(prompt: str) -> None:
         print(f"'{token[0].replace('▁',' ')}' (token {token[1]})")
 
 
+def count_tokens(prompt: str) -> None:
+    """Counts tokens in a prompt
+
+    This function is provided for exploratory purposes only. It may return
+    slightly different counts than the underlying model and may not match the
+    tokenization of any backend API being used.
+
+    :param prompt: Prompt to use as input to tokenizer
+    :return: Nothing
+
+    Examples:
+
+    >>> count_tokens("Hello world")
+    2
+
+    >>> count_tokens("Hola mundo")
+    5
+    """
+
+    return len(list_tokens(prompt))
+
+
 def complete(prompt: str) -> str:
     """Provide one completion for a given open-ended prompt
 
