@@ -80,6 +80,9 @@ Here are some usage examples as Python REPL sessions. This should work in the RE
 
 >>> lm.fetch_weather(41.8, -87.6)
 'Partly cloudy with a chance of rain...
+
+>>> lm.get_date()
+'Friday, May 12, 2023 at 09:27AM'
 ```
 
 ### Semantic Search
@@ -109,15 +112,6 @@ This can also be used to get a blend of context from stored documents:
 C, or c, is the third letter in the Latin alphabet, used in the modern English alphabet, the alphabets of other western European languages and others worldwide. Its name in English is cee (pronounced ), plural cees.
 
 a measure of the popularity of programming languages.'
-```
-
-### Misc Text Tools
-
-```python
->>> import languagemodels as lm
-
->>> get_date()
-'Friday, May 12, 2023 at 09:27AM'
 ```
 
 [Full documentation](https://languagemodels.netlify.app/)
