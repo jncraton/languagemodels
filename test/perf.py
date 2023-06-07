@@ -20,7 +20,7 @@ print(f"Memory used before loading models: {mem_used_gb():.2f}GB")
 
 start = time.perf_counter_ns()
 
-languagemodels.chat("Test first run time")
+languagemodels.do("Test first run time")
 
 print(f"Initialization time: {(time.perf_counter_ns() - start) / 1e6:.0f}ms")
 
@@ -30,7 +30,7 @@ start = time.perf_counter_ns()
 chars_generated = 0
 
 for test in tests:
-    response = languagemodels.chat(test[0])
+    response = languagemodels.do(test[0])
     chars_generated += len(response)
     if test[1].lower() in response.lower():
         accuracy += 1 / len(tests)
