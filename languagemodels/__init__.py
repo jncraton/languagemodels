@@ -252,6 +252,24 @@ def load_doc(query: str) -> str:
     return docs.get_match(query)
 
 
+def get_doc_context(query: str) -> str:
+    """Loads context from documents
+
+    A string representing the most relevant content from all stored documents
+    will be returned. This may be a blend of chunks from multiple documents.
+
+    :param query: Query to compare to stored documents
+    :return: Up to 128 tokens of context
+
+    >>> store_doc("Paris is in France.")
+    >>> store_doc("Paris is nice.")
+    >>> store_doc("The sky is blue.")
+    >>> get_doc_context("Where is Paris?")
+    'Paris is in France.\\n\\nParis is nice.'
+    """
+    return docs.get_context(query)
+
+
 def fetch_wiki(topic: str) -> str:
     """
     Return Wikipedia summary for a topic
