@@ -1,11 +1,9 @@
 import languagemodels as lm
 
-prompt = (
-    f"System: Reply as a helpful assistant. Currently {lm.get_date()}."
-)
+prompt = f"System: Reply as a helpful assistant. Currently {lm.get_date()}."
 
 while True:
-    user_message = input('\nUser: ')
+    user_message = input("\nUser: ")
 
     prompt += f"\n\nUser: {user_message}"
 

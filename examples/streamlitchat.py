@@ -19,9 +19,7 @@ if st.session_state.message:
     st.session_state.message = ""
 
     # Prompt LLM to get response
-    response = lm.chat(
-        f"{st.session_state.dialog}"
-    )
+    response = lm.chat(f"{st.session_state.dialog}")
 
     # Display full dialog
     st.session_state.dialog += response + "\n\n"

@@ -130,7 +130,7 @@ class RetrievalContext:
 
         for chunk, score in doc_score_pairs:
             chunk_tokens = len(self.chunk_tokenizer.EncodeAsPieces(chunk))
-            if tokens + chunk_tokens <= max_tokens and score > .1:
+            if tokens + chunk_tokens <= max_tokens and score > 0.1:
                 chunks.append(chunk)
                 tokens += chunk_tokens
 

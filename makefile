@@ -8,7 +8,7 @@ lint:
 	flake8 --max-line-length 88 --extend-ignore E203 languagemodels/*.py
 
 format:
-	black languagemodels/*.py
+	black languagemodels/*.py examples/*.py
 
 doc:
 	mkdir -p doc
