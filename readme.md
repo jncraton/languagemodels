@@ -61,19 +61,6 @@ Here are some usage examples as Python REPL sessions. This should work in the RE
 'positive'
 ```
 
-### Semantic Search
-
-Semantic search is provided to retrieve documents that may provide helpful context from a document store.
-
-```python
->>> import languagemodels as lm
-
->>> lm.store_doc("Mars is a planet")
->>> lm.store_doc("The sun is hot")
->>> lm.load_doc("What is Mars?")
-'Mars is a planet'
-```
-
 ### Extractive Question Answering
 
 ```python
@@ -93,6 +80,35 @@ Semantic search is provided to retrieve documents that may provide helpful conte
 
 >>> lm.fetch_weather(41.8, -87.6)
 'Partly cloudy with a chance of rain...
+```
+
+### Semantic Search
+
+Semantic search is provided to retrieve documents that may provide helpful context from a document store.
+
+```python
+>>> import languagemodels as lm
+
+>>> lm.store_doc("Mars is a planet")
+>>> lm.store_doc("The sun is hot")
+>>> lm.load_doc("What is Mars?")
+'Mars is a planet'
+```
+
+This can also be used to get a blend of context from stored documents:
+
+```python
+>>> import languagemodels as lm
+
+>>> lm.store_doc(lm.fetch_wiki("Python"))
+>>> lm.store_doc(lm.fetch_wiki("C++"))
+>>> lm.store_doc(lm.fetch_wiki("Javascript"))
+>>> lm.store_doc(lm.fetch_wiki("Fortran"))
+'multiple programming paradigms, including structured (particularly procedural), object-oriented and functional programming. It is often described as a "batteries included" language due to its comprehensive standard library.Guido van Rossum began working on Python in the late 1980s as a successor to the ABC programming language
+
+C, or c, is the third letter in the Latin alphabet, used in the modern English alphabet, the alphabets of other western European languages and others worldwide. Its name in English is cee (pronounced ), plural cees.
+
+a measure of the popularity of programming languages.'
 ```
 
 ### Misc Text Tools
