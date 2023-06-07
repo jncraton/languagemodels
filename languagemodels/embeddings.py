@@ -82,6 +82,11 @@ class RetrievalContext:
         >>> rc.store('Python ' * 232)
         >>> len(rc.chunks)
         4
+
+        >>> rc.clear()
+        >>> rc.store('Python')
+        >>> len(rc.chunks)
+        1
         """
 
         if doc not in self.docs:
