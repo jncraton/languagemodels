@@ -33,15 +33,31 @@ class RetrievalContext:
 
     >>> rc.get_embedding("I love Python!")[-3:]
     array([0.1..., 0.1..., 0.0...], dtype=float32)
+
+    >>> rc.clear()
+    >>> rc.store('Python ' * 232)
+    >>> len(rc.chunks)
+    4
+
+    >>> rc.get_context("What is Python?")
+    'Python Python Python...'
+
+    >>> len(rc.get_context("What is Python?").split())
+    128
     """
 
-    def __init__(self):
+    def __init__(self, chunk_size=64, chunk_overlap=8):
+        self.chunk_size = chunk_size
+        self.chunk_overlap = chunk_overlap
         self.clear()
         self.tokenizer, self.model = get_model("jncraton/all-MiniLM-L6-v2-ct2-int8")
+        self.chunk_tokenizer, _ = get_model("jncraton/LaMini-Flan-T5-248M-ct2-int8")
 
     def clear(self):
         self.docs = []
         self.embeddings = []
+        self.chunks = []
+        self.chunk_embeddings = []
 
     def get_embedding(self, doc):
         """Gets embeddings for a document"""
@@ -52,10 +68,65 @@ class RetrievalContext:
         return embedding
 
     def store(self, doc):
+        """Stores a document along with embeddings
+
+        This stores both the document as well as document chunks
+
+        >>> rc = RetrievalContext()
+        >>> rc.clear()
+        >>> rc.store('Python ' * 233)
+        >>> len(rc.chunks)
+        5
+
+        >>> rc.clear()
+        >>> rc.store('Python ' * 232)
+        >>> len(rc.chunks)
+        4
+        """
+
         if doc not in self.docs:
             embedding = self.get_embedding(doc)
             self.embeddings.append(embedding)
             self.docs.append(doc)
+            self.store_chunks(doc)
+
+    def store_chunks(self, doc):
+        tokens = self.chunk_tokenizer.EncodeAsPieces(doc)
+
+        end = len(tokens) - self.chunk_overlap
+        stride = self.chunk_size - self.chunk_overlap
+
+        for i in range(0, end, stride):
+            chunk = tokens[i : i + self.chunk_size]
+            text = self.chunk_tokenizer.Decode(chunk)
+            embedding = self.get_embedding(text)
+            self.chunk_embeddings.append(embedding)
+            self.chunks.append(text)
+
+    def get_context(self, query, max_tokens=128):
+        """Gets context matching a query
+
+        Context is capped by token length and is retrieved from stored
+        document chunks
+        """
+
+        if len(self.chunks) == 0:
+            return None
+
+        query_embedding = self.get_embedding(query)
+
+        scores = [cosine_similarity(query_embedding, e) for e in self.chunk_embeddings]
+        doc_score_pairs = list(zip(self.chunks, scores))
+
+        doc_score_pairs = sorted(doc_score_pairs, key=lambda x: x[1], reverse=True)
+
+        num_chunks = int(max_tokens / self.chunk_size)
+
+        chunks = [chunk[0] for chunk in doc_score_pairs[0:num_chunks]]
+
+        context = "\n\n".join(chunks)
+
+        return context
 
     def get_match(self, query):
         if len(self.docs) == 0:
