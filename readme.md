@@ -146,7 +146,7 @@ a measure of the popularity of programming languages.'
 Advanced Usage
 --------------
 
-This package is not meant for advanced usage. If you are looking for something more powerful you could explore [transformers](https://huggingface.co/docs/transformers) from Hugging Face.
+This package is not meant for advanced usage. If you are looking for something more powerful you could explore [transformers](https://huggingface.co/docs/transformers) from Hugging Face. For integrating language models in more complex ways, [LangChain](https://github.com/hwchase17/langchain) or [guidance](https://github.com/microsoft/guidance) may be helpful.
 
 ### Large models
 
