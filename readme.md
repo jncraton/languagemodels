@@ -107,6 +107,7 @@ This can also be used to get a blend of context from stored documents:
 >>> lm.store_doc(lm.fetch_wiki("C++"))
 >>> lm.store_doc(lm.fetch_wiki("Javascript"))
 >>> lm.store_doc(lm.fetch_wiki("Fortran"))
+>>> lm.get_doc_context("What does it mean for batteries to be included in a language?")
 'multiple programming paradigms, including structured (particularly procedural), object-oriented and functional programming. It is often described as a "batteries included" language due to its comprehensive standard library.Guido van Rossum began working on Python in the late 1980s as a successor to the ABC programming language
 
 C, or c, is the third letter in the Latin alphabet, used in the modern English alphabet, the alphabets of other western European languages and others worldwide. Its name in English is cee (pronounced ), plural cees.
