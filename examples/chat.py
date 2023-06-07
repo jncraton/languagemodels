@@ -1,3 +1,5 @@
+"""A simple CLI chatbot"""
+
 import languagemodels as lm
 
 prompt = f"System: Reply as a helpful assistant. Currently {lm.get_date()}."

@@ -1,3 +1,10 @@
+"""A simple web chatbot using streamlit
+
+A live version of this bot is available here:
+
+https://jncraton-languagemodels-examplesstreamlitchat-g68aa2.streamlit.app/
+"""
+
 import streamlit as st
 import languagemodels as lm
 
