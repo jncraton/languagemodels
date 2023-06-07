@@ -157,10 +157,19 @@ def chat(prompt: str) -> str:
     suppress = [
         "Assistant: " + m["content"].split(" ")[0]
         for m in messages
-        if m["role"] == "assistant"
+        if m["role"] in ["assistant", "user"]
     ]
 
-    messages = [f"{m['role'].title()}: {m['content']}" for m in messages]
+    # Suppress all user messages to avoid repeating them
+    suppress += [m["content"] for m in messages if m["role"] == "user"]
+
+    rolemap = {
+        "system": "System",
+        "user": "Question",
+        "assistant": "Assistant",
+    }
+
+    messages = [f"{rolemap[m['role']]}: {m['content']}" for m in messages]
 
     prompt = "\n\n".join(messages)
 
@@ -171,7 +180,7 @@ def chat(prompt: str) -> str:
         prompt,
         max_tokens=200,
         repetition_penalty=1.3,
-        temperature=0.7,
+        temperature=0.3,
         prefix="Assistant: ",
         suppress=suppress,
     )
