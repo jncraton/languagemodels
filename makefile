@@ -5,7 +5,7 @@ test: lint
 	env LANGUAGEMODELS_SIZE=large python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/*.py
 
 lint:
-	flake8 --max-line-length 88 languagemodels/*.py
+	flake8 --max-line-length 88 --extend-ignore E203 languagemodels/*.py
 
 format:
 	black languagemodels/*.py
