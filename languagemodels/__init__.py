@@ -142,7 +142,7 @@ def chat(prompt: str) -> str:
     :return: Completion returned from the language model
 
     >>> chat('''
-    ...      System: It is 5:15pm. Assistant is helpful.
+    ...      System: Respond as a helpful assistant. It is 5:15pm.
     ...
     ...      User: What time is it?
     ...
