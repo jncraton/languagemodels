@@ -8,7 +8,7 @@ Language Models
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jncraton/languagemodels/blob/master/examples/translate.ipynb)
 [![Try with Replit Badge](https://replit.com/badge?caption=Try%20with%20Replit&variant=small)](https://replit.com/@jncraton/langaugemodels#main.py)
 
-A Python package providing simple building blocks for exploring natural language processing.
+A Python package providing simple building blocks to explore large language models on any computer with 512MB of RAM
 
 ![Translation hello world example](media/hello.gif)
 
