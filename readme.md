@@ -15,7 +15,7 @@ A Python package providing simple building blocks to explore large language mode
 Target Audience
 ---------------
 
-This package is designed to be as simple as possible for **learners**, **educators**, and **hobbyists** exploring how large language models intersect with modern software development. The interfaces to this package are all simple functions using standard types. The complexity of large language models is hidden from view while providing free local inference using light-weight, open models. All included models are free for educational use, no API keys are required, and all inference is performed locally by default.
+This package is designed to be as simple as possible for **learners** and **educators** exploring how large language models intersect with modern software development. The interfaces to this package are all simple functions using standard types. The complexity of large language models is hidden from view while providing free local inference using light-weight, open models. All included models are free for educational use, no API keys are required, and all inference is performed locally by default.
 
 Installation
 ------------
@@ -138,8 +138,7 @@ This package is not meant for advanced usage. If you are looking for something m
 
 ### Large models
 
-The default model used for inference is around 250M parameters. There is a larger model that can be enable if you don't mind things working a little more slowly. This can be enabled by setting the `LANGUAGEMODELS_SIZE` environment variable to `large`.
-
+The default model used for inference is around 250M parameters. There is a larger model that can be used if you don't mind things working a little more slowly. It can be enabled by setting the `LANGUAGEMODELS_SIZE` environment variable to `large`. This model isn't large by modern standards and should still work quickly in most environments (but not the lowest tier repl.it instance).
 
 Projects Ideas
 --------------
