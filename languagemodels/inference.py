@@ -4,6 +4,7 @@ from huggingface_hub import hf_hub_download
 import ctranslate2
 import re
 import sentencepiece
+from tokenizers import Tokenizer
 
 
 class InferenceException(Exception):
@@ -91,18 +92,29 @@ def get_model(model_name):
 
     if model_name not in modelcache:
         hf_hub_download(model_name, "config.json")
-        hf_hub_download(model_name, "shared_vocabulary.txt")
-        tokenizer_path = hf_hub_download(model_name, "spiece.model")
         model_path = hf_hub_download(model_name, "model.bin")
         model_base_path = model_path[:-10]
 
-        tokenizer = sentencepiece.SentencePieceProcessor()
-        tokenizer.Load(tokenizer_path)
+        if "minilm" in model_name.lower():
+            hf_hub_download(model_name, "vocabulary.txt")
+            tokenizer = Tokenizer.from_pretrained(model_name)
+            tokenizer.no_padding()
+            tokenizer.no_truncation()
+            modelcache[model_name] = (
+                tokenizer,
+                ctranslate2.Encoder(model_base_path),
+            )
+        else:
+            hf_hub_download(model_name, "shared_vocabulary.txt")
+            tokenizer_path = hf_hub_download(model_name, "spiece.model")
 
-        modelcache[model_name] = (
-            tokenizer,
-            ctranslate2.Translator(model_base_path),
-        )
+            tokenizer = sentencepiece.SentencePieceProcessor()
+            tokenizer.Load(tokenizer_path)
+
+            modelcache[model_name] = (
+                tokenizer,
+                ctranslate2.Translator(model_base_path),
+            )
 
     return modelcache[model_name]
 

@@ -1,9 +1,13 @@
-import tempfile
-import re
+import numpy as np
 
-from whoosh.index import create_in
-from whoosh.fields import Schema, TEXT
-from whoosh.qparser import QueryParser, OrGroup
+from languagemodels.inference import get_model
+
+
+def cosine_similarity(a, b):
+    dot_product = sum(ai * bi for ai, bi in zip(a, b))
+    magnitude_a = sum(ai ** 2 for ai in a) ** 0.5
+    magnitude_b = sum(bi ** 2 for bi in b) ** 0.5
+    return dot_product / (magnitude_a * magnitude_b)
 
 
 class RetrievalContext:
@@ -26,28 +30,41 @@ class RetrievalContext:
 
     >>> rc.clear()
     >>> rc.get_match("Where is Paris?")
+
+    >>> rc.get_embedding("I love Python!")[-3:]
+    array([0.11642747, 0.12883702, 0.02305999], dtype=float32)
     """
 
     def __init__(self):
         self.clear()
+        self.tokenizer, self.model = get_model("jncraton/all-MiniLM-L6-v2-ct2-int8")
 
     def clear(self):
-        schema = Schema(content=TEXT(stored=True))
-        self.index = create_in(tempfile.gettempdir(), schema)
+        self.docs = []
+        self.embeddings = []
+
+    def get_embedding(self, doc):
+        """Gets embeddings for a document"""
+        tokens = self.tokenizer.encode(doc).ids
+        output = self.model.forward_batch([tokens])
+        embedding = np.mean(np.array(output.last_hidden_state), axis=1)[0]
+        embedding = embedding / np.linalg.norm(embedding)
+        return embedding
 
     def store(self, doc):
-        writer = self.index.writer()
-        writer.add_document(content=doc)
-        writer.commit()
+        if doc not in self.docs:
+            embedding = self.get_embedding(doc)
+            self.embeddings.append(embedding)
+            self.docs.append(doc)
 
     def get_match(self, query):
-        with self.index.searcher() as searcher:
-            query = re.sub(r"[,\.\?\!\:\;]", " ", query)
-            qp = QueryParser("content", self.index.schema, group=OrGroup)
-            query = qp.parse(query)
-            results = searcher.search(query)
+        if len(self.docs) == 0:
+            return None
 
-            try:
-                return results[0]["content"]
-            except IndexError:
-                return None
+        query_embedding = self.get_embedding(query)
+
+        scores = [cosine_similarity(query_embedding, e) for e in self.embeddings]
+        doc_score_pairs = list(zip(self.docs, scores))
+
+        doc_score_pairs = sorted(doc_score_pairs, key=lambda x: x[1], reverse=True)
+        return doc_score_pairs[0][0]
