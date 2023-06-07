@@ -93,7 +93,7 @@ class RetrievalContext:
     def store_chunks(self, doc):
         tokens = self.chunk_tokenizer.EncodeAsPieces(doc)
 
-        end = len(tokens) - self.chunk_overlap
+        end = max(len(tokens) - self.chunk_overlap, 1)
         stride = self.chunk_size - self.chunk_overlap
 
         for i in range(0, end, stride):
