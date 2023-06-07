@@ -158,7 +158,7 @@ Projects Ideas
 This package can be used to do the heavy lifting for a number of learning projects:
 
 - CLI Chatbot (see examples/chat.py)
-- [Streamlit chatbot](https://jncraton-languagemodels-examplesstreamlitchat-g68aa2.streamlit.app/) (see examples/streamlitchat.py)
+- Streamlit chatbot (see examples/streamlitchat.py)
 - Chatbot with information retrieval
 - Chatbot with access to real-time information
 - Tool use
