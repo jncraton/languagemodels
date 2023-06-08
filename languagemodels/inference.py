@@ -82,12 +82,12 @@ def generate_oa(engine, prompt, max_tokens=200, temperature=0):
 
 
 def get_model(model_type):
-    if model_type == 'instruct':
+    if model_type == "instruct":
         model_name = "jncraton/LaMini-Flan-T5-248M-ct2-int8"
-    elif model_type == 'embedding':
+    elif model_type == "embedding":
         model_name = "jncraton/all-MiniLM-L6-v2-ct2-int8"
     else:
-        raise InferenceException(f'Invalid model: {model_type}')
+        raise InferenceException(f"Invalid model: {model_type}")
 
     if os.environ.get("LANGUAGEMODELS_SIZE") == "small":
         model_name = model_name.replace("base", "small")
