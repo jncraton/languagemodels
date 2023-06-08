@@ -59,7 +59,7 @@ class RetrievalContext:
 
     def get_embedding(self, doc):
         """Gets embeddings for a document"""
-        tokenizer, model = get_model("jncraton/all-MiniLM-L6-v2-ct2-int8")
+        tokenizer, model = get_model("embedding")
 
         tokens = tokenizer.encode(doc).ids
         output = model.forward_batch([tokens])
@@ -99,7 +99,7 @@ class RetrievalContext:
         # Note that the tokenzier used here is from the generative model
         # This is used for token counting for the context, not for tokenization
         # before embedding
-        generative_tokenizer, _ = get_model("jncraton/LaMini-Flan-T5-248M-ct2-int8")
+        generative_tokenizer, _ = get_model("instruct")
 
         tokens = generative_tokenizer.EncodeAsPieces(doc)
 
@@ -133,7 +133,7 @@ class RetrievalContext:
         chunks = []
         tokens = 0
 
-        generative_tokenizer, _ = get_model("jncraton/LaMini-Flan-T5-248M-ct2-int8")
+        generative_tokenizer, _ = get_model("instruct")
 
         for chunk, score in doc_score_pairs:
             chunk_tokens = len(generative_tokenizer.EncodeAsPieces(chunk))

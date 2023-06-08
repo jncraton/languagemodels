@@ -20,7 +20,7 @@ def list_tokens(prompt):
     >>> list_tokens("Hello, world!")
     [('▁Hello', 8774), (',', 6), ('▁world', 296), ('!', 55)]
     """
-    tokenizer, _ = get_model("jncraton/LaMini-Flan-T5-248M-ct2-int8")
+    tokenizer, _ = get_model("instruct")
 
     tokens = tokenizer.EncodeAsPieces(prompt)
     ids = tokenizer.EncodeAsIds(prompt)
@@ -81,7 +81,14 @@ def generate_oa(engine, prompt, max_tokens=200, temperature=0):
         raise InferenceException(f"OpenAI error: {resp}")
 
 
-def get_model(model_name):
+def get_model(model_type):
+    if model_type == 'instruct':
+        model_name = "jncraton/LaMini-Flan-T5-248M-ct2-int8"
+    elif model_type == 'embedding':
+        model_name = "jncraton/all-MiniLM-L6-v2-ct2-int8"
+    else:
+        raise InferenceException(f'Invalid model: {model_type}')
+
     if os.environ.get("LANGUAGEMODELS_SIZE") == "small":
         model_name = model_name.replace("base", "small")
         model_name = model_name.replace("248M", "77M")
@@ -138,7 +145,7 @@ def generate_instruct(
     if os.environ.get("oa_key"):
         return generate_oa("text-babbage-001", prompt, max_tokens)
 
-    tokenizer, model = get_model("jncraton/LaMini-Flan-T5-248M-ct2-int8")
+    tokenizer, model = get_model("instruct")
 
     suppress = [tokenizer.EncodeAsPieces(s) for s in suppress]
 
