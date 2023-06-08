@@ -50,8 +50,6 @@ class RetrievalContext:
         self.chunk_size = chunk_size
         self.chunk_overlap = chunk_overlap
         self.clear()
-        self.tokenizer, self.model = get_model("jncraton/all-MiniLM-L6-v2-ct2-int8")
-        self.chunk_tokenizer, _ = get_model("jncraton/LaMini-Flan-T5-248M-ct2-int8")
 
     def clear(self):
         self.docs = []
@@ -61,8 +59,10 @@ class RetrievalContext:
 
     def get_embedding(self, doc):
         """Gets embeddings for a document"""
-        tokens = self.tokenizer.encode(doc).ids
-        output = self.model.forward_batch([tokens])
+        tokenizer, model = get_model("jncraton/all-MiniLM-L6-v2-ct2-int8")
+
+        tokens = tokenizer.encode(doc).ids
+        output = model.forward_batch([tokens])
         embedding = np.mean(np.array(output.last_hidden_state), axis=1)[0]
         embedding = embedding / np.linalg.norm(embedding)
         return embedding
@@ -96,14 +96,19 @@ class RetrievalContext:
             self.store_chunks(doc)
 
     def store_chunks(self, doc):
-        tokens = self.chunk_tokenizer.EncodeAsPieces(doc)
+        # Note that the tokenzier used here is from the generative model
+        # This is used for token counting for the context, not for tokenization
+        # before embedding
+        generative_tokenizer, _ = get_model("jncraton/LaMini-Flan-T5-248M-ct2-int8")
+
+        tokens = generative_tokenizer.EncodeAsPieces(doc)
 
         end = max(len(tokens) - self.chunk_overlap, 1)
         stride = self.chunk_size - self.chunk_overlap
 
         for i in range(0, end, stride):
             chunk = tokens[i : i + self.chunk_size]
-            text = self.chunk_tokenizer.Decode(chunk)
+            text = generative_tokenizer.Decode(chunk)
             embedding = self.get_embedding(text)
             self.chunk_embeddings.append(embedding)
             self.chunks.append(text)
@@ -128,8 +133,10 @@ class RetrievalContext:
         chunks = []
         tokens = 0
 
+        generative_tokenizer, _ = get_model("jncraton/LaMini-Flan-T5-248M-ct2-int8")
+
         for chunk, score in doc_score_pairs:
-            chunk_tokens = len(self.chunk_tokenizer.EncodeAsPieces(chunk))
+            chunk_tokens = len(generative_tokenizer.EncodeAsPieces(chunk))
             if tokens + chunk_tokens <= max_tokens and score > 0.1:
                 chunks.append(chunk)
                 tokens += chunk_tokens
