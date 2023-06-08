@@ -163,6 +163,16 @@ def chat(prompt: str) -> str:
     # Suppress all user messages to avoid repeating them
     suppress += [m["content"] for m in messages if m["role"] == "user"]
 
+    system_msgs = [m for m in messages if m["role"] == "system"]
+    assistant_msgs = [m for m in messages if m["role"] == "assistant"]
+    user_msgs = [m for m in messages if m["role"] == "user"]
+
+    # Use only the most recent user and assistant message for context
+    # Keep all system messages
+    # The current model is really tuned on instructions and tends to get
+    # lost if it sees too many questions
+    messages = system_msgs + assistant_msgs[-1:] + user_msgs[-1:]
+
     rolemap = {
         "system": "System",
         "user": "Question",
