@@ -40,7 +40,7 @@ This will require downloading a significant amount of data (~250MB) on the first
 Model Performance
 -----------------
 
-The underlying models used by this package were selected as the best in their size class. These models are 1000x smaller than the largest models in use today. They are useful as learning tools, but if you are expecting ChatGPT or similar performance, you will be very disappointed.
+The models used by this package are 1000x smaller than the largest models in use today. They are useful as learning tools, but if you are expecting ChatGPT or similar performance, you will be very disappointed.
 
 Example Usage
 -------------
