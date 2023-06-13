@@ -2,7 +2,7 @@
 
 A live version of this bot is available here:
 
-https://jncraton-languagemodels-examplesstreamlitchat-g68aa2.streamlit.app/
+https://jncraton-languagemodels-examplesstreamlitchat-s4uj7z.streamlit.app/
 """
 
 import streamlit as st
