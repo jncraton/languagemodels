@@ -145,11 +145,11 @@ def get_model(model_type):
     else:
         raise ModelException(f"Invalid model: {model_type}")
 
-    if os.environ.get("LANGUAGEMODELS_SIZE") == "small":
+    if get_max_ram() < .5:
         model_name = model_name.replace("base", "small")
         model_name = model_name.replace("248M", "77M")
 
-    if os.environ.get("LANGUAGEMODELS_SIZE") == "large":
+    if get_max_ram() >= 1.0:
         model_name = model_name.replace("base", "large")
         model_name = model_name.replace("248M", "783M")
 
