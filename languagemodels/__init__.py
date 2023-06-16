@@ -189,17 +189,19 @@ def classify(doc: str, label1: str, label2: str) -> str:
     :return: The closest matching class. The return value will always be
     `label1` or `label2`
 
-    >>> classify("I love you!","positive","negative") #doctest: +SKIP
+    >>> classify("I love you!","positive","negative")
     'positive'
-    >>> classify("That book was fine.","positive","negative") #doctest: +SKIP
+    >>> classify("That book was fine.","positive","negative")
     'positive'
-    >>> classify("That movie was terrible.","positive","negative") #doctest: +SKIP
+    >>> classify("That movie was terrible.","positive","negative")
     'negative'
-    >>> classify("The submarine is diving", "ocean", "space") #doctest: +SKIP
+    >>> classify("The submarine is diving", "ocean", "land")
     'ocean'
     """
 
-    return generate_instruct(f"Classify as {label1} or {label2}: {doc}", max_tokens=5)
+    result = generate_instruct(f"Classify as {label1} or {label2}: {doc}", max_tokens=5)
+
+    return result.lower().rstrip('.')
 
 
 def store_doc(doc: str) -> None:
