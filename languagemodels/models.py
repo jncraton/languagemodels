@@ -139,19 +139,18 @@ def get_model(model_type):
     <class 'ctranslate2._ext.Encoder'>
     """
     if model_type == "instruct":
-        model_name = "jncraton/LaMini-Flan-T5-248M-ct2-int8"
+        if get_max_ram() >= 4.0:
+            model_name = "jncraton/flan-alpaca-xl-ct2-int8"
+        elif get_max_ram() >= 1.0:
+            model_name = "jncraton/LaMini-Flan-T5-783M-ct2-int8"
+        elif get_max_ram() >= 0.5:
+            model_name = "jncraton/LaMini-Flan-T5-248M-ct2-int8"
+        else:
+            model_name = "jncraton/LaMini-Flan-T5-77M-ct2-int8"
     elif model_type == "embedding":
         model_name = "jncraton/all-MiniLM-L6-v2-ct2-int8"
     else:
         raise ModelException(f"Invalid model: {model_type}")
-
-    if get_max_ram() < .5:
-        model_name = model_name.replace("base", "small")
-        model_name = model_name.replace("248M", "77M")
-
-    if get_max_ram() >= 1.0:
-        model_name = model_name.replace("base", "large")
-        model_name = model_name.replace("248M", "783M")
 
     if model_name not in modelcache:
         hf_hub_download(model_name, "config.json")
