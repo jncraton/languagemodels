@@ -6,7 +6,7 @@ import ctranslate2
 
 
 modelcache = {}
-max_ram = 0.5
+max_ram = None
 
 
 class ModelException(Exception):
@@ -18,11 +18,32 @@ def get_max_ram():
 
     max ram will be in GB
 
-    >>> get_max_ram()
-    0.5
+    If set_max_ram() has been called, that value will be returned
+
+    Otherwise, value from LANGUAGEMODELS_SIZE env var will be used
+
+    Otherwise, default of 0.5 is returned
     """
 
-    return max_ram
+    if max_ram:
+        return max_ram
+
+    env = os.environ.get("LANGUAGEMODELS_SIZE").lower()
+
+    if env:
+        if env == 'small':
+            return 0.25
+        if env == 'base':
+            return 0.5
+        if env == 'large':
+            return 1.0
+        if env == 'xl':
+            return 4.0
+        if env == 'xxl':
+            return 16.0
+        return convert_mb(env)
+
+    return 0.5
 
 
 def convert_mb(space):
