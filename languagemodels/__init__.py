@@ -100,13 +100,21 @@ def do(prompt: str) -> str:
     >>> do("Translate Spanish to English: Hola mundo!")
     'Hello world!'
 
-    >>> do("Pick the sport: baseball, texas, chemistry")
+    >>> do("Pick the sport from the list: baseball, texas, chemistry")
     'Baseball.'
 
     >>> do("Is the following positive or negative: I love Star Trek.")
     'Positive.'
     """
-    return generate_instruct(prompt, max_tokens=200, topk=1)
+    result = generate_instruct(prompt, max_tokens=200, topk=1)
+
+    if len(result.split()) == 1:
+        result = result.title()
+
+        if result[-1] not in (".", "!", "?"):
+            result = result + "."
+
+    return result
 
 
 def chat(prompt: str) -> str:
