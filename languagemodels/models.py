@@ -72,6 +72,9 @@ def convert_mb(space):
     4
     """
 
+    if isinstance(space, int) or isinstance(space, float):
+        return space
+
     multipliers = {
         "g": 2 ** 10,
         "m": 1.0,
