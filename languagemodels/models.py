@@ -52,9 +52,9 @@ def convert_mb(space):
     """
 
     multipliers = {
-        "g": 2**10,
+        "g": 2 ** 10,
         "m": 1.0,
-        "k": 2**-10,
+        "k": 2 ** -10,
     }
 
     space = space.lower()
