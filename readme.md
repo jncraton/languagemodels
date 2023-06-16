@@ -162,10 +162,6 @@ Advanced Usage
 
 This package is not meant for advanced usage. If you are looking for something more powerful you could explore [transformers](https://huggingface.co/docs/transformers) from Hugging Face. For integrating language models in more complex ways, [LangChain](https://github.com/hwchase17/langchain) or [guidance](https://github.com/microsoft/guidance) may be helpful.
 
-### Large models
-
-The default model used for inference is around 250M parameters. There is a larger model that can be used if you don't mind things working a little more slowly. It can be enabled by setting the `LANGUAGEMODELS_SIZE` environment variable to `large`. This model isn't large by modern standards and should still work quickly in most environments (but not the lowest tier repl.it instance).
-
 Projects Ideas
 --------------
 
