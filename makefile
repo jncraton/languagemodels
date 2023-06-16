@@ -3,6 +3,7 @@ all: test
 test: lint
 	python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/*.py
 	env LANGUAGEMODELS_SIZE=large python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/*.py
+	env LANGUAGEMODELS_SIZE=xl python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/*.py
 
 lint:
 	flake8 --max-line-length 88 --extend-ignore E203 languagemodels/*.py examples/*.py
