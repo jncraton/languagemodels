@@ -6,10 +6,23 @@ import ctranslate2
 
 
 modelcache = {}
+max_ram = 0.5
 
 
 class ModelException(Exception):
     pass
+
+
+def get_max_ram():
+    """Return max total RAM to use for models
+
+    max ram will be in GB
+
+    >>> get_max_ram()
+    0.5
+    """
+
+    return max_ram
 
 
 def convert_mb(space):
