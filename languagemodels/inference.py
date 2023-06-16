@@ -80,6 +80,7 @@ def generate_instruct(
     prompt,
     max_tokens=200,
     temperature=0.1,
+    topk=1,
     repetition_penalty=1.2,
     prefix="",
     suppress=[],
@@ -106,7 +107,7 @@ def generate_instruct(
         repetition_penalty=repetition_penalty,
         max_decoding_length=max_tokens,
         sampling_temperature=temperature,
-        sampling_topk=40,
+        sampling_topk=topk,
         suppress_sequences=suppress,
         beam_size=2,
     )

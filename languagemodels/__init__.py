@@ -106,7 +106,7 @@ def do(prompt: str) -> str:
     >>> do("Is the following positive or negative: I love Star Trek.")
     'Positive.'
     """
-    return generate_instruct(prompt, max_tokens=200)
+    return generate_instruct(prompt, max_tokens=200, topk=1)
 
 
 def chat(prompt: str) -> str:
