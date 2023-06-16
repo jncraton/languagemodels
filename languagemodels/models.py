@@ -49,6 +49,12 @@ def get_max_ram():
 
     >>> get_max_ram()
     2.0
+
+    >>> set_max_ram(.5)
+    0.5
+
+    >>> get_max_ram()
+    0.5
     """
 
     if max_ram:
