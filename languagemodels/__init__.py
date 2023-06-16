@@ -2,6 +2,7 @@ import requests
 import datetime
 import json
 
+from languagemodels.models import set_max_ram
 from languagemodels.inference import generate_instruct, parse_chat, list_tokens
 from languagemodels.embeddings import RetrievalContext
 
