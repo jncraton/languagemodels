@@ -1,6 +1,6 @@
 import numpy as np
 
-from languagemodels.inference import get_model
+from languagemodels.models import get_model
 
 
 def cosine_similarity(a, b):
