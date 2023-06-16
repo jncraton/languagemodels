@@ -31,15 +31,15 @@ def get_max_ram():
     env = os.environ.get("LANGUAGEMODELS_SIZE").lower()
 
     if env:
-        if env == 'small':
+        if env == "small":
             return 0.25
-        if env == 'base':
+        if env == "base":
             return 0.5
-        if env == 'large':
+        if env == "large":
             return 1.0
-        if env == 'xl':
+        if env == "xl":
             return 4.0
-        if env == 'xxl':
+        if env == "xxl":
             return 16.0
         return convert_mb(env)
 
