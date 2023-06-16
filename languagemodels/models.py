@@ -75,6 +75,7 @@ def get_max_ram():
             return 4.0
         if env == "xxl":
             return 16.0
+
         return convert_to_gb(env)
 
     return 0.5
