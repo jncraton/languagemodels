@@ -13,6 +13,22 @@ class ModelException(Exception):
 
 
 def get_model(model_type):
+    """ Gets a model from the loaded model cache
+
+    >>> tokenizer, model = get_model("instruct")
+    >>> type(tokenizer)
+    <class 'sentencepiece.SentencePieceProcessor'>
+
+    >>> type(model)
+    <class 'ctranslate2._ext.Translator'>
+
+    >>> tokenizer, model = get_model("embedding")
+    >>> type(tokenizer)
+    <class 'tokenizers.Tokenizer'>
+
+    >>> type(model)
+    <class 'ctranslate2._ext.Encoder'>
+    """
     if model_type == "instruct":
         model_name = "jncraton/LaMini-Flan-T5-248M-ct2-int8"
     elif model_type == "embedding":
