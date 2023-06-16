@@ -21,7 +21,7 @@ def set_max_ram(value):
     Returns the numeric value set in GB
 
     >>> set_max_ram(16)
-    16
+    16.0
 
     >>> set_max_ram('512mb')
     0.5
@@ -43,6 +43,12 @@ def get_max_ram():
     Otherwise, value from LANGUAGEMODELS_SIZE env var will be used
 
     Otherwise, default of 0.5 is returned
+
+    >>> set_max_ram(2)
+    2.0
+
+    >>> get_max_ram()
+    2.0
     """
 
     if max_ram:
@@ -90,7 +96,7 @@ def convert_to_gb(space):
     """
 
     if isinstance(space, int) or isinstance(space, float):
-        return space
+        return float(space)
 
     multipliers = {
         "g": 1.0,
