@@ -13,6 +13,18 @@ class ModelException(Exception):
     pass
 
 
+def set_max_ram(value):
+    """Sets max allowed RAM
+
+    This value takes priority over environment variables
+
+    >>> set_max_ram(16)
+    """
+    global max_ram
+
+    max_ram = convert_mb(value)
+
+
 def get_max_ram():
     """Return max total RAM to use for models
 
