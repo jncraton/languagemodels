@@ -175,7 +175,7 @@ def get_model(model_type):
 
             modelcache[model_name] = (
                 tokenizer,
-                ctranslate2.Translator(model_base_path),
+                ctranslate2.Translator(model_base_path, compute_type="int8"),
             )
 
     return modelcache[model_name]
