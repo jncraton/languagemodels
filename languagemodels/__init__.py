@@ -8,58 +8,6 @@ from languagemodels.embeddings import RetrievalContext
 docs = RetrievalContext()
 
 
-def print_tokens(prompt: str) -> None:
-    """Prints a list of tokens in a prompt
-
-    This function is provided for exploratory purposes only. It may return
-    different tokens than the underlying model and may not match the
-    tokenization of any backend API being used.
-
-    :param prompt: Prompt to use as input to tokenizer
-    :return: Nothing
-
-    Examples:
-
-    >>> print_tokens("Hello world")
-    ' Hello' (token 8774)
-    ' world' (token 296)
-
-    >>> print_tokens("Hola mundo")
-    ' Hol' (token 5838)
-    'a' (token 9)
-    ' mun' (token 13844)
-    'd' (token 26)
-    'o' (token 32)
-    """
-
-    tokens = list_tokens(prompt)
-
-    for token in tokens:
-        print(f"'{token[0].replace('▁',' ')}' (token {token[1]})")
-
-
-def count_tokens(prompt: str) -> None:
-    """Counts tokens in a prompt
-
-    This function is provided for exploratory purposes only. It may return
-    slightly different counts than the underlying model and may not match the
-    tokenization of any backend API being used.
-
-    :param prompt: Prompt to use as input to tokenizer
-    :return: Nothing
-
-    Examples:
-
-    >>> count_tokens("Hello world")
-    2
-
-    >>> count_tokens("Hola mundo")
-    5
-    """
-
-    return len(list_tokens(prompt))
-
-
 def complete(prompt: str) -> str:
     """Provide one completion for a given open-ended prompt
 
@@ -369,3 +317,55 @@ def get_date() -> str:
     now = datetime.datetime.now()
 
     return now.strftime("%A, %B %d, %Y at %I:%M%p")
+
+
+def print_tokens(prompt: str) -> None:
+    """Prints a list of tokens in a prompt
+
+    This function is provided for exploratory purposes only. It may return
+    different tokens than the underlying model and may not match the
+    tokenization of any backend API being used.
+
+    :param prompt: Prompt to use as input to tokenizer
+    :return: Nothing
+
+    Examples:
+
+    >>> print_tokens("Hello world")
+    ' Hello' (token 8774)
+    ' world' (token 296)
+
+    >>> print_tokens("Hola mundo")
+    ' Hol' (token 5838)
+    'a' (token 9)
+    ' mun' (token 13844)
+    'd' (token 26)
+    'o' (token 32)
+    """
+
+    tokens = list_tokens(prompt)
+
+    for token in tokens:
+        print(f"'{token[0].replace('▁',' ')}' (token {token[1]})")
+
+
+def count_tokens(prompt: str) -> None:
+    """Counts tokens in a prompt
+
+    This function is provided for exploratory purposes only. It may return
+    slightly different counts than the underlying model and may not match the
+    tokenization of any backend API being used.
+
+    :param prompt: Prompt to use as input to tokenizer
+    :return: Nothing
+
+    Examples:
+
+    >>> count_tokens("Hello world")
+    2
+
+    >>> count_tokens("Hola mundo")
+    5
+    """
+
+    return len(list_tokens(prompt))
