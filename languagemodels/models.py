@@ -18,11 +18,19 @@ def set_max_ram(value):
 
     This value takes priority over environment variables
 
+    Returns the numeric value set in GB
+
     >>> set_max_ram(16)
+    16
+
+    >>> set_max_ram('512mb')
+    0.5
     """
     global max_ram
 
-    max_ram = convert_mb(value)
+    max_ram = convert_to_gb(value)
+
+    return max_ram
 
 
 def get_max_ram():
@@ -53,55 +61,49 @@ def get_max_ram():
             return 4.0
         if env == "xxl":
             return 16.0
-        return convert_mb(env)
+        return convert_to_gb(env)
 
     return 0.5
 
 
-def convert_mb(space):
+def convert_to_gb(space):
     """Convert max RAM string to int
 
-    Output will be in megabytes
+    Output will be in gigabytes
 
     If not specified, input is assumed to be in gigabytes
 
-    >>> convert_mb("512")
-    524288
+    >>> convert_to_gb("512")
+    512.0
 
-    >>> convert_mb(".5")
-    512
+    >>> convert_to_gb(".5")
+    0.5
 
-    >>> convert_mb("4G")
-    4096
+    >>> convert_to_gb("4G")
+    4.0
 
-    >>> convert_mb("256mb")
-    256
+    >>> convert_to_gb("256mb")
+    0.25
 
-    >>> convert_mb("256mb")
-    256
-
-    >>> convert_mb("4096kb")
-    4
+    >>> convert_to_gb("256M")
+    0.25
     """
 
     if isinstance(space, int) or isinstance(space, float):
         return space
 
     multipliers = {
-        "g": 2 ** 10,
-        "m": 1.0,
-        "k": 2 ** -10,
+        "g": 1.0,
+        "m": 2 ** -10,
     }
 
     space = space.lower()
     space = space.rstrip("b")
 
     if space[-1] in multipliers:
-        mb = float(space[:-1]) * multipliers[space[-1]]
+        return float(space[:-1]) * multipliers[space[-1]]
     else:
-        mb = float(space) * 1024
-
-    return int(mb)
+        return float(space)
 
 
 def get_model(model_type):
