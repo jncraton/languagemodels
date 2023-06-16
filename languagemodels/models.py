@@ -12,8 +12,51 @@ class ModelException(Exception):
     pass
 
 
+def convert_mb(space):
+    """Convert max RAM string to int
+
+    Output will be in megabytes
+
+    If not specified, input is assumed to be in gigabytes
+
+    >>> convert_mb("512")
+    524288
+
+    >>> convert_mb(".5")
+    512
+
+    >>> convert_mb("4G")
+    4096
+
+    >>> convert_mb("256mb")
+    256
+
+    >>> convert_mb("256mb")
+    256
+
+    >>> convert_mb("4096kb")
+    4
+    """
+
+    multipliers = {
+        "g": 2**10,
+        "m": 1.0,
+        "k": 2**-10,
+    }
+
+    space = space.lower()
+    space = space.rstrip("b")
+
+    if space[-1] in multipliers:
+        mb = float(space[:-1]) * multipliers[space[-1]]
+    else:
+        mb = float(space) * 1024
+
+    return int(mb)
+
+
 def get_model(model_type):
-    """ Gets a model from the loaded model cache
+    """Gets a model from the loaded model cache
 
     >>> tokenizer, model = get_model("instruct")
     >>> type(tokenizer)
