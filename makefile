@@ -1,6 +1,8 @@
-all: test
+all: lint test
 
-test: lint
+.PHONY: test lint format spellcheck upload clean
+
+test:
 	python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/*.py
 	env LANGUAGEMODELS_SIZE=large python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/*.py
 	env LANGUAGEMODELS_SIZE=xl python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/*.py
