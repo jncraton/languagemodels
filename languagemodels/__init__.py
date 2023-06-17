@@ -98,6 +98,8 @@ def chat(prompt: str) -> str:
     :param message: Prompt using formatting described above
     :return: Completion returned from the language model
 
+    Examples:
+
     >>> chat('''
     ...      System: Respond as a helpful assistant. It is 5:15pm.
     ...
@@ -170,6 +172,8 @@ def extract_answer(question: str, context: str) -> str:
     :param context: Knowledge used to answer the question
     :return: Answer to the question.
 
+    Examples:
+
     >>> context = "There is a green ball and a red box"
     >>> extract_answer("What color is the ball?", context) #doctest: +SKIP
     'green'
@@ -188,6 +192,8 @@ def classify(doc: str, label1: str, label2: str) -> str:
     :param label2: The second label to classify against
     :return: The closest matching class. The return value will always be
     `label1` or `label2`
+
+    Examples:
 
     >>> classify("I love you!","positive","negative")
     'positive'
@@ -209,6 +215,8 @@ def store_doc(doc: str) -> None:
 
     :param doc: A plain text document to store.
 
+    Examples:
+
     >>> store_doc("The sky is blue.")
     """
     docs.store(doc)
@@ -221,6 +229,8 @@ def load_doc(query: str) -> str:
 
     :param query: Query to compare to stored documents
     :return: Content of the closest matching document
+
+    Examples:
 
     >>> store_doc("Paris is in France.")
     >>> store_doc("The sky is blue.")
@@ -238,6 +248,8 @@ def get_doc_context(query: str) -> str:
 
     :param query: Query to compare to stored documents
     :return: Up to 128 tokens of context
+
+    Examples:
 
     >>> store_doc("Paris is in France.")
     >>> store_doc("Paris is nice.")
@@ -257,6 +269,8 @@ def get_wiki(topic: str) -> str:
 
     :param topic: Topic to search for on Wikipedia
     :return: Text content of the lead section of the most popular matching article
+
+    Examples:
 
     >>> get_wiki('Python')
     'Python is a high-level...'
@@ -295,6 +309,8 @@ def get_weather(latitude, longitude):
     :param longitude: Longitude value representing this location
     :return: Plain text description of the current weather forecast
 
+    Examples:
+
     >>> get_weather(41.8, -87.6) # doctest: +SKIP
     'Scattered showers and thunderstorms before 1pm with a high of 73.'
     """
@@ -325,10 +341,6 @@ def get_date() -> str:
 def print_tokens(prompt: str) -> None:
     """Prints a list of tokens in a prompt
 
-    This function is provided for exploratory purposes only. It may return
-    different tokens than the underlying model and may not match the
-    tokenization of any backend API being used.
-
     :param prompt: Prompt to use as input to tokenizer
     :return: Nothing
 
@@ -354,10 +366,6 @@ def print_tokens(prompt: str) -> None:
 
 def count_tokens(prompt: str) -> None:
     """Counts tokens in a prompt
-
-    This function is provided for exploratory purposes only. It may return
-    slightly different counts than the underlying model and may not match the
-    tokenization of any backend API being used.
 
     :param prompt: Prompt to use as input to tokenizer
     :return: Nothing
