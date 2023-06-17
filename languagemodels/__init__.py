@@ -201,7 +201,7 @@ def classify(doc: str, label1: str, label2: str) -> str:
 
     result = generate_instruct(f"Classify as {label1} or {label2}: {doc}", max_tokens=5)
 
-    return result.lower().rstrip('.')
+    return result.lower().rstrip(".")
 
 
 def store_doc(doc: str) -> None:
