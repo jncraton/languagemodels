@@ -141,7 +141,7 @@ def generate_instruct(
         sampling_temperature=temperature,
         sampling_topk=topk,
         suppress_sequences=suppress,
-        beam_size=2,
+        beam_size=1,
     )
 
     output_tokens = results[0].hypotheses[0]
