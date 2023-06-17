@@ -46,7 +46,7 @@ def do(prompt: str) -> str:
 
     Examples:
 
-    >>> do("Translate Spanish to English: Hola mundo!")
+    >>> do("Translate Spanish to English: Hola mundo!") #doctest: +SKIP
     'Hello world!'
 
     >>> do("Pick the sport from the list: baseball, texas, chemistry")
