@@ -22,7 +22,7 @@ setuptools.setup(
     install_requires=[
         "sentencepiece",
         "huggingface_hub",
-        "ctranslate2",
+        "ctranslate2>=3.15.0",
         "tokenizers",
        ],
 )
