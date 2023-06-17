@@ -76,6 +76,36 @@ def generate_oa(engine, prompt, max_tokens=200, temperature=0):
         raise InferenceException(f"OpenAI error: {resp}")
 
 
+def chat_oa(engine, prompt, max_tokens=200, temperature=0):
+    """Generates a single text response for a prompt using OpenAI
+
+    The server and API key are provided as environment variables:
+
+    LANGUAGEMODELS_OA_KEY is the API key
+    """
+    apikey = os.environ.get("LANGUAGEMODELS_OA_KEY")
+
+    response = requests.post(
+        "https://api.openai.com/v1/chat/completions",
+        headers={
+            "Authorization": f"Bearer {apikey}",
+            "Content-Type": "application/json",
+        },
+        json={
+            "model": engine,
+            "messages": [{"role": "user", "content": prompt}],
+            "max_tokens": max_tokens,
+            "temperature": temperature,
+        },
+    )
+    resp = response.json()
+
+    try:
+        return resp["choices"][0]["message"]["content"]
+    except KeyError:
+        raise InferenceException(f"OpenAI error: {resp}")
+
+
 def generate_instruct(
     prompt,
     max_tokens=200,
@@ -96,7 +126,7 @@ def generate_instruct(
         return generate_ts("flan_t5_xxl_q4", prompt, max_tokens).strip()
 
     if os.environ.get("LANGUAGEMODELS_OA_KEY"):
-        return generate_oa("text-curie-001", prompt, max_tokens).strip()
+        return chat_oa("gpt-3.5-turbo", prompt, max_tokens).strip()
 
     tokenizer, model = get_model("instruct")
 
