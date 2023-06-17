@@ -205,7 +205,9 @@ def classify(doc: str, label1: str, label2: str) -> str:
     'ocean'
     """
 
-    result = generate_instruct(f"Classify as {label1} or {label2}: {doc}\n\nClassification:", max_tokens=5)
+    result = generate_instruct(
+        f"Classify as {label1} or {label2}: {doc}\n\nClassification:", max_tokens=5
+    )
 
     return result.lower().rstrip(".")
 
