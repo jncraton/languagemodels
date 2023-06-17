@@ -191,7 +191,7 @@ def classify(doc: str, label1: str, label2: str) -> str:
 
     >>> classify("I love you!","positive","negative")
     'positive'
-    >>> classify("That book was fine.","positive","negative")
+    >>> classify("That book was good.","positive","negative")
     'positive'
     >>> classify("That movie was terrible.","positive","negative")
     'negative'
