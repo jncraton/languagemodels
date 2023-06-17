@@ -37,11 +37,6 @@ Once installed, you should be able to interact with the package in Python as fol
 
 This will require downloading a significant amount of data (~250MB) on the first run. Models will be cached for later use and subsequent calls should be quick.
 
-Model Performance
------------------
-
-The models used by this package are 1000x smaller than the largest models in use today. They are useful as learning tools, but if you are expecting ChatGPT or similar performance, you will be very disappointed.
-
 Example Usage
 -------------
 
@@ -143,7 +138,9 @@ a measure of the popularity of programming languages.'
 
 ### Performance
 
-The base model should work on any system with 512MB of memory, but this memory limit can be increased. Setting this value high will require more memory and generate results more slowly, but the results should be superior. Here's an example:
+The models used by this package are 1000x smaller than the largest models in use today. They are useful as learning tools, but if you are expecting ChatGPT or similar performance, you will be very disappointed.
+
+The base model should work on any system with 512MB of memory, but this memory limit can be increased. Setting this value higher will require more memory and generate results more slowly, but the results should be superior. Here's an example:
 
 ```python
 >>> import languagemodels as lm
