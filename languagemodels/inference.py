@@ -90,11 +90,13 @@ def generate_instruct(
     This may use a local model, or it may make an API call to an external
     model if API keys are available.
     """
-    if os.environ.get("ts_key") or os.environ.get("ts_server"):
-        return generate_ts("flan_t5_xxl_q4", prompt, max_tokens)
+    if os.environ.get("LANGUAGEMODELS_TS_KEY") or os.environ.get(
+        "LANGUAGEMODELS_TS_SERVER"
+    ):
+        return generate_ts("flan_t5_xxl_q4", prompt, max_tokens).strip()
 
-    if os.environ.get("oa_key"):
-        return generate_oa("text-babbage-001", prompt, max_tokens)
+    if os.environ.get("LANGUAGEMODELS_OA_KEY"):
+        return generate_oa("text-curie-001", prompt, max_tokens).strip()
 
     tokenizer, model = get_model("instruct")
 
