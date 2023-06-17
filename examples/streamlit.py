@@ -1,4 +1,9 @@
-"""A simple inference UI using Streamlit"""
+"""A simple inference UI using Streamlit
+
+A live version of this application is hosted here:
+
+https://jncraton-languagemodels-examplesstreamlit-0h6yr7.streamlit.app/
+"""
 
 import streamlit as st
 import languagemodels as lm
