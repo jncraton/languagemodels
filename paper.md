@@ -57,7 +57,7 @@ This package eliminates boilerplate and configuration options that are meaningle
 >>> lm.load_doc("What is Mars?")
 'Mars is a planet'
 
->>> lm.fetch_wiki('Chemistry')
+>>> lm.get_wiki('Chemistry')
 'Chemistry is the scientific study...'
 ```
 
@@ -71,7 +71,7 @@ Despite its simplicity, this package provides a number of building blocks that c
 - Zero-shot classification with the `classify` function
 - Semantic search via a document store using the `store_doc` and `load_doc` functions
 - Extractive question answering using the `extract_answer` function
-- Basic web retrieval using the `fetch_wiki` function
+- Basic web retrieval using the `get_wiki` function
 
 The package includes the following features under the hood
 

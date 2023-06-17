@@ -88,10 +88,10 @@ Helper functions are provided to retrieve text from external sources that can be
 ```python
 >>> import languagemodels as lm
 
->>> lm.fetch_wiki('Chemistry')
+>>> lm.get_wiki('Chemistry')
 'Chemistry is the scientific study...
 
->>> lm.fetch_weather(41.8, -87.6)
+>>> lm.get_weather(41.8, -87.6)
 'Partly cloudy with a chance of rain...
 
 >>> lm.get_date()
@@ -129,10 +129,10 @@ This can also be used to get a blend of context from stored documents:
 ```python
 >>> import languagemodels as lm
 
->>> lm.store_doc(lm.fetch_wiki("Python"))
->>> lm.store_doc(lm.fetch_wiki("C++"))
->>> lm.store_doc(lm.fetch_wiki("Javascript"))
->>> lm.store_doc(lm.fetch_wiki("Fortran"))
+>>> lm.store_doc(lm.get_wiki("Python"))
+>>> lm.store_doc(lm.get_wiki("C++"))
+>>> lm.store_doc(lm.get_wiki("Javascript"))
+>>> lm.store_doc(lm.get_wiki("Fortran"))
 >>> lm.get_doc_context("What does it mean for batteries to be included in a language?")
 'multiple programming paradigms, including structured (particularly procedural), object-oriented and functional programming. It is often described as a "batteries included" language due to its comprehensive standard library.Guido van Rossum began working on Python in the late 1980s as a successor to the ABC programming language
 

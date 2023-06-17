@@ -173,7 +173,7 @@ def extract_answer(question: str, context: str) -> str:
     >>> context = "There is a green ball and a red box"
     >>> extract_answer("What color is the ball?", context) #doctest: +SKIP
     'green'
-    >>> extract_answer("Who created Python?", fetch_wiki('Python')) #doctest: +SKIP
+    >>> extract_answer("Who created Python?", get_wiki('Python')) #doctest: +SKIP
     'Guido van Rossum'
     """
 
@@ -248,7 +248,7 @@ def get_doc_context(query: str) -> str:
     return docs.get_context(query)
 
 
-def fetch_wiki(topic: str) -> str:
+def get_wiki(topic: str) -> str:
     """
     Return Wikipedia summary for a topic
 
@@ -258,10 +258,10 @@ def fetch_wiki(topic: str) -> str:
     :param topic: Topic to search for on Wikipedia
     :return: Text content of the lead section of the most popular matching article
 
-    >>> fetch_wiki('Python')
+    >>> get_wiki('Python')
     'Python is a high-level...'
 
-    >>> fetch_wiki('Chemistry')
+    >>> get_wiki('Chemistry')
     'Chemistry is the scientific study...'
     """
 
@@ -285,7 +285,7 @@ def fetch_wiki(topic: str) -> str:
         return "No matching wiki page found."
 
 
-def fetch_weather(latitude, longitude):
+def get_weather(latitude, longitude):
     """Fetch the current weather for a supplied longitude and latitude
 
     Weather is provided by the US government and this function only supports
@@ -295,7 +295,7 @@ def fetch_weather(latitude, longitude):
     :param longitude: Longitude value representing this location
     :return: Plain text description of the current weather forecast
 
-    >>> fetch_weather(41.8, -87.6) # doctest: +SKIP
+    >>> get_weather(41.8, -87.6) # doctest: +SKIP
     'Scattered showers and thunderstorms before 1pm with a high of 73.'
     """
 
