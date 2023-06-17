@@ -60,7 +60,7 @@ Here are some usage examples as Python REPL sessions. This should work in the RE
 'Hello, world!'
 
 >>> lm.do("What is the capital of France?")
-'paris'
+'Paris.'
 ```
 
 ### Chat
