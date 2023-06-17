@@ -125,15 +125,13 @@ This can also be used to get a blend of context from stored documents:
 >>> import languagemodels as lm
 
 >>> lm.store_doc(lm.get_wiki("Python"))
->>> lm.store_doc(lm.get_wiki("C++"))
+>>> lm.store_doc(lm.get_wiki("C language"))
 >>> lm.store_doc(lm.get_wiki("Javascript"))
 >>> lm.store_doc(lm.get_wiki("Fortran"))
 >>> lm.get_doc_context("What does it mean for batteries to be included in a language?")
 'multiple programming paradigms, including structured (particularly procedural), object-oriented and functional programming. It is often described as a "batteries included" language due to its comprehensive standard library.Guido van Rossum began working on Python in the late 1980s as a successor to the ABC programming language
 
-C, or c, is the third letter in the Latin alphabet, used in the modern English alphabet, the alphabets of other western European languages and others worldwide. Its name in English is cee (pronounced ), plural cees.
-
-a measure of the popularity of programming languages.'
+often incorporating third-party libraries. All major web browsers have a dedicated JavaScript engine to execute the code on users\' devices. JavaScript is a high-level, often just-in-time compiled language that conforms to the ECMAScript standard. It has dynamic typing, prototype'
 ```
 
 ### Performance
