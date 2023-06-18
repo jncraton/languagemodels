@@ -212,16 +212,17 @@ def classify(doc: str, label1: str, label2: str) -> str:
     return result.lower().rstrip(".")
 
 
-def store_doc(doc: str) -> None:
+def store_doc(doc: str, name: str = "") -> None:
     """Store document for later retrieval
 
     :param doc: A plain text document to store.
+    :param name: Optional name for the document. This is used as a chunk prefix.
 
     Examples:
 
     >>> store_doc("The sky is blue.")
     """
-    docs.store(doc)
+    docs.store(doc, name)
 
 
 def load_doc(query: str) -> str:

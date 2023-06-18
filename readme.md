@@ -123,15 +123,15 @@ This can also be used to get a blend of context from stored documents:
 
 ```python
 >>> import languagemodels as lm
-
->>> lm.store_doc(lm.get_wiki("Python"))
->>> lm.store_doc(lm.get_wiki("C language"))
->>> lm.store_doc(lm.get_wiki("Javascript"))
->>> lm.store_doc(lm.get_wiki("Fortran"))
+>>> lm.store_doc(lm.get_wiki("Python"), "Python")
+>>> lm.store_doc(lm.get_wiki("C language"), "C")
+>>> lm.store_doc(lm.get_wiki("Javascript"), "Javascript")
 >>> lm.get_doc_context("What does it mean for batteries to be included in a language?")
-'multiple programming paradigms, including structured (particularly procedural), object-oriented and functional programming. It is often described as a "batteries included" language due to its comprehensive standard library.Guido van Rossum began working on Python in the late 1980s as a successor to the ABC programming language
+'Python: It is often described as a "batteries included" language due to its comprehensive standard library.Guido van Rossum began working on Python in the late 1980s as a successor to the ABC programming language and first released it in 1991 as Python 0.9.
 
-often incorporating third-party libraries. All major web browsers have a dedicated JavaScript engine to execute the code on users\' devices. JavaScript is a high-level, often just-in-time compiled language that conforms to the ECMAScript standard. It has dynamic typing, prototype'
+C: It was designed to be compiled to provide low-level access to memory and language constructs that map efficiently to machine instructions, all with minimal runtime support.
+
+C: The book The C Programming Language, co-authored by the original language designer, served for many years as the de facto standard for the language.'
 ```
 
 ### Performance
