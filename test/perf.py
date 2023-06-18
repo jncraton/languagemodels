@@ -1,11 +1,15 @@
 import languagemodels as lm
 import time
-import resource
 import json
+import os
+import psutil
 
 
 def mem_used_gb():
-    return resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1e6
+    process = psutil.Process(os.getpid())
+    bytes = process.memory_info().rss
+    gigabytes = bytes * 1e-9
+    return gigabytes
 
 
 print(f"Memory used before loading models: {mem_used_gb():.2f}GB")
