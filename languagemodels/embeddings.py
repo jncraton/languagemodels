@@ -62,7 +62,7 @@ class RetrievalContext:
         tokenizer, model = get_model("embedding")
 
         tokens = tokenizer.encode(doc).ids
-        output = model.forward_batch([tokens])
+        output = model.forward_batch([tokens[:512]])
         embedding = np.mean(np.array(output.last_hidden_state), axis=1)[0]
         embedding = embedding / np.linalg.norm(embedding)
         return embedding
