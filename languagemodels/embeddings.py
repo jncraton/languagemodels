@@ -67,7 +67,7 @@ class RetrievalContext:
         embedding = embedding / np.linalg.norm(embedding)
         return embedding
 
-    def store(self, doc):
+    def store(self, doc, name=""):
         """Stores a document along with embeddings
 
         This stores both the document as well as document chunks
@@ -87,15 +87,35 @@ class RetrievalContext:
         >>> rc.store('Python')
         >>> len(rc.chunks)
         1
+
+        >>> rc.clear()
+        >>> rc.store('It is a language.', 'Python')
+        >>> len(rc.chunks)
+        1
+        >>> rc.chunks
+        ['Python: It is a language.']
+
+        >>> rc = RetrievalContext()
+        >>> rc.clear()
+        >>> rc.store('details ' * 225, 'Python')
+        >>> len(rc.chunks)
+        5
+
+        >>> rc.clear()
+        >>> rc.store('details ' * 224, 'Python')
+        >>> len(rc.chunks)
+        4
+        >>> rc.chunks
+        ['Python: details details details...']
         """
 
         if doc not in self.docs:
             embedding = self.get_embedding(doc)
             self.embeddings.append(embedding)
             self.docs.append(doc)
-            self.store_chunks(doc)
+            self.store_chunks(doc, name)
 
-    def store_chunks(self, doc):
+    def store_chunks(self, doc, name=""):
         # Note that the tokenzier used here is from the generative model
         # This is used for token counting for the context, not for tokenization
         # before embedding
@@ -103,38 +123,37 @@ class RetrievalContext:
 
         tokens = generative_tokenizer.EncodeAsPieces(doc)
 
+        name_tokens = []
+
+        if name:
+            name_tokens = generative_tokenizer.EncodeAsPieces(f"{name}:")
+
         i = 0
-        chunk = []
+        chunk = name_tokens.copy()
         while i < len(tokens):
-            chunk.append(tokens[i])
+            token = tokens[i]
+            chunk.append(token)
+            i += 1
+
             # Begin looking for probable sentence when half of target size
-            if len(chunk) > self.chunk_size / 2:
-                if tokens[i] in [".", "!", "?", ")."]:
-                    # Probable sentence break. Store tokens and start next chunk
-                    text = generative_tokenizer.Decode(chunk)
-                    embedding = self.get_embedding(text)
-                    self.chunk_embeddings.append(embedding)
-                    self.chunks.append(text)
-                    chunk = []
-            # Chunk is at max size without finding probable sentence
-            if len(chunk) == self.chunk_size:
+
+            full = len(chunk) == self.chunk_size
+            half_full = len(chunk) > self.chunk_size / 2
+            eof = i == len(tokens)
+            sep = token in [".", "!", "?", ")."]
+
+            if eof or full or (half_full and sep):
+                # Store tokens and start next chunk
                 text = generative_tokenizer.Decode(chunk)
                 embedding = self.get_embedding(text)
                 self.chunk_embeddings.append(embedding)
                 self.chunks.append(text)
-                chunk = []
-                if i + 1 < len(tokens):
+                chunk = name_tokens.copy()
+                if full and not eof:
+                    # If the heuristic didn't get a semantic boundary, overlap
+                    # next chunk to provide some context
                     i -= self.chunk_overlap
                     i = max(0, i)
-
-            i += 1
-
-        if chunk:
-            text = generative_tokenizer.Decode(chunk)
-            embedding = self.get_embedding(text)
-            self.chunk_embeddings.append(embedding)
-            self.chunks.append(text)
-            chunk = []
 
     def get_context(self, query, max_tokens=128):
         """Gets context matching a query
