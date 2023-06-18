@@ -7,7 +7,7 @@ Language Models
 [![ARM64 Build](https://github.com/jncraton/languagemodels/actions/workflows/pi.yml/badge.svg)](https://github.com/jncraton/languagemodels/actions/workflows/pi.yml)[![Netlify Status](https://api.netlify.com/api/v1/badges/722e625a-c6bc-4373-bd88-c017adc58c00/deploy-status)](https://app.netlify.com/sites/languagemodels/deploys)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jncraton/languagemodels/blob/master/examples/translate.ipynb)
 
-Python building blocks to explore large language models on any computer with 512MB of RAM
+Python building blocks to explore language models on any computer with 512MB of RAM
 
 [![Try with Replit Badge](https://replit.com/badge?caption=Try%20with%20Replit&variant=small)](https://replit.com/@jncraton/langaugemodels#main.py)
 
@@ -16,7 +16,7 @@ Python building blocks to explore large language models on any computer with 512
 Target Audience
 ---------------
 
-This package is designed to be as simple as possible for **learners** and **educators** exploring how large language models intersect with modern software development. The interfaces to this package are all simple functions using standard types. The complexity of large language models is hidden from view while providing free local inference using light-weight, open models. All included models are free for educational use, no API keys are required, and all inference is performed locally by default.
+This package is designed to be as simple as possible for **learners** and **educators** exploring how language models intersect with modern software development. The interfaces to this package are all simple functions using standard types. The complexity of language models is hidden from view while providing free local inference using light-weight, open models. All included models are free for educational use, no API keys are required, and all inference is performed locally by default.
 
 Installation and Getting Started
 --------------------------------
