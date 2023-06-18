@@ -103,15 +103,38 @@ class RetrievalContext:
 
         tokens = generative_tokenizer.EncodeAsPieces(doc)
 
-        end = max(len(tokens) - self.chunk_overlap, 1)
-        stride = self.chunk_size - self.chunk_overlap
+        i = 0
+        chunk = []
+        while i < len(tokens):
+            chunk.append(tokens[i])
+            # Begin looking for probable sentence when half of target size
+            if len(chunk) > self.chunk_size / 2:
+                if tokens[i] in [".", "!", "?", ")."]:
+                    # Probable sentence break. Store tokens and start next chunk
+                    text = generative_tokenizer.Decode(chunk)
+                    embedding = self.get_embedding(text)
+                    self.chunk_embeddings.append(embedding)
+                    self.chunks.append(text)
+                    chunk = []
+            # Chunk is at max size without finding probable sentence
+            if len(chunk) == self.chunk_size:
+                text = generative_tokenizer.Decode(chunk)
+                embedding = self.get_embedding(text)
+                self.chunk_embeddings.append(embedding)
+                self.chunks.append(text)
+                chunk = []
+                if i + 1 < len(tokens):
+                    i -= self.chunk_overlap
+                    i = max(0, i)
 
-        for i in range(0, end, stride):
-            chunk = tokens[i : i + self.chunk_size]
+            i += 1
+
+        if chunk:
             text = generative_tokenizer.Decode(chunk)
             embedding = self.get_embedding(text)
             self.chunk_embeddings.append(embedding)
             self.chunks.append(text)
+            chunk = []
 
     def get_context(self, query, max_tokens=128):
         """Gets context matching a query
