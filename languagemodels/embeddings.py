@@ -4,9 +4,9 @@ from languagemodels.models import get_model
 
 
 def cosine_similarity(a, b):
-    dot_product = sum(ai * bi for ai, bi in zip(a, b))
-    magnitude_a = sum(ai ** 2 for ai in a) ** 0.5
-    magnitude_b = sum(bi ** 2 for bi in b) ** 0.5
+    dot_product = np.dot(a, b)
+    magnitude_a = np.linalg.norm(a)
+    magnitude_b = np.linalg.norm(b)
     return dot_product / (magnitude_a * magnitude_b)
 
 
