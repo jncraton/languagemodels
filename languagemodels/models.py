@@ -42,7 +42,7 @@ def get_max_ram():
 
     Otherwise, value from LANGUAGEMODELS_SIZE env var will be used
 
-    Otherwise, default of 0.5 is returned
+    Otherwise, default of 0.45 is returned
 
     >>> set_max_ram(2)
     2.0
@@ -66,9 +66,9 @@ def get_max_ram():
         env = env.lower()
 
         if env == "small":
-            return 0.25
+            return 0.2
         if env == "base":
-            return 0.5
+            return 0.45
         if env == "large":
             return 1.0
         if env == "xl":
@@ -78,7 +78,7 @@ def get_max_ram():
 
         return convert_to_gb(env)
 
-    return 0.5
+    return 0.45
 
 
 def convert_to_gb(space):
@@ -143,7 +143,7 @@ def get_model(model_type):
             model_name = "jncraton/flan-alpaca-xl-ct2-int8"
         elif get_max_ram() >= 1.0:
             model_name = "jncraton/LaMini-Flan-T5-783M-ct2-int8"
-        elif get_max_ram() >= 0.5:
+        elif get_max_ram() >= 0.45:
             model_name = "jncraton/LaMini-Flan-T5-248M-ct2-int8"
         else:
             model_name = "jncraton/LaMini-Flan-T5-77M-ct2-int8"
