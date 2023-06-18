@@ -7,6 +7,9 @@ tests = [
     ("Lungs are used for respiration in mammals. Computers are machines that do not respirate. Would you expect computers to have lungs?", "No"),
     ("A game uses a bat and ball. Is it baseball or soccer?", "Baseball"),
     ("Is grass green or blue?", "Green"),
+    ("Classify as positive or negative: He smells gross", "Negative"),
+    ("Does a car have more wheels than a bike?", "Yes"),
+    ("I have 3 books then lose 1. How many books do I have. Think step by step to get the correct answer.", "2"),
 ]
 
 accuracy = 0
@@ -42,6 +45,6 @@ print(
 
 print(f"{(time.perf_counter_ns() - start)/chars_generated/1e6:.0f}ms per character generated")
 
-print(f"Overall accuracy: {accuracy}")
+print(f"Overall accuracy: {accuracy:.2f}")
 
 print(f"Memory used after running tests: {mem_used_gb():.2f}GB")
