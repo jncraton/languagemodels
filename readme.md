@@ -66,7 +66,7 @@ Here are some usage examples as Python REPL sessions. This should work in the RE
 ### Chat
 
 ```python
->>> chat('''
+>>> lm.chat('''
 ...      System: Respond as a helpful assistant.
 ...
 ...      User: What time is it?
@@ -96,7 +96,7 @@ Helper functions are provided to retrieve text from external sources that can be
 Here's an example showing how this can be used (compare to previous chat example):
 
 ```python
->>> chat(f'''
+>>> lm.chat(f'''
 ...      System: Respond as a helpful assistant. It is {lm.get_date()}
 ...
 ...      User: What time is it?
