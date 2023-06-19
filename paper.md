@@ -52,13 +52,13 @@ This package eliminates boilerplate and configuration options that are meaningle
 >>> lm.extract_answer("What color is the ball?", "There is a green ball and a red box")
 'green'
 
->>> lm.store_doc("Mars is a planet")
->>> lm.store_doc("The sun is hot")
->>> lm.load_doc("What is Mars?")
-'Mars is a planet'
-
 >>> lm.get_wiki('Chemistry')
 'Chemistry is the scientific study...'
+
+>>> lm.store_doc(lm.get_wiki("Python"), "Python")
+>>> lm.store_doc(lm.get_wiki("Javascript"), "Javascript")
+>>> lm.get_doc_context("What does it mean for batteries to be included in a language?")
+'Python: It is often described as a "batteries included" language due to its comprehensive standard library...
 ```
 
 # Features
@@ -69,7 +69,7 @@ Despite its simplicity, this package provides a number of building blocks that c
 - Instruction following with the `do` function
 - Chat-style inference using `chat` function
 - Zero-shot classification with the `classify` function
-- Semantic search via a document store using the `store_doc` and `load_doc` functions
+- Semantic search via a document store using the `store_doc` and `get_doc_context` functions
 - Extractive question answering using the `extract_answer` function
 - Basic web retrieval using the `get_wiki` function
 

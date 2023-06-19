@@ -112,17 +112,6 @@ Semantic search is provided to retrieve documents that may provide helpful conte
 
 ```python
 >>> import languagemodels as lm
-
->>> lm.store_doc("Mars is a planet")
->>> lm.store_doc("The sun is hot")
->>> lm.load_doc("What is Mars?")
-'Mars is a planet'
-```
-
-This can also be used to get a blend of context from stored documents:
-
-```python
->>> import languagemodels as lm
 >>> lm.store_doc(lm.get_wiki("Python"), "Python")
 >>> lm.store_doc(lm.get_wiki("C language"), "C")
 >>> lm.store_doc(lm.get_wiki("Javascript"), "Javascript")
