@@ -6,11 +6,17 @@ jobs:
   test:
     strategy:
       matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11"]
+        python-version: ["3.11"]
         os: [ubuntu-latest, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
+      - name: Cache Models
+        id: cache-models
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/huggingface
+          key: models
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
