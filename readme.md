@@ -162,8 +162,8 @@ Projects Ideas
 
 This package can be used to do the heavy lifting for a number of learning projects:
 
-- CLI Chatbot (see examples/chat.py)
-- Streamlit chatbot (see examples/streamlitchat.py)
+- CLI Chatbot ([see examples/chat.py](https://github.com/jncraton/languagemodels/blob/main/examples/chat.py))
+- Streamlit chatbot ([see examples/streamlitchat.py](https://github.com/jncraton/languagemodels/blob/main/examples/streamlitchat.py))
 - Chatbot with information retrieval
 - Chatbot with access to real-time information
 - Tool use
