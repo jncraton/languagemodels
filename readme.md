@@ -91,6 +91,9 @@ Helper functions are provided to retrieve text from external sources that can be
 
 >>> lm.get_date()
 'Friday, May 12, 2023 at 09:27AM'
+
+>>> lm.calculate('2*x=6')
+'x is 3'
 ```
 
 Here's an example showing how this can be used (compare to previous chat example):

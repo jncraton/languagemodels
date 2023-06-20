@@ -5,6 +5,7 @@ import json
 from languagemodels.models import set_max_ram
 from languagemodels.inference import generate_instruct, parse_chat, list_tokens
 from languagemodels.embeddings import RetrievalContext
+from languagemodels.calculator import resolve
 
 docs = RetrievalContext()
 
@@ -327,6 +328,25 @@ def get_weather(latitude, longitude):
     current = forecast["properties"]["periods"][0]
 
     return current["detailedForecast"]
+
+
+def calculate(operation: str) -> str:
+    """Returns the result of a mathematical operation in natural language.
+
+    The operations are solved using sympy library, supporting operations like:
+    * simplifications * derivative * integral * limit * eigenvalues.
+
+    :param operation: Operation to solve
+    :return: Returns the result of the operation in natural language
+
+    Examples:
+
+    >>> calculate("2*x=6") # Returns "x is 3"
+    >>> calculate("integrate x**2 x") # Returns "The integral of x**2 with respect to x is x**3/3"
+    >>> calculate("limit x**2/x x +") # Returns "The limit of x**2/x as x approaches +∞ is ∞"
+    """
+
+    return resolve(operation)
 
 
 def get_date() -> str:
