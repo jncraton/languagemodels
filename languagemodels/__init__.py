@@ -341,9 +341,9 @@ def calculate(operation: str) -> str:
 
     Examples:
 
-    >>> calculate("2*x=6") # Returns "x is 3"
-    >>> calculate("integrate x**2 x") # Returns "The integral of x**2 with respect to x is x**3/3"
-    >>> calculate("limit x**2/x x +") # Returns "The limit of x**2/x as x approaches +∞ is ∞"
+    >>> calculate("2*x=6") # x is 3
+    >>> calculate("diff x**2 x")) # The derivative of x**2 with respect to x is 2*x
+    >>> calculate("limit x**2/x x +")) # The limit of x**2/x as x approaches +oo is oo
     """
 
     return resolve(operation)
