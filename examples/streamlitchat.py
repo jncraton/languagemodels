@@ -1,5 +1,7 @@
 """A simple web chatbot using streamlit
 
+Run this application using `streamlit run {filename}`
+
 A live version of this bot is available here:
 
 https://jncraton-languagemodels-examplesstreamlitchat-s4uj7z.streamlit.app/
