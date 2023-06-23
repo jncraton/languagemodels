@@ -1,5 +1,7 @@
 """A simple inference UI using Streamlit
 
+Run this application using `streamlit run {filename}`
+
 A live version of this application is hosted here:
 
 https://jncraton-languagemodels-examplesstreamlit-0h6yr7.streamlit.app/
