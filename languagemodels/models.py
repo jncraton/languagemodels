@@ -308,6 +308,15 @@ def get_model(model_type):
                 tokenizer,
                 ctranslate2.Encoder(model_base_path),
             )
+        elif "gpt" in model_name.lower():
+            hf_hub_download(f"jncraton/{model_name}", "vocabulary.json")
+            tokenizer = Tokenizer.from_pretrained(f"jncraton/{model_name}")
+            # tokenizer.no_padding()
+            # tokenizer.no_truncation()
+            modelcache[model_name] = (
+                tokenizer,
+                ctranslate2.Generator(model_base_path),
+            )
         else:
             hf_hub_download(f"jncraton/{model_name}", "shared_vocabulary.txt")
             tokenizer_path = hf_hub_download(f"jncraton/{model_name}", "spiece.model")

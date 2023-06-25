@@ -132,21 +132,45 @@ def generate_instruct(
 
     suppress = [tokenizer.EncodeAsPieces(s) for s in suppress]
 
-    input_tokens = tokenizer.EncodeAsPieces(prompt) + ["</s>"]
-    results = model.translate_batch(
-        [input_tokens],
-        target_prefix=[tokenizer.EncodeAsPieces(prefix)],
-        repetition_penalty=repetition_penalty,
-        max_decoding_length=max_tokens,
-        sampling_temperature=temperature,
-        sampling_topk=topk,
-        suppress_sequences=suppress,
-        beam_size=1,
-    )
+    if "SentencePiece" in str(type(tokenizer)):
+        input_tokens = tokenizer.EncodeAsPieces(prompt) + ["</s>"]
+    else:
+        prompt = (
+            "Below is an instruction that describes a task.\n"
+            "Write a response that appropriately completes the request.\n\n"
+            f"### Instruction:{prompt}\n\n### Response:"
+        )
+        input_tokens = tokenizer.encode(prompt).tokens
 
-    output_tokens = results[0].hypotheses[0]
+    if hasattr(model, "translate_batch"):
+        results = model.translate_batch(
+            [input_tokens],
+            target_prefix=[tokenizer.EncodeAsPieces(prefix)],
+            repetition_penalty=repetition_penalty,
+            max_decoding_length=max_tokens,
+            sampling_temperature=temperature,
+            sampling_topk=topk,
+            suppress_sequences=suppress,
+            beam_size=1,
+        )
+        output_tokens = results[0].hypotheses[0]
+    else:
+        results = model.generate_batch(
+            [input_tokens],
+            repetition_penalty=repetition_penalty,
+            max_length=max_tokens,
+            sampling_temperature=temperature,
+            sampling_topk=topk,
+            beam_size=1,
+        )
+        output_tokens = results[0]
 
-    return tokenizer.DecodePieces(output_tokens)
+    if "SentencePiece" in str(type(tokenizer)):
+        return tokenizer.DecodePieces(output_tokens)
+    else:
+        text = tokenizer.decode(output_tokens.sequences_ids[0])
+        text = text[len(prompt) :]
+        return text
 
 
 def rank_instruct(input, targets):
