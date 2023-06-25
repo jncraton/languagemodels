@@ -17,8 +17,13 @@ def list_tokens(prompt):
     """
     tokenizer, _ = get_model("instruct")
 
-    tokens = tokenizer.EncodeAsPieces(prompt)
-    ids = tokenizer.EncodeAsIds(prompt)
+    try:
+        tokens = tokenizer.EncodeAsPieces(prompt)
+        ids = tokenizer.EncodeAsIds(prompt)
+    except AttributeError:
+        output = tokenizer.encode(prompt)
+        tokens = output.tokens
+        ids = output.ids
 
     return list(zip(tokens, ids))
 
