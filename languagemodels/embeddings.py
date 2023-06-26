@@ -124,20 +124,20 @@ class RetrievalContext:
         >>> len(rc.chunks)
         1
         >>> [c.content for c in rc.chunks]
-        ['Python: It is a language.']
+        ['From Python document: It is a language.']
 
         >>> rc = RetrievalContext()
         >>> rc.clear()
-        >>> rc.store(' '.join(['details'] * 225), 'Python')
+        >>> rc.store(' '.join(['details'] * 217), 'Python')
         >>> len(rc.chunks)
         5
 
         >>> rc.clear()
-        >>> rc.store(' '.join(['details'] * 224), 'Python')
+        >>> rc.store(' '.join(['details'] * 216), 'Python')
         >>> len(rc.chunks)
         4
         >>> [c.content for c in rc.chunks]
-        ['Python: details details details...']
+        ['From Python document: details details details...']
         """
 
         if doc not in self.docs:
@@ -156,7 +156,7 @@ class RetrievalContext:
 
         if name:
             name_tokens = generative_tokenizer.encode(
-                f"{name}:", add_special_tokens=False
+                f"From {name} document:", add_special_tokens=False
             ).ids
 
         i = 0
