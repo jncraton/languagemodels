@@ -97,7 +97,6 @@ class RetrievalContext:
     def clear(self):
         self.docs = []
         self.chunks = []
-        self.chunk_embeddings = []
 
     def store(self, doc, name=""):
         """Stores a document along with embeddings
@@ -124,7 +123,7 @@ class RetrievalContext:
         >>> rc.store('It is a language.', 'Python')
         >>> len(rc.chunks)
         1
-        >>> rc.chunks
+        >>> [c.content for c in rc.chunks]
         ['Python: It is a language.']
 
         >>> rc = RetrievalContext()
@@ -137,7 +136,7 @@ class RetrievalContext:
         >>> rc.store(' '.join(['details'] * 224), 'Python')
         >>> len(rc.chunks)
         4
-        >>> rc.chunks
+        >>> [c.content for c in rc.chunks]
         ['Python: details details details...']
         """
 
@@ -177,9 +176,7 @@ class RetrievalContext:
             if eof or full or (half_full and sep):
                 # Store tokens and start next chunk
                 text = generative_tokenizer.decode(chunk)
-                embedding = embed(text)
-                self.chunk_embeddings.append(embedding)
-                self.chunks.append(text)
+                self.chunks.append(Document(text))
                 chunk = name_tokens.copy()
                 if full and not eof:
                     # If the heuristic didn't get a semantic boundary, overlap
@@ -197,22 +194,16 @@ class RetrievalContext:
         if len(self.chunks) == 0:
             return None
 
-        query_embedding = embed(query)
-
-        scores = [cosine_similarity(query_embedding, e) for e in self.chunk_embeddings]
-        doc_score_pairs = list(zip(self.chunks, scores))
-
-        doc_score_pairs = sorted(doc_score_pairs, key=lambda x: x[1], reverse=True)
+        results = search(query, self.chunks)
 
         chunks = []
         tokens = 0
 
         generative_tokenizer, _ = get_model("instruct", tokenizer_only=True)
 
-        for chunk, score in doc_score_pairs:
-            chunk_tokens = len(
-                generative_tokenizer.encode(chunk, add_special_tokens=False).tokens
-            )
+        for chunk_id, score in results:
+            chunk = self.chunks[chunk_id].content
+            chunk_tokens = len(generative_tokenizer.encode(chunk, add_special_tokens=False).tokens)
             if tokens + chunk_tokens <= max_tokens and score > 0.1:
                 chunks.append(chunk)
                 tokens += chunk_tokens
