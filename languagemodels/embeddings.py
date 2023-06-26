@@ -25,6 +25,21 @@ def embed(doc):
     return embedding
 
 
+def search(query, docs):
+    """Return docs sorted by match against query
+
+    :param query: Input to match in search
+    :param docs: List of docs to search against
+    :return: List of (doc_num, score) tuples sorted by score descending
+    """
+
+    query_embedding = embed(query)
+
+    scores = [cosine_similarity(query_embedding, d.embedding) for d in docs]
+
+    return sorted(enumerate(scores), key=lambda x: x[1], reverse=True)
+
+
 class Document:
     """
     A document used for semantic search
@@ -210,10 +225,4 @@ class RetrievalContext:
         if len(self.docs) == 0:
             return None
 
-        query_embedding = embed(query)
-
-        scores = [cosine_similarity(query_embedding, d.embedding) for d in self.docs]
-        doc_score_pairs = list(zip(self.docs, scores))
-
-        doc_score_pairs = sorted(doc_score_pairs, key=lambda x: x[1], reverse=True)
-        return doc_score_pairs[0][0].content
+        return self.docs[search(query, self.docs)[0][0]].content
