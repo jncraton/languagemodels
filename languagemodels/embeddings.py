@@ -48,9 +48,10 @@ class Document:
     against other semantically similar documents.
     """
 
-    def __init__(self, content):
+    def __init__(self, content, name=""):
         self.content = content
         self.embedding = embed(content)
+        self.name = name
 
 
 class RetrievalContext:
@@ -82,7 +83,7 @@ class RetrievalContext:
     >>> rc.get_context("What is Python?")
     'Python Python Python...'
 
-    >>> [len(c.split()) for c in rc.chunks]
+    >>> [len(c.content.split()) for c in rc.chunks]
     [64, 64, 64, 64]
 
     >>> len(rc.get_context("What is Python?").split())
