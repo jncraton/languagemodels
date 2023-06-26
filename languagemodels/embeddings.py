@@ -25,6 +25,19 @@ def embed(doc):
     return embedding
 
 
+class Document:
+    """
+    A document used for semantic search
+
+    Documents have content and an embedding that is used to match the content
+    against other semantically similar documents.
+    """
+
+    def __init__(self, content):
+        self.content = content
+        self.embedding = embed(content)
+
+
 class RetrievalContext:
     """
     Provides a context for document retrieval
@@ -68,7 +81,6 @@ class RetrievalContext:
 
     def clear(self):
         self.docs = []
-        self.embeddings = []
         self.chunks = []
         self.chunk_embeddings = []
 
@@ -115,9 +127,7 @@ class RetrievalContext:
         """
 
         if doc not in self.docs:
-            embedding = embed(doc)
-            self.embeddings.append(embedding)
-            self.docs.append(doc)
+            self.docs.append(Document(doc))
             self.store_chunks(doc, name)
 
     def store_chunks(self, doc, name=""):
@@ -202,8 +212,8 @@ class RetrievalContext:
 
         query_embedding = embed(query)
 
-        scores = [cosine_similarity(query_embedding, e) for e in self.embeddings]
+        scores = [cosine_similarity(query_embedding, d.embedding) for d in self.docs]
         doc_score_pairs = list(zip(self.docs, scores))
 
         doc_score_pairs = sorted(doc_score_pairs, key=lambda x: x[1], reverse=True)
-        return doc_score_pairs[0][0]
+        return doc_score_pairs[0][0].content
