@@ -10,6 +10,21 @@ def cosine_similarity(a, b):
     return dot_product / (magnitude_a * magnitude_b)
 
 
+def embed(doc):
+    """Gets embeddings for a document
+
+    >>> embed("I love Python!")[-3:]
+    array([0.1..., 0.1..., 0.0...], dtype=float32)
+    """
+    tokenizer, model = get_model("embedding")
+
+    tokens = tokenizer.encode(doc).ids
+    output = model.forward_batch([tokens[:512]])
+    embedding = np.mean(np.array(output.last_hidden_state), axis=1)[0]
+    embedding = embedding / np.linalg.norm(embedding)
+    return embedding
+
+
 class RetrievalContext:
     """
     Provides a context for document retrieval
@@ -30,9 +45,6 @@ class RetrievalContext:
 
     >>> rc.clear()
     >>> rc.get_match("Where is Paris?")
-
-    >>> rc.get_embedding("I love Python!")[-3:]
-    array([0.1..., 0.1..., 0.0...], dtype=float32)
 
     >>> rc.clear()
     >>> rc.store(' '.join(['Python'] * 232))
@@ -59,16 +71,6 @@ class RetrievalContext:
         self.embeddings = []
         self.chunks = []
         self.chunk_embeddings = []
-
-    def get_embedding(self, doc):
-        """Gets embeddings for a document"""
-        tokenizer, model = get_model("embedding")
-
-        tokens = tokenizer.encode(doc).ids
-        output = model.forward_batch([tokens[:512]])
-        embedding = np.mean(np.array(output.last_hidden_state), axis=1)[0]
-        embedding = embedding / np.linalg.norm(embedding)
-        return embedding
 
     def store(self, doc, name=""):
         """Stores a document along with embeddings
@@ -113,7 +115,7 @@ class RetrievalContext:
         """
 
         if doc not in self.docs:
-            embedding = self.get_embedding(doc)
+            embedding = embed(doc)
             self.embeddings.append(embedding)
             self.docs.append(doc)
             self.store_chunks(doc, name)
@@ -150,7 +152,7 @@ class RetrievalContext:
             if eof or full or (half_full and sep):
                 # Store tokens and start next chunk
                 text = generative_tokenizer.decode(chunk)
-                embedding = self.get_embedding(text)
+                embedding = embed(text)
                 self.chunk_embeddings.append(embedding)
                 self.chunks.append(text)
                 chunk = name_tokens.copy()
@@ -170,7 +172,7 @@ class RetrievalContext:
         if len(self.chunks) == 0:
             return None
 
-        query_embedding = self.get_embedding(query)
+        query_embedding = embed(query)
 
         scores = [cosine_similarity(query_embedding, e) for e in self.chunk_embeddings]
         doc_score_pairs = list(zip(self.chunks, scores))
@@ -198,7 +200,7 @@ class RetrievalContext:
         if len(self.docs) == 0:
             return None
 
-        query_embedding = self.get_embedding(query)
+        query_embedding = embed(query)
 
         scores = [cosine_similarity(query_embedding, e) for e in self.embeddings]
         doc_score_pairs = list(zip(self.docs, scores))
