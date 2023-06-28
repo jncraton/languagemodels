@@ -7,6 +7,7 @@ import ctranslate2
 
 modelcache = {}
 max_ram = None
+commercial_models_only = os.environ.get("LANGUAGEMODELS_REQUIRE_COMMERCIAL_LICENSE")
 
 
 class ModelException(Exception):
@@ -81,6 +82,16 @@ def get_max_ram():
     return 0.45
 
 
+def require_commercial_license(required=True):
+    """Require commericially-licensed models for inference
+
+    These models may perform worse than the default models
+    """
+    global commercial_models_only
+
+    commercial_models_only = required
+
+
 def convert_to_gb(space):
     """Convert max RAM string to int
 
@@ -140,13 +151,25 @@ def get_model(model_type):
     """
     if model_type == "instruct":
         if get_max_ram() >= 4.0:
-            model_name = "jncraton/flan-alpaca-xl-ct2-int8"
+            if commercial_models_only:
+                model_name = "jncraton/flan-t5-xl-ct2-int8"
+            else:
+                model_name = "jncraton/flan-alpaca-xl-ct2-int8"
         elif get_max_ram() >= 1.0:
-            model_name = "jncraton/LaMini-Flan-T5-783M-ct2-int8"
+            if commercial_models_only:
+                model_name = "jncraton/flan-t5-large-ct2-int8"
+            else:
+                model_name = "jncraton/LaMini-Flan-T5-783M-ct2-int8"
         elif get_max_ram() >= 0.45:
-            model_name = "jncraton/LaMini-Flan-T5-248M-ct2-int8"
+            if commercial_models_only:
+                model_name = "jncraton/flan-t5-base-ct2-int8"
+            else:
+                model_name = "jncraton/LaMini-Flan-T5-248M-ct2-int8"
         else:
-            model_name = "jncraton/LaMini-Flan-T5-77M-ct2-int8"
+            if commercial_models_only:
+                model_name = "jncraton/flan-t5-small-ct2-int8"
+            else:
+                model_name = "jncraton/LaMini-Flan-T5-77M-ct2-int8"
     elif model_type == "embedding":
         model_name = "jncraton/all-MiniLM-L6-v2-ct2-int8"
     else:
