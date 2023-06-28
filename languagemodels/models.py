@@ -1,4 +1,5 @@
 import os
+import sys
 from huggingface_hub import hf_hub_download
 import sentencepiece
 from tokenizers import Tokenizer
@@ -176,6 +177,12 @@ def get_model(model_type):
         raise ModelException(f"Invalid model: {model_type}")
 
     if model_name not in modelcache:
+        if commercial_models_only:
+            print(
+                f"Commercially licensed models required. Loading {model_name}",
+                file=sys.stderr,
+            )
+
         hf_hub_download(model_name, "config.json")
         model_path = hf_hub_download(model_name, "model.bin")
         model_base_path = model_path[:-10]
