@@ -152,6 +152,25 @@ The base model should work on any system with 512MB of memory, but this memory l
 
 [Full documentation](https://languagemodels.netlify.app/)
 
+Commercial Use
+--------------
+
+This package itself is licensed for commerical use, but the models used may not be compatible with commercial use. In order to use this package commercially, you can call `require_commerial_license`.
+
+The commercially-licensed models may not perform as well as the default models. They will perform differently.
+
+```python
+>>> import languagemodels as lm
+>>> lm.do("What is your favorite animal.")
+>>> "As an AI language model, I don't have preferences or emotions."
+>>> lm.require_commercial_license()
+>>> lm.do("What is your favorite animal.")
+Commercially licensed models required. Loading jncraton/flan-t5-base-ct2-int8
+'Lion.'
+```
+
+When commercially licensed models are required, all newly loaded models will be logged to standard error. Confirm that models used meet the licensing requirements for your software.
+
 Advanced Usage
 --------------
 
