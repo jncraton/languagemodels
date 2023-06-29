@@ -4,7 +4,7 @@ all: lint test
 
 test-base:
 	python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/*.py
-	env LANGUAGEMODELS_REQUIRE_COMMERCIAL_LICENSE=True python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/*.py
+	env LANGUAGEMODELS_MODEL_LICENSE="apache-2.0|mit" python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/*.py
 
 test: test-base
 	env LANGUAGEMODELS_SIZE=large python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/*.py
@@ -18,10 +18,10 @@ test-perf: test-perf-base
 	PYTHONPATH=. LANGUAGEMODELS_SIZE=4g python3 test/perf.py
 
 test-commercial:
-	 env LANGUAGEMODELS_SIZE=small LANGUAGEMODELS_REQUIRE_COMMERCIAL_LICENSE=True python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/*.py
-	 env LANGUAGEMODELS_REQUIRE_COMMERCIAL_LICENSE=True python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/*.py
-	 env LANGUAGEMODELS_SIZE=large LANGUAGEMODELS_REQUIRE_COMMERCIAL_LICENSE=True python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/*.py
-	 env LANGUAGEMODELS_SIZE=xl LANGUAGEMODELS_REQUIRE_COMMERCIAL_LICENSE=True python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/*.py
+	 env LANGUAGEMODELS_SIZE=small LANGUAGEMODELS_MODEL_LICENSE="apache-2.0|mit" python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/*.py
+	 env LANGUAGEMODELS_MODEL_LICENSE="apache-2.0|mit" python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/*.py
+	 env LANGUAGEMODELS_SIZE=large LANGUAGEMODELS_MODEL_LICENSE="apache-2.0|mit" python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/*.py
+	 env LANGUAGEMODELS_SIZE=xl LANGUAGEMODELS_MODEL_LICENSE="apache-2.0|mit" python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/*.py
 
 
 lint:

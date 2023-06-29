@@ -1,5 +1,6 @@
 import os
 import sys
+import re
 from huggingface_hub import hf_hub_download
 import sentencepiece
 from tokenizers import Tokenizer
@@ -8,7 +9,7 @@ import ctranslate2
 
 modelcache = {}
 max_ram = None
-commercial_models_only = os.environ.get("LANGUAGEMODELS_REQUIRE_COMMERCIAL_LICENSE")
+license_match = os.environ.get("LANGUAGEMODELS_MODEL_LICENSE")
 
 # Model list
 # This list is sorted in priority order, with the best models first
@@ -179,14 +180,15 @@ def get_max_ram():
     return 0.45
 
 
-def require_commercial_license(required=True):
-    """Require commericially-licensed models for inference
+def require_model_license(match_re):
+    """Require models to match supplied regex
 
-    These models may perform worse than the default models
+    This can be used to enforce certain licensing constraints when using this
+    package.
     """
-    global commercial_models_only
+    global license_match
 
-    commercial_models_only = required
+    license_match = match_re
 
 
 def convert_to_gb(space):
@@ -229,11 +231,17 @@ def convert_to_gb(space):
         return float(space)
 
 
-def get_model_name(model_type):
+def get_model_name(model_type, max_ram=0.45, license_match=None):
     """Gets an appropriate model name matching current filters
 
     >>> get_model_name("instruct")
     'LaMini-Flan-T5-248M-ct2-int8'
+
+    >>> get_model_name("instruct", 1.0)
+    'LaMini-Flan-T5-783M-ct2-int8'
+
+    >>> get_model_name("instruct", 1.0, "apache*")
+    'flan-t5-large-ct2-int8'
 
     >>> get_model_name("embedding")
     'all-MiniLM-L6-v2-ct2-int8'
@@ -244,7 +252,10 @@ def get_model_name(model_type):
 
         memsize = model["params"] / 1e9
 
-        if model["tuning"] == model_type and memsize < get_max_ram():
+        sizefit = memsize < max_ram
+        licensematch = not license_match or re.match(license_match, model["license"])
+
+        if model["tuning"] == model_type and sizefit and licensematch:
             return model["name"]
 
     raise ModelException(f"No valid model found for {model_type}")
@@ -268,12 +279,12 @@ def get_model(model_type):
     <class 'ctranslate2._ext.Encoder'>
     """
 
-    model_name = get_model_name(model_type)
+    model_name = get_model_name(model_type, get_max_ram(), license_match)
 
     if model_name not in modelcache:
-        if commercial_models_only:
+        if license_match:
             print(
-                f"Commercially licensed models required. Loading {model_name}",
+                f"Loading {model_name}. Confirm that it meets your licensing requirements.",
                 file=sys.stderr,
             )
 
