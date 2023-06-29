@@ -229,6 +229,27 @@ def convert_to_gb(space):
         return float(space)
 
 
+def get_model_name(model_type):
+    """Gets an appropriate model name matching current filters
+
+    >>> get_model_name("instruct")
+    'LaMini-Flan-T5-248M-ct2-int8'
+
+    >>> get_model_name("embedding")
+    'all-MiniLM-L6-v2-ct2-int8'
+    """
+
+    for model in models:
+        assert model["quantization"] == "int8"
+
+        memsize = model["params"] / 1e9
+
+        if model["tuning"] == model_type and memsize < get_max_ram():
+            return model["name"]
+
+    raise ModelException(f"No valid model found for {model_type}")
+
+
 def get_model(model_type):
     """Gets a model from the loaded model cache
 
@@ -246,31 +267,8 @@ def get_model(model_type):
     >>> type(model)
     <class 'ctranslate2._ext.Encoder'>
     """
-    if model_type == "instruct":
-        if get_max_ram() >= 4.0:
-            if commercial_models_only:
-                model_name = "jncraton/flan-t5-xl-ct2-int8"
-            else:
-                model_name = "jncraton/flan-alpaca-xl-ct2-int8"
-        elif get_max_ram() >= 1.0:
-            if commercial_models_only:
-                model_name = "jncraton/flan-t5-large-ct2-int8"
-            else:
-                model_name = "jncraton/LaMini-Flan-T5-783M-ct2-int8"
-        elif get_max_ram() >= 0.45:
-            if commercial_models_only:
-                model_name = "jncraton/flan-t5-base-ct2-int8"
-            else:
-                model_name = "jncraton/LaMini-Flan-T5-248M-ct2-int8"
-        else:
-            if commercial_models_only:
-                model_name = "jncraton/flan-t5-small-ct2-int8"
-            else:
-                model_name = "jncraton/LaMini-Flan-T5-77M-ct2-int8"
-    elif model_type == "embedding":
-        model_name = "jncraton/all-MiniLM-L6-v2-ct2-int8"
-    else:
-        raise ModelException(f"Invalid model: {model_type}")
+
+    model_name = get_model_name(model_type)
 
     if model_name not in modelcache:
         if commercial_models_only:
@@ -279,13 +277,13 @@ def get_model(model_type):
                 file=sys.stderr,
             )
 
-        hf_hub_download(model_name, "config.json")
-        model_path = hf_hub_download(model_name, "model.bin")
+        hf_hub_download(f"jncraton/{model_name}", "config.json")
+        model_path = hf_hub_download(f"jncraton/{model_name}", "model.bin")
         model_base_path = model_path[:-10]
 
         if "minilm" in model_name.lower():
-            hf_hub_download(model_name, "vocabulary.txt")
-            tokenizer = Tokenizer.from_pretrained(model_name)
+            hf_hub_download(f"jncraton/{model_name}", "vocabulary.txt")
+            tokenizer = Tokenizer.from_pretrained(f"jncraton/{model_name}")
             tokenizer.no_padding()
             tokenizer.no_truncation()
             modelcache[model_name] = (
@@ -293,8 +291,8 @@ def get_model(model_type):
                 ctranslate2.Encoder(model_base_path),
             )
         else:
-            hf_hub_download(model_name, "shared_vocabulary.txt")
-            tokenizer_path = hf_hub_download(model_name, "spiece.model")
+            hf_hub_download(f"jncraton/{model_name}", "shared_vocabulary.txt")
+            tokenizer_path = hf_hub_download(f"jncraton/{model_name}", "spiece.model")
 
             tokenizer = sentencepiece.SentencePieceProcessor()
             tokenizer.Load(tokenizer_path)
