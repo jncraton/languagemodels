@@ -1,5 +1,4 @@
 import os
-import sys
 import re
 from huggingface_hub import hf_hub_download
 import sentencepiece
@@ -282,12 +281,6 @@ def get_model(model_type):
     model_name = get_model_name(model_type, get_max_ram(), license_match)
 
     if model_name not in modelcache:
-        if license_match:
-            print(
-                f"Loading {model_name}. Confirm that it meets your licensing requirements.",
-                file=sys.stderr,
-            )
-
         hf_hub_download(f"jncraton/{model_name}", "config.json")
         model_path = hf_hub_download(f"jncraton/{model_name}", "model.bin")
         model_base_path = model_path[:-10]
