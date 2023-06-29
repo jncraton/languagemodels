@@ -10,6 +10,102 @@ modelcache = {}
 max_ram = None
 commercial_models_only = os.environ.get("LANGUAGEMODELS_REQUIRE_COMMERCIAL_LICENSE")
 
+# Model list
+# This list is sorted in priority order, with the best models first
+# The best model that fits in the memory bounds and matches the model filter
+# will be selected
+models = [
+    {
+        "name": "flan-alpaca-xl-ct2-int8",
+        "tuning": "instruct",
+        "datasets": ["c4", "flan", "alpaca"],
+        "params": 3e9,
+        "quantization": "int8",
+        "architecture": "encoder-decoder-transformer",
+        "license": "cc-by-nc-4.0",  # HF says apache-2.0, but alpaca is NC
+    },
+    {
+        "name": "flan-t5-xl-ct2-int8",
+        "tuning": "instruct",
+        "datasets": ["c4", "flan"],
+        "params": 3e9,
+        "quantization": "int8",
+        "architecture": "encoder-decoder-transformer",
+        "license": "apache-2.0",
+    },
+    {
+        "name": "LaMini-Flan-T5-783M-ct2-int8",
+        "tuning": "instruct",
+        "datasets": ["c4", "flan", "lamini"],
+        "params": 783e6,
+        "quantization": "int8",
+        "architecture": "encoder-decoder-transformer",
+        "license": "cc-by-nc-4.0",
+    },
+    {
+        "name": "flan-t5-large-ct2-int8",
+        "tuning": "instruct",
+        "datasets": ["c4", "flan"],
+        "params": 783e6,
+        "quantization": "int8",
+        "architecture": "encoder-decoder-transformer",
+        "license": "apache-2.0",
+    },
+    {
+        "name": "LaMini-Flan-T5-248M-ct2-int8",
+        "tuning": "instruct",
+        "datasets": ["c4", "flan", "lamini"],
+        "params": 248e6,
+        "quantization": "int8",
+        "architecture": "encoder-decoder-transformer",
+        "license": "cc-by-nc-4.0",
+    },
+    {
+        "name": "flan-alpaca-base-ct2-int8",
+        "tuning": "instruct",
+        "datasets": ["c4", "flan", "alpaca"],
+        "params": 248e6,
+        "quantization": "int8",
+        "architecture": "encoder-decoder-transformer",
+        "license": "cc-by-nc-4.0",  # HF says apache-2.0, but alpaca is NC
+    },
+    {
+        "name": "flan-t5-base-ct2-int8",
+        "tuning": "instruct",
+        "datasets": ["c4", "flan"],
+        "params": 248e6,
+        "quantization": "int8",
+        "architecture": "encoder-decoder-transformer",
+        "license": "apache-2.0",
+    },
+    {
+        "name": "LaMini-Flan-T5-77M-ct2-int8",
+        "tuning": "instruct",
+        "datasets": ["c4", "flan", "lamini"],
+        "params": 77e6,
+        "quantization": "int8",
+        "architecture": "encoder-decoder-transformer",
+        "license": "cc-by-nc-4.0",
+    },
+    {
+        "name": "flan-t5-small-ct2-int8",
+        "tuning": "instruct",
+        "datasets": ["c4", "flan"],
+        "params": 77e6,
+        "quantization": "int8",
+        "architecture": "encoder-decoder-transformer",
+        "license": "apache-2.0",
+    },
+    {
+        "name": "all-MiniLM-L6-v2-ct2-int8",
+        "tuning": "embedding",
+        "params": 22e6,
+        "quantization": "int8",
+        "architecture": "encoder-only-transformer",
+        "license": "apache-2.0",
+    },
+]
+
 
 class ModelException(Exception):
     pass
