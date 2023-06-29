@@ -155,26 +155,18 @@ The base model should work on any system with 512MB of memory, but this memory l
 Commercial Use
 --------------
 
-This package itself is licensed for commerical use, but the models used may not be compatible with commercial use. In order to use this package commercially, you can call `require_commerial_license`.
-
-The commercially-licensed models may not perform as well as the default models. They will perform differently.
+This package itself is licensed for commerical use, but the models used may not be compatible with commercial use. In order to use this package commercially, you may want to filter models by their license type using the `require_model_license` function.
 
 ```python
 >>> import languagemodels as lm
 >>> lm.do("What is your favorite animal.")
 >>> "As an AI language model, I don't have preferences or emotions."
->>> lm.require_commercial_license()
+>>> lm.require_model_license("apache.*|mit")
 >>> lm.do("What is your favorite animal.")
-Commercially licensed models required. Loading jncraton/flan-t5-base-ct2-int8
 'Lion.'
 ```
 
-When commercially licensed models are required, all newly loaded models will be logged to standard error. Confirm that models used meet the licensing requirements for your software.
-
-Advanced Usage
---------------
-
-This package is not meant for advanced usage. If you are looking for something more powerful you could explore [transformers](https://huggingface.co/docs/transformers) from Hugging Face. For integrating language models in more complex ways, [LangChain](https://github.com/hwchase17/langchain) or [guidance](https://github.com/microsoft/guidance) may be helpful.
+The commercially-licensed models may not perform as well as the default models. It is recommended to confirm that the models used do meet the licensing requirements for your software.
 
 Projects Ideas
 --------------
