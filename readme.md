@@ -143,7 +143,7 @@ This package currently outperforms Hugging Face `transformers` for CPU inference
 | Backend                  | Inference Time | Memory Used |
 |--------------------------|----------------|-------------|
 | HuggingFace transformers | 22s            | 1.77GB      |
-| This package             | 11s            | 0.04GB      |
+| This package             | 11s            | 0.34GB      |
 
 Note that quantization does technically harm output quality slightly, but it should be negligible at this level.
 
