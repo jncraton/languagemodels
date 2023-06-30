@@ -149,6 +149,34 @@ def generate_instruct(
     return tokenizer.DecodePieces(output_tokens)
 
 
+def rank_instruct(input, targets):
+    """Sorts a list of targets by their probabilities
+
+    >>> rank_instruct("I love python", ['positive', 'negative'])
+    ['positive', 'negative']
+
+    >>> rank_instruct("Homework is the worst", ['positive', 'negative', 'neutral'])[0]
+    'negative'
+
+    >>> rank_instruct("The wizard raised their wand", ['fantasy', 'horror'])
+    ['fantasy', 'horror']
+    """
+    tokenizer, model = get_model("instruct")
+
+    input_tokens = tokenizer.EncodeAsPieces(input) + ["</s>"]
+
+    scores = model.score_batch(
+        [input_tokens] * len(targets),
+        target=[tokenizer.EncodeAsPieces(t) for t in targets],
+    )
+
+    logprobs = [sum(r.log_probs) for r in scores]
+
+    results = sorted(zip(targets, logprobs), key=lambda r: -r[1])
+
+    return [r[0] for r in results]
+
+
 def parse_chat(prompt):
     """Converts a chat prompt using special tokens to a plain-text prompt
 
