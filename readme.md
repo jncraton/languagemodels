@@ -134,7 +134,20 @@ C: It was designed to be compiled to provide low-level access to memory and lang
 C: The book The C Programming Language, co-authored by the original language designer, served for many years as the de facto standard for the language.'
 ```
 
-### Performance
+[Full documentation](https://languagemodels.netlify.app/)
+
+### Speed
+
+This package currently outperforms Hugging Face `transformers` for CPU inference thanks to int8 quantization and the [CTranslate2](https://github.com/OpenNMT/CTranslate2) backend. The following table compares CPU inference performance on identical models using the best available quantization on a 20 question test set.
+
+| Backend                  | Inference Time | Memory Used |
+|--------------------------|----------------|-------------|
+| HuggingFace transformers | 22s            | 1.77GB      |
+| This package             | 11s            | 0.04GB      |
+
+Note that quantization does technically harm output quality slightly, but it should be negligible at this level.
+
+### Generation Quality
 
 The models used by this package are 1000x smaller than the largest models in use today. They are useful as learning tools, but if you are expecting ChatGPT or similar performance, you will be very disappointed.
 
@@ -150,7 +163,9 @@ The base model should work on any system with 512MB of memory, but this memory l
 'I have 2 apples left.'
 ```
 
-[Full documentation](https://languagemodels.netlify.app/)
+This pacakge currently uses [LaMini-Flan-T5-base](https://huggingface.co/MBZUAI/LaMini-Flan-T5-223M) as its default model. This is a fine-tuning of the T5 base model on top of the [FLAN](https://huggingface.co/google/flan-t5-base) fine-tuning provided by Google. The model is tuned to respond to instructions in a human-like manner. The following human evaluations were reported in the [paper](https://github.com/mbzuai-nlp/LaMini-LM) associated with this model family:
+
+![Human-rated model comparison](media/model-comparison.png)
 
 Commercial Use
 --------------
@@ -184,10 +199,3 @@ This package can be used to do the heavy lifting for a number of learning projec
 - Document question answering
 
 Several example programs and notebooks are included in the `examples` directory.
-
-Attribution
------------
-
-- [CTranslate2](https://github.com/OpenNMT/CTranslate2)
-- [LaMini-Flan-T5](https://huggingface.co/MBZUAI/LaMini-Flan-T5-783M)
-- [Flan-T5](https://huggingface.co/google/flan-t5-large)
