@@ -255,6 +255,11 @@ def get_model_name(model_type, max_ram=0.45, license_match=None):
     'all-MiniLM-L6-v2-ct2-int8'
     """
 
+    # Allow pinning a specific model via environment variable
+    # This is only used for testing
+    if os.environ.get("LANGUAGEMODELS_INSTRUCT_MODEL"):
+        return os.environ.get("LANGUAGEMODELS_INSTRUCT_MODEL")
+
     for model in models:
         assert model["quantization"] == "int8"
 
