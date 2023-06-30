@@ -3,7 +3,12 @@ import datetime
 import json
 
 from languagemodels.models import set_max_ram, require_model_license
-from languagemodels.inference import generate_instruct, parse_chat, list_tokens
+from languagemodels.inference import (
+    generate_instruct,
+    rank_instruct,
+    parse_chat,
+    list_tokens,
+)
 from languagemodels.embeddings import RetrievalContext
 
 docs = RetrievalContext()
@@ -205,11 +210,11 @@ def classify(doc: str, label1: str, label2: str) -> str:
     'ocean'
     """
 
-    result = generate_instruct(
-        f"Classify as {label1} or {label2}: {doc}\n\nClassification:", max_tokens=5
+    results = rank_instruct(
+        f"Classify as {label1} or {label2}: {doc}\n\nClassification:", [label1, label2]
     )
 
-    return result.lower().rstrip(".")
+    return results[0]
 
 
 def store_doc(doc: str, name: str = "") -> None:

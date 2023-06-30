@@ -158,8 +158,8 @@ def rank_instruct(input, targets):
     >>> rank_instruct("Homework is the worst", ['positive', 'negative', 'neutral'])[0]
     'negative'
 
-    >>> rank_instruct("The wizard raised their wand", ['fantasy', 'horror'])
-    ['fantasy', 'horror']
+    >>> rank_instruct("The wizard raised their wand", ['fantasy', 'documentary'])
+    ['fantasy', 'documentary']
     """
     tokenizer, model = get_model("instruct")
 
