@@ -25,6 +25,15 @@ models = [
         "license": "cc-by-nc-4.0",  # HF says apache-2.0, but alpaca is NC
     },
     {
+        "name": "flan-alpaca-gpt4-xl-ct2-int8",
+        "tuning": "instruct",
+        "datasets": ["c4", "flan", "gpt4-alpaca"],
+        "params": 3e9,
+        "quantization": "int8",
+        "architecture": "encoder-decoder-transformer",
+        "license": "cc-by-nc-4.0",  # HF says apache-2.0, but alpaca is NC
+    },
+    {
         "name": "flan-t5-xl-ct2-int8",
         "tuning": "instruct",
         "datasets": ["c4", "flan"],
