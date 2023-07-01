@@ -17,13 +17,9 @@ def list_tokens(prompt):
     """
     tokenizer, _ = get_model("instruct")
 
-    try:
-        tokens = tokenizer.EncodeAsPieces(prompt)
-        ids = tokenizer.EncodeAsIds(prompt)
-    except AttributeError:
-        output = tokenizer.encode(prompt)
-        tokens = output.tokens
-        ids = output.ids
+    output = tokenizer.encode(prompt, add_special_tokens=False)
+    tokens = output.tokens
+    ids = output.ids
 
     return list(zip(tokens, ids))
 
@@ -135,22 +131,12 @@ def generate_instruct(
 
     tokenizer, model = get_model("instruct")
 
-    suppress = [tokenizer.EncodeAsPieces(s) for s in suppress]
-
-    if "SentencePiece" in str(type(tokenizer)):
-        input_tokens = tokenizer.EncodeAsPieces(prompt) + ["</s>"]
-    else:
-        prompt = (
-            "Below is an instruction that describes a task.\n"
-            "Write a response that appropriately completes the request.\n\n"
-            f"### Instruction:{prompt}\n\n### Response:"
-        )
-        input_tokens = tokenizer.encode(prompt).tokens
+    suppress = [tokenizer.encode(s, add_special_tokens=False).tokens for s in suppress]
 
     if hasattr(model, "translate_batch"):
         results = model.translate_batch(
-            [input_tokens],
-            target_prefix=[tokenizer.EncodeAsPieces(prefix)],
+            [tokenizer.encode(prompt).tokens],
+            target_prefix=[tokenizer.encode(prefix, add_special_tokens=False).tokens],
             repetition_penalty=repetition_penalty,
             max_decoding_length=max_tokens,
             sampling_temperature=temperature,
@@ -159,23 +145,28 @@ def generate_instruct(
             beam_size=1,
         )
         output_tokens = results[0].hypotheses[0]
+        output_ids = [tokenizer.token_to_id(t) for t in output_tokens]
+        text = tokenizer.decode(output_ids, skip_special_tokens=True)
     else:
+        prompt = (
+            "Below is an instruction that describes a task.\n"
+            "Write a response that appropriately completes the request.\n\n"
+            f"### Instruction:{prompt}\n\n### Response:"
+        )
+
         results = model.generate_batch(
-            [input_tokens],
+            [tokenizer.encode(prompt).tokens],
             repetition_penalty=repetition_penalty,
             max_length=max_tokens,
             sampling_temperature=temperature,
             sampling_topk=topk,
             beam_size=1,
         )
-        output_tokens = results[0]
-
-    if "SentencePiece" in str(type(tokenizer)):
-        return tokenizer.DecodePieces(output_tokens)
-    else:
-        text = tokenizer.decode(output_tokens.sequences_ids[0])
+        output_ids = results[0].sequences_ids[0]
+        text = tokenizer.decode(output_ids, skip_special_tokens=True)
         text = text[len(prompt) :]
-        return text
+
+    return text
 
 
 def rank_instruct(input, targets):
@@ -192,11 +183,11 @@ def rank_instruct(input, targets):
     """
     tokenizer, model = get_model("instruct")
 
-    input_tokens = tokenizer.EncodeAsPieces(input) + ["</s>"]
+    input_tokens = tokenizer.encode(input).tokens
 
     scores = model.score_batch(
         [input_tokens] * len(targets),
-        target=[tokenizer.EncodeAsPieces(t) for t in targets],
+        target=[tokenizer.encode(t).tokens for t in targets],
     )
 
     logprobs = [sum(r.log_probs) for r in scores]

@@ -35,12 +35,15 @@ class RetrievalContext:
     array([0.1..., 0.1..., 0.0...], dtype=float32)
 
     >>> rc.clear()
-    >>> rc.store('Python ' * 232)
+    >>> rc.store(' '.join(['Python'] * 232))
     >>> len(rc.chunks)
     4
 
     >>> rc.get_context("What is Python?")
     'Python Python Python...'
+
+    >>> [len(c.split()) for c in rc.chunks]
+    [64, 64, 64, 64]
 
     >>> len(rc.get_context("What is Python?").split())
     128
@@ -74,12 +77,12 @@ class RetrievalContext:
 
         >>> rc = RetrievalContext()
         >>> rc.clear()
-        >>> rc.store('Python ' * 233)
+        >>> rc.store(' '.join(['Python'] * 233))
         >>> len(rc.chunks)
         5
 
         >>> rc.clear()
-        >>> rc.store('Python ' * 232)
+        >>> rc.store(' '.join(['Python'] * 232))
         >>> len(rc.chunks)
         4
 
@@ -97,12 +100,12 @@ class RetrievalContext:
 
         >>> rc = RetrievalContext()
         >>> rc.clear()
-        >>> rc.store('details ' * 225, 'Python')
+        >>> rc.store(' '.join(['details'] * 225), 'Python')
         >>> len(rc.chunks)
         5
 
         >>> rc.clear()
-        >>> rc.store('details ' * 224, 'Python')
+        >>> rc.store(' '.join(['details'] * 224), 'Python')
         >>> len(rc.chunks)
         4
         >>> rc.chunks
@@ -121,12 +124,14 @@ class RetrievalContext:
         # before embedding
         generative_tokenizer, _ = get_model("instruct")
 
-        tokens = generative_tokenizer.EncodeAsPieces(doc)
+        tokens = generative_tokenizer.encode(doc, add_special_tokens=False).ids
 
         name_tokens = []
 
         if name:
-            name_tokens = generative_tokenizer.EncodeAsPieces(f"{name}:")
+            name_tokens = generative_tokenizer.encode(
+                f"{name}:", add_special_tokens=False
+            ).ids
 
         i = 0
         chunk = name_tokens.copy()
@@ -144,7 +149,7 @@ class RetrievalContext:
 
             if eof or full or (half_full and sep):
                 # Store tokens and start next chunk
-                text = generative_tokenizer.Decode(chunk)
+                text = generative_tokenizer.decode(chunk)
                 embedding = self.get_embedding(text)
                 self.chunk_embeddings.append(embedding)
                 self.chunks.append(text)
@@ -178,7 +183,9 @@ class RetrievalContext:
         generative_tokenizer, _ = get_model("instruct")
 
         for chunk, score in doc_score_pairs:
-            chunk_tokens = len(generative_tokenizer.EncodeAsPieces(chunk))
+            chunk_tokens = len(
+                generative_tokenizer.encode(chunk, add_special_tokens=False).tokens
+            )
             if tokens + chunk_tokens <= max_tokens and score > 0.1:
                 chunks.append(chunk)
                 tokens += chunk_tokens

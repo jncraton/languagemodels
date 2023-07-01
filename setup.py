@@ -20,7 +20,6 @@ setuptools.setup(
     ],
     python_requires='>=3.8',
     install_requires=[
-        "sentencepiece",
         "huggingface_hub",
         "ctranslate2>=3.15.0",
         "tokenizers",

@@ -106,13 +106,13 @@ def chat(prompt: str) -> str:
     Examples:
 
     >>> chat('''
-    ...      System: Respond as a helpful assistant. It is 5:15pm.
+    ...      System: Respond as a helpful assistant. It is 5:00pm.
     ...
     ...      User: What time is it?
     ...
     ...      Assistant:
     ...      ''')
-    '...5:15pm...'
+    '...5:00pm...'
     """
 
     messages = parse_chat(prompt)

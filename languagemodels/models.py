@@ -1,7 +1,6 @@
 import os
 import re
 from huggingface_hub import hf_hub_download
-import sentencepiece
 from tokenizers import Tokenizer
 import ctranslate2
 
@@ -297,7 +296,7 @@ def get_model(model_type):
 
     >>> tokenizer, model = get_model("instruct")
     >>> type(tokenizer)
-    <class 'sentencepiece.SentencePieceProcessor'>
+    <class 'tokenizers.Tokenizer'>
 
     >>> type(model)
     <class 'ctranslate2._ext.Translator'>
@@ -337,10 +336,9 @@ def get_model(model_type):
             )
         else:
             hf_hub_download(f"jncraton/{model_name}", "shared_vocabulary.txt")
-            tokenizer_path = hf_hub_download(f"jncraton/{model_name}", "spiece.model")
+            tok_config = hf_hub_download(f"jncraton/{model_name}", "tokenizer.json")
 
-            tokenizer = sentencepiece.SentencePieceProcessor()
-            tokenizer.Load(tokenizer_path)
+            tokenizer = Tokenizer.from_file(tok_config)
 
             modelcache[model_name] = (
                 tokenizer,
