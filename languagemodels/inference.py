@@ -153,7 +153,6 @@ def generate_instruct(
             "Write a response that appropriately completes the request.\n\n"
             f"### Instruction:{prompt}\n\n### Response:"
         )
-
         results = model.generate_batch(
             [tokenizer.encode(prompt).tokens],
             repetition_penalty=repetition_penalty,

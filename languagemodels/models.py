@@ -291,8 +291,10 @@ def get_model_name(model_type, max_ram=0.40, license_match=None):
     raise ModelException(f"No valid model found for {model_type}")
 
 
-def get_model(model_type):
+def get_model(model_type, tokenizer_only=False):
     """Gets a model from the loaded model cache
+
+    If tokenizer_only, the model itself will not be (re)loaded
 
     >>> tokenizer, model = get_model("instruct")
     >>> type(tokenizer)
@@ -311,7 +313,7 @@ def get_model(model_type):
 
     model_name = get_model_name(model_type, get_max_ram(), license_match)
 
-    if get_max_ram() < 4:
+    if get_max_ram() < 4 and not tokenizer_only:
         for model in modelcache:
             if model != model_name:
                 try:
@@ -321,6 +323,8 @@ def get_model(model_type):
                     pass
 
     if model_name not in modelcache:
+        model = None
+
         hf_hub_download(f"jncraton/{model_name}", "config.json")
         model_path = hf_hub_download(f"jncraton/{model_name}", "model.bin")
         model_base_path = model_path[:-10]
@@ -330,26 +334,40 @@ def get_model(model_type):
             tokenizer = Tokenizer.from_pretrained(f"jncraton/{model_name}")
             tokenizer.no_padding()
             tokenizer.no_truncation()
+
+            if not tokenizer_only:
+                model = ctranslate2.Encoder(model_base_path, compute_type="int8")
+
             modelcache[model_name] = (
                 tokenizer,
-                ctranslate2.Encoder(model_base_path, compute_type="int8"),
+                model,
             )
         elif "gpt" in model_name.lower():
             hf_hub_download(f"jncraton/{model_name}", "vocabulary.json")
             tokenizer = Tokenizer.from_pretrained(f"jncraton/{model_name}")
+            if not tokenizer_only:
+                model = ctranslate2.Generator(model_base_path, compute_type="int8")
             modelcache[model_name] = (
                 tokenizer,
-                ctranslate2.Generator(model_base_path, compute_type="int8"),
+                model,
             )
         else:
             hf_hub_download(f"jncraton/{model_name}", "shared_vocabulary.txt")
             tok_config = hf_hub_download(f"jncraton/{model_name}", "tokenizer.json")
 
             tokenizer = Tokenizer.from_file(tok_config)
-
+            if not tokenizer_only:
+                model = ctranslate2.Translator(model_base_path, compute_type="int8")
             modelcache[model_name] = (
                 tokenizer,
-                ctranslate2.Translator(model_base_path, compute_type="int8"),
+                model,
             )
+    elif not tokenizer_only:
+        # Make sure the model is reloaded if we've unloaded it
+        try:
+            modelcache[model_name][1].load_model()
+        except AttributeError:
+            # Encoder-only models can't be unloaded in ctranslate2
+            pass
 
     return modelcache[model_name]

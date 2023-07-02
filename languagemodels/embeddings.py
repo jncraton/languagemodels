@@ -122,7 +122,7 @@ class RetrievalContext:
         # Note that the tokenzier used here is from the generative model
         # This is used for token counting for the context, not for tokenization
         # before embedding
-        generative_tokenizer, _ = get_model("instruct")
+        generative_tokenizer, _ = get_model("instruct", tokenizer_only=True)
 
         tokens = generative_tokenizer.encode(doc, add_special_tokens=False).ids
 
@@ -180,7 +180,7 @@ class RetrievalContext:
         chunks = []
         tokens = 0
 
-        generative_tokenizer, _ = get_model("instruct")
+        generative_tokenizer, _ = get_model("instruct", tokenizer_only=True)
 
         for chunk, score in doc_score_pairs:
             chunk_tokens = len(
