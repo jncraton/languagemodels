@@ -40,6 +40,20 @@ def search(query, docs):
     return sorted(enumerate(scores), key=lambda x: x[1], reverse=True)
 
 
+def get_token_ids(doc):
+    """Return list of token ids for a document
+
+    Note that the tokenzier used here is from the generative model.
+
+    This is used for token counting for the context, not for tokenization
+    before embedding.
+    """
+
+    generative_tokenizer, _ = get_model("instruct", tokenizer_only=True)
+
+    return generative_tokenizer.encode(doc, add_special_tokens=False).ids
+
+
 class Document:
     """
     A document used for semantic search
@@ -146,19 +160,14 @@ class RetrievalContext:
             self.store_chunks(doc, name)
 
     def store_chunks(self, doc, name=""):
-        # Note that the tokenzier used here is from the generative model
-        # This is used for token counting for the context, not for tokenization
-        # before embedding
         generative_tokenizer, _ = get_model("instruct", tokenizer_only=True)
 
-        tokens = generative_tokenizer.encode(doc, add_special_tokens=False).ids
+        tokens = get_token_ids(doc)
 
         name_tokens = []
 
         if name:
-            name_tokens = generative_tokenizer.encode(
-                f"From {name} document:", add_special_tokens=False
-            ).ids
+            name_tokens = get_token_ids(f"From {name} document:")
 
         i = 0
         chunk = name_tokens.copy()
@@ -200,11 +209,9 @@ class RetrievalContext:
         chunks = []
         tokens = 0
 
-        generative_tokenizer, _ = get_model("instruct", tokenizer_only=True)
-
         for chunk_id, score in results:
             chunk = self.chunks[chunk_id].content
-            chunk_tokens = len(generative_tokenizer.encode(chunk, add_special_tokens=False).tokens)
+            chunk_tokens = len(get_token_ids(chunk))
             if tokens + chunk_tokens <= max_tokens and score > 0.1:
                 chunks.append(chunk)
                 tokens += chunk_tokens
