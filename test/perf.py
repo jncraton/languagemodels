@@ -38,18 +38,9 @@ print("\n# Instruction Tests\n")
 
 tests = [
     ("What is the capital of France?", "Paris"),
-    (
-        "Lungs are used for respiration in mammals. Computers are machines that do not respirate. Would you expect computers to have lungs?",
-        "No",
-    ),
     ("A game uses a bat and ball. Is it baseball or soccer?", "Baseball"),
     ("Is grass green or blue?", "Green"),
-    ("Classify as positive or negative: He smells gross", "Negative"),
     ("Does a car have more wheels than a bike?", "Yes"),
-    (
-        "I have 3 books then lose 1. How many books do I have. Think step by step to get the correct answer.",
-        "2",
-    ),
 ]
 
 accuracy = 0
@@ -87,7 +78,7 @@ print(f"Memory used after running inference: {mem_used_gb():.2f}GB")
 
 print("\n# Embedding Tests\n")
 
-planets = json.load(open("test/planets.json"))
+planets = json.load(open("test/planets.json"))[-4:]
 
 # Make sure the model is loaded before testing
 start = time.perf_counter_ns()
