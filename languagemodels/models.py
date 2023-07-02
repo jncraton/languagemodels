@@ -337,8 +337,6 @@ def get_model(model_type):
         elif "gpt" in model_name.lower():
             hf_hub_download(f"jncraton/{model_name}", "vocabulary.json")
             tokenizer = Tokenizer.from_pretrained(f"jncraton/{model_name}")
-            # tokenizer.no_padding()
-            # tokenizer.no_truncation()
             modelcache[model_name] = (
                 tokenizer,
                 ctranslate2.Generator(model_base_path, compute_type="int8"),
