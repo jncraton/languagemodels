@@ -166,7 +166,7 @@ def get_max_ram():
 
     Otherwise, value from LANGUAGEMODELS_SIZE env var will be used
 
-    Otherwise, default of 0.45 is returned
+    Otherwise, default of 0.40 is returned
 
     >>> set_max_ram(2)
     2.0
@@ -192,7 +192,7 @@ def get_max_ram():
         if env == "small":
             return 0.2
         if env == "base":
-            return 0.45
+            return 0.40
         if env == "large":
             return 1.0
         if env == "xl":
@@ -202,7 +202,7 @@ def get_max_ram():
 
         return convert_to_gb(env)
 
-    return 0.45
+    return 0.40
 
 
 def require_model_license(match_re):
@@ -256,7 +256,7 @@ def convert_to_gb(space):
         return float(space)
 
 
-def get_model_name(model_type, max_ram=0.45, license_match=None):
+def get_model_name(model_type, max_ram=0.40, license_match=None):
     """Gets an appropriate model name matching current filters
 
     >>> get_model_name("instruct")
@@ -310,6 +310,15 @@ def get_model(model_type):
     """
 
     model_name = get_model_name(model_type, get_max_ram(), license_match)
+
+    if get_max_ram() < 4:
+        for model in modelcache:
+            if model != model_name:
+                try:
+                    modelcache[model][1].unload_model()
+                except AttributeError:
+                    # Encoder-only models can't be unloaded by ctranslate2
+                    pass
 
     if model_name not in modelcache:
         hf_hub_download(f"jncraton/{model_name}", "config.json")
