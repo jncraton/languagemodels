@@ -42,6 +42,15 @@ models = [
         "license": "apache-2.0",
     },
     {
+        "name": "fastchat-t5-3b-v1.0-ct2-int8",
+        "tuning": "instruct",
+        "datasets": ["c4", "flan", "sharegpt"],
+        "params": 3e9,
+        "quantization": "int8",
+        "architecture": "encoder-decoder-transformer",
+        "license": "apache-2.0",  # This does use OpenAI-generated data
+    },
+    {
         "name": "LaMini-Flan-T5-783M-ct2-int8",
         "tuning": "instruct",
         "datasets": ["c4", "flan", "lamini"],
