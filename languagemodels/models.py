@@ -274,7 +274,7 @@ def get_model_name(model_type, max_ram=0.40, license_match=None):
 
     # Allow pinning a specific model via environment variable
     # This is only used for testing
-    if os.environ.get("LANGUAGEMODELS_INSTRUCT_MODEL"):
+    if os.environ.get("LANGUAGEMODELS_INSTRUCT_MODEL") and model_type == "instruct":
         return os.environ.get("LANGUAGEMODELS_INSTRUCT_MODEL")
 
     for model in models:
