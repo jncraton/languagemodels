@@ -12,8 +12,11 @@ class InferenceException(Exception):
 def list_tokens(prompt):
     """Generates a list of tokens for a supplied prompt
 
-    >>> list_tokens("Hello, world!")
+    >>> list_tokens("Hello, world!") # doctest: +SKIP
     [('▁Hello', 8774), (',', 6), ('▁world', 296), ('!', 55)]
+
+    >>> list_tokens("Hello, world!")
+    [('...Hello', ...), ... ('...world', ...), ...]
     """
     tokenizer, _ = get_model("instruct")
 
@@ -184,10 +187,18 @@ def rank_instruct(input, targets):
 
     input_tokens = tokenizer.encode(input).tokens
 
-    scores = model.score_batch(
-        [input_tokens] * len(targets),
-        target=[tokenizer.encode(t).tokens for t in targets],
-    )
+    if "Generator" in str(type(model)):
+        prompt = f'Classify as {", ".join(targets)}: {input} Classification:'
+        input_tokens = tokenizer.encode(prompt).tokens
+
+        scores = model.score_batch(
+            [input_tokens + tokenizer.encode(t).tokens for t in targets],
+        )
+    else:
+        scores = model.score_batch(
+            [input_tokens] * len(targets),
+            target=[tokenizer.encode(t).tokens for t in targets],
+        )
 
     logprobs = [sum(r.log_probs) for r in scores]
 
