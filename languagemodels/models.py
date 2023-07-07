@@ -337,14 +337,15 @@ def get_model(model_type, tokenizer_only=False):
         hf_hub_download(f"jncraton/{model_name}", "config.json")
         model_path = hf_hub_download(f"jncraton/{model_name}", "model.bin")
         model_base_path = model_path[:-10]
+        tok_config = hf_hub_download(f"jncraton/{model_name}", "tokenizer.json")
+        tokenizer = Tokenizer.from_file(tok_config)
 
         if "minilm" in model_name.lower():
-            hf_hub_download(f"jncraton/{model_name}", "vocabulary.txt")
-            tokenizer = Tokenizer.from_pretrained(f"jncraton/{model_name}")
             tokenizer.no_padding()
             tokenizer.no_truncation()
 
             if not tokenizer_only:
+                hf_hub_download(f"jncraton/{model_name}", "vocabulary.txt")
                 model = ctranslate2.Encoder(model_base_path, compute_type="int8")
 
             modelcache[model_name] = (
@@ -352,20 +353,16 @@ def get_model(model_type, tokenizer_only=False):
                 model,
             )
         elif "gpt" in model_name.lower():
-            hf_hub_download(f"jncraton/{model_name}", "vocabulary.json")
-            tokenizer = Tokenizer.from_pretrained(f"jncraton/{model_name}")
             if not tokenizer_only:
+                hf_hub_download(f"jncraton/{model_name}", "vocabulary.json")
                 model = ctranslate2.Generator(model_base_path, compute_type="int8")
             modelcache[model_name] = (
                 tokenizer,
                 model,
             )
         else:
-            hf_hub_download(f"jncraton/{model_name}", "shared_vocabulary.txt")
-            tok_config = hf_hub_download(f"jncraton/{model_name}", "tokenizer.json")
-
-            tokenizer = Tokenizer.from_file(tok_config)
             if not tokenizer_only:
+                hf_hub_download(f"jncraton/{model_name}", "shared_vocabulary.txt")
                 model = ctranslate2.Translator(model_base_path, compute_type="int8")
             modelcache[model_name] = (
                 tokenizer,
