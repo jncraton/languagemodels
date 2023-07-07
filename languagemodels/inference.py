@@ -187,7 +187,7 @@ def rank_instruct(input, targets):
 
     input_tokens = tokenizer.encode(input).tokens
 
-    if 'Generator' in str(type(model)):
+    if "Generator" in str(type(model)):
         prompt = f'Classify as {", ".join(targets)}: {input} Classification:'
         input_tokens = tokenizer.encode(prompt).tokens
 
