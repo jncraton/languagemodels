@@ -5,6 +5,7 @@ import json
 from languagemodels.config import config
 from languagemodels.inference import (
     generate_instruct,
+    generate_code,
     rank_instruct,
     parse_chat,
     list_tokens,
@@ -164,6 +165,28 @@ def chat(prompt: str) -> str:
         response = response[10:]
 
     return response.strip()
+
+
+def code(prompt: str) -> str:
+    """Complete a code prompt
+
+    This assumes that users are expecting Python completions. Default models
+    are fine-tuned on Python where applicable.
+
+    :param prompt: Code context to complete
+    :return: Completion returned from the language model
+
+    Examples:
+
+    >>> code("# Print Hello, world!\\n")
+    'print("Hello, world!")\\n'
+
+    >>> code("def return_4():")
+    '...return 4...'
+    """
+    result = generate_code(prompt, max_tokens=200, topk=1)
+
+    return result
 
 
 def extract_answer(question: str, context: str) -> str:
