@@ -13,16 +13,13 @@ class ModelException(Exception):
     pass
 
 
-def get_model_info(model_type="instruct", max_ram=None, license_match=None):
+def get_model_info(model_type="instruct"):
     """Gets info about the current model in use
 
     >>> get_model_info('instruct')
     {'name': 'LaMini-Flan-T5-248M-ct2-int8', 'tuning': 'instruct'...
     """
-    if not max_ram:
-        max_ram = config["max_ram"]
-
-    model_name = get_model_name(model_type, max_ram, license_match)
+    model_name = config[f"{model_type}_model"]
 
     m = [m for m in models if m["name"] == model_name][0]
 
@@ -31,41 +28,6 @@ def get_model_info(model_type="instruct", max_ram=None, license_match=None):
     m["size_gb"] = m["params"] * param_bits / 8 / 1e9
 
     return m
-
-
-def get_model_name(model_type, max_ram=0.40, license_match=None):
-    """Gets an appropriate model name matching current filters
-
-    >>> get_model_name("instruct")
-    'LaMini-Flan-T5-248M-ct2-int8'
-
-    >>> get_model_name("instruct", 1.0)
-    'LaMini-Flan-T5-783M-ct2-int8'
-
-    >>> get_model_name("instruct", 1.0, "apache*")
-    'flan-t5-large-ct2-int8'
-
-    >>> get_model_name("embedding")
-    'all-MiniLM-L6-v2-ct2-int8'
-    """
-
-    # Allow pinning a specific model via environment variable
-    # This is only used for testing
-    if os.environ.get("LANGUAGEMODELS_INSTRUCT_MODEL") and model_type == "instruct":
-        return os.environ.get("LANGUAGEMODELS_INSTRUCT_MODEL")
-
-    for model in models:
-        assert model["quantization"] == "int8"
-
-        memsize = model["params"] / 1e9
-
-        sizefit = memsize < max_ram
-        licensematch = not license_match or re.match(license_match, model["license"])
-
-        if model["tuning"] == model_type and sizefit and licensematch:
-            return model["name"]
-
-    raise ModelException(f"No valid model found for {model_type}")
 
 
 def get_model(model_type, tokenizer_only=False):
@@ -88,7 +50,7 @@ def get_model(model_type, tokenizer_only=False):
     <class 'ctranslate2._ext.Encoder'>
     """
 
-    model_name = get_model_name(model_type, config["max_ram"], config["model_license"])
+    model_name = config[f"{model_type}_model"]
 
     if config["max_ram"] < 4 and not tokenizer_only:
         for model in modelcache:
