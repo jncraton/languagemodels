@@ -265,6 +265,26 @@ def convert_to_gb(space):
         return float(space)
 
 
+def get_model_info(model_type="instruct", max_ram=None, license_match=None):
+    """Gets info about the current model in use
+
+    >>> get_model_info('instruct')
+    {'name': 'LaMini-Flan-T5-248M-ct2-int8', 'tuning': 'instruct'...
+    """
+    if not max_ram:
+        max_ram = get_max_ram()
+
+    model_name = get_model_name(model_type, max_ram, license_match)
+
+    m = [m for m in models if m["name"] == model_name][0]
+
+    param_bits = int(re.search(r"\d+", m["quantization"]).group(0))
+
+    m["size_gb"] = m["params"] * param_bits / 8 / 1e9
+
+    return m
+
+
 def get_model_name(model_type, max_ram=0.40, license_match=None):
     """Gets an appropriate model name matching current filters
 
