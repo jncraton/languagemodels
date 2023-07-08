@@ -195,6 +195,24 @@ class Config(dict):
     def __setitem__(self, key, value):
         super().__setitem__(key, Config.schema[key].initfn(value))
 
+        # Auto-adjust instruct_model when filters change
+        if key == "max_ram" or key == "model_license":
+            for model in models:
+                assert model["quantization"] == "int8"
+
+                memsize = model["params"] / 1e9
+
+                sizefit = memsize < self["max_ram"]
+
+                if "model_license" in self:
+                    licensematch = self["model_license"].match(model["license"])
+                else:
+                    licensematch = True
+
+                if model["tuning"] == "instruct" and sizefit and licensematch:
+                    self["instruct_model"] = model["name"]
+                    break
+
     def update(self, other):
         for key in other:
             self[key] = other[key]
@@ -274,6 +292,7 @@ Config.schema = {
     "max_ram": ConfigItem(Config.convert_to_gb, 0.40),
     "model_license": ConfigItem(re.compile, ".*"),
     "instruct_model": ConfigItem(Config.validate_model, "LaMini-Flan-T5-248M-ct2-int8"),
+    "embedding_model": ConfigItem(Config.validate_model, "all-MiniLM-L6-v2-ct2-int8"),
 }
 
 config = Config()
