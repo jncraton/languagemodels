@@ -171,6 +171,38 @@ def generate_instruct(
     return text
 
 
+def generate_code(
+    prompt,
+    max_tokens=200,
+    temperature=0.1,
+    topk=1,
+    repetition_penalty=1.2,
+    prefix="",
+):
+    """Generates one completion for a prompt using a code-tuned model
+
+    >>> generate_code("# Print Hello, World!\\n")
+    'print("Hello, World!")\\n'
+    """
+
+    tokenizer, model = get_model("code")
+
+    results = model.translate_batch(
+        [tokenizer.encode(prompt).tokens],
+        target_prefix=[tokenizer.encode(prefix, add_special_tokens=False).tokens],
+        repetition_penalty=repetition_penalty,
+        max_decoding_length=max_tokens,
+        sampling_temperature=temperature,
+        sampling_topk=topk,
+        beam_size=1,
+    )
+    output_tokens = results[0].hypotheses[0]
+    output_ids = [tokenizer.token_to_id(t) for t in output_tokens]
+    text = tokenizer.decode(output_ids, skip_special_tokens=True)
+
+    return text
+
+
 def rank_instruct(input, targets):
     """Sorts a list of targets by their probabilities
 
