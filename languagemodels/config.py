@@ -136,6 +136,15 @@ models = [
         "license": "bsd-3-clause",
     },
     {
+        "name": "codet5p-770m-py-ct2-int8",
+        "tuning": "code",
+        "datasets": ["github-code"],
+        "params": 770e6,
+        "quantization": "int8",
+        "architecture": "encoder-decoder-transformer",
+        "license": "bsd-3-clause",
+    },
+    {
         "name": "all-MiniLM-L6-v2-ct2-int8",
         "tuning": "embedding",
         "params": 22e6,
