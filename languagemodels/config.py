@@ -257,7 +257,7 @@ class Config(dict):
         0.2
 
         >>> Config.convert_to_gb("base")
-        0.4
+        0.48
 
         >>> Config.convert_to_gb("large")
         1.0
@@ -274,7 +274,7 @@ class Config(dict):
 
         size_names = {
             "small": 0.2,
-            "base": 0.4,
+            "base": 0.48,
             "large": 1.0,
             "xl": 4.0,
             "xxl": 16.0,
@@ -298,7 +298,7 @@ class Config(dict):
 
 
 Config.schema = {
-    "max_ram": ConfigItem(Config.convert_to_gb, 0.40),
+    "max_ram": ConfigItem(Config.convert_to_gb, 0.48),
     "model_license": ConfigItem(re.compile, ".*"),
     "instruct_model": ConfigItem(Config.validate_model, "LaMini-Flan-T5-248M-ct2-int8"),
     "embedding_model": ConfigItem(Config.validate_model, "all-MiniLM-L6-v2-ct2-int8"),
