@@ -225,10 +225,36 @@ class Config(dict):
 
         >>> Config.convert_to_gb("256M")
         0.25
+
+        >>> Config.convert_to_gb("small")
+        0.2
+
+        >>> Config.convert_to_gb("base")
+        0.4
+
+        >>> Config.convert_to_gb("large")
+        1.0
+
+        >>> Config.convert_to_gb("xl")
+        4.0
+
+        >>> Config.convert_to_gb("xxl")
+        16.0
         """
 
         if isinstance(space, int) or isinstance(space, float):
             return float(space)
+
+        size_names = {
+            "small": 0.2,
+            "base": 0.4,
+            "large": 1.0,
+            "xl": 4.0,
+            "xxl": 16.0,
+        }
+
+        if space.lower().strip() in size_names:
+            return size_names[space.lower().strip()]
 
         multipliers = {
             "g": 1.0,
