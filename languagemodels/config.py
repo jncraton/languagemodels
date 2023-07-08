@@ -5,6 +5,12 @@ from languagemodels.models import models
 
 class Config(dict):
     """
+    Store configuration information for the package.
+
+    This is a dictionary that provides data basic data validation.
+
+    Only appropriate keys and values are allowed to be set.
+
     >>> c = Config({'max_ram': '4gb'})
     >>> c
     {'max_ram': 4.0}
