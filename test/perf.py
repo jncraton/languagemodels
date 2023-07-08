@@ -15,6 +15,10 @@ def mem_used_gb():
 print(f"Memory used before loading models: {mem_used_gb():.2f}GB")
 
 
+print("\n# Code Test\n")
+
+print(f'{lm.code("def say_hello():")=}')
+
 print("\n# Completion Test\n")
 
 print(f'{lm.complete("They ran until")=}')
