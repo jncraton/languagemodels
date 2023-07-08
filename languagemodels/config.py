@@ -147,15 +147,15 @@ class Config(dict):
 
     >>> c = Config({'max_ram': '4gb'})
     >>> c
-    {'max_ram': 4.0}
+    {...'max_ram': 4.0...}
 
     >>> c = Config({'instruct_model': 'flan-t5-small-ct2-int8'})
     >>> c
-    {'instruct_model': 'flan-t5-small-ct2-int8'}
+    {...'instruct_model': 'flan-t5-small-ct2-int8'...}
 
     >>> c = Config({'license_filter': 'apache.*|mit'})
     >>> c
-    {'license_filter': re.compile('apache.*|mit')}
+    {...'license_filter': re.compile('apache.*|mit')...}
 
     >>> c = Config({'instruct_model': 'flan-t5-bad-ct2-int8'})
     Traceback (most recent call last):
@@ -178,7 +178,11 @@ class Config(dict):
     model_names = {m["name"]: m for m in models}
 
     def __init__(self, config={}):
-        # Environment variables are loaded first
+        # Defaults are loaded first
+        for key in Config.schema:
+            self[key] = self.schema[key].default
+
+        # Environment variables override defaults
         for key in Config.schema:
             value = os.environ.get(f"LANGUAGEMODELS_{key.upper()}")
             if value:
@@ -189,7 +193,7 @@ class Config(dict):
             self[key] = config[key]
 
     def __setitem__(self, key, value):
-        super().__setitem__(key, Config.schema[key](value))
+        super().__setitem__(key, Config.schema[key].initfn(value))
 
     def update(self, other):
         for key in other:
@@ -241,7 +245,7 @@ class Config(dict):
 
 
 Config.schema = {
-    "max_ram": Config.convert_to_gb,
-    "license_filter": re.compile,
-    "instruct_model": Config.validate_model,
+    "max_ram": ConfigItem(Config.convert_to_gb, 0.40),
+    "license_filter": ConfigItem(re.compile, ".*"),
+    "instruct_model": ConfigItem(Config.validate_model, "LaMini-Flan-T5-248M-ct2-int8"),
 }
