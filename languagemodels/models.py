@@ -13,61 +13,6 @@ class ModelException(Exception):
     pass
 
 
-def set_max_ram(value):
-    """Sets max allowed RAM
-
-    This value takes priority over environment variables
-
-    Returns the numeric value set in GB
-
-    >>> set_max_ram(16)
-    16.0
-
-    >>> set_max_ram('512mb')
-    0.5
-    """
-
-    config["max_ram"] = value
-
-    return config["max_ram"]
-
-
-def get_max_ram():
-    """Return max total RAM to use for models
-
-    max ram will be in GB
-
-    If set_max_ram() has been called, that value will be returned
-
-    Otherwise, value from LANGUAGEMODELS_SIZE env var will be used
-
-    Otherwise, default of 0.40 is returned
-
-    >>> set_max_ram(2)
-    2.0
-
-    >>> get_max_ram()
-    2.0
-
-    >>> set_max_ram(.5)
-    0.5
-
-    >>> get_max_ram()
-    0.5
-    """
-
-    return config["max_ram"]
-
-
-def require_model_license(match_re):
-    """Require models to match supplied regex
-
-    This can be used to enforce certain licensing constraints when using this
-    package.
-    """
-    config["model_license"] = match_re
-
-
 def get_model_info(model_type="instruct", max_ram=None, license_match=None):
     """Gets info about the current model in use
 
@@ -75,7 +20,7 @@ def get_model_info(model_type="instruct", max_ram=None, license_match=None):
     {'name': 'LaMini-Flan-T5-248M-ct2-int8', 'tuning': 'instruct'...
     """
     if not max_ram:
-        max_ram = get_max_ram()
+        max_ram = config["max_ram"]
 
     model_name = get_model_name(model_type, max_ram, license_match)
 
@@ -143,9 +88,9 @@ def get_model(model_type, tokenizer_only=False):
     <class 'ctranslate2._ext.Encoder'>
     """
 
-    model_name = get_model_name(model_type, get_max_ram(), config["model_license"])
+    model_name = get_model_name(model_type, config["max_ram"], config["model_license"])
 
-    if get_max_ram() < 4 and not tokenizer_only:
+    if config["max_ram"] < 4 and not tokenizer_only:
         for model in modelcache:
             if model != model_name:
                 try:

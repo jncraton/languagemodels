@@ -2,7 +2,6 @@ import requests
 import datetime
 import json
 
-from languagemodels.models import set_max_ram, require_model_license
 from languagemodels.config import config
 from languagemodels.inference import (
     generate_instruct,
@@ -389,3 +388,31 @@ def count_tokens(prompt: str) -> None:
     """
 
     return len(list_tokens(prompt))
+
+
+def set_max_ram(value):
+    """Sets max allowed RAM
+
+    This value takes priority over environment variables
+
+    Returns the numeric value set in GB
+
+    >>> set_max_ram(16)
+    16.0
+
+    >>> set_max_ram('512mb')
+    0.5
+    """
+
+    config["max_ram"] = value
+
+    return config["max_ram"]
+
+
+def require_model_license(match_re):
+    """Require models to match supplied regex
+
+    This can be used to enforce certain licensing constraints when using this
+    package.
+    """
+    config["model_license"] = match_re
