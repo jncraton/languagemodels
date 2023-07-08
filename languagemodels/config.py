@@ -275,3 +275,5 @@ Config.schema = {
     "license_filter": ConfigItem(re.compile, ".*"),
     "instruct_model": ConfigItem(Config.validate_model, "LaMini-Flan-T5-248M-ct2-int8"),
 }
+
+config = Config()

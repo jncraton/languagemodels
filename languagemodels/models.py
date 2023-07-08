@@ -28,11 +28,10 @@ def set_max_ram(value):
     >>> set_max_ram('512mb')
     0.5
     """
-    global max_ram
 
-    max_ram = convert_to_gb(value)
+    config["max_ram"] = value
 
-    return max_ram
+    return config["max_ram"]
 
 
 def get_max_ram():
@@ -59,28 +58,7 @@ def get_max_ram():
     0.5
     """
 
-    if max_ram:
-        return max_ram
-
-    env = os.environ.get("LANGUAGEMODELS_SIZE")
-
-    if env:
-        env = env.lower()
-
-        if env == "small":
-            return 0.2
-        if env == "base":
-            return 0.40
-        if env == "large":
-            return 1.0
-        if env == "xl":
-            return 4.0
-        if env == "xxl":
-            return 16.0
-
-        return convert_to_gb(env)
-
-    return 0.40
+    return config["max_ram"]
 
 
 def require_model_license(match_re):

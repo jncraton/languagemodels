@@ -3,6 +3,7 @@ import datetime
 import json
 
 from languagemodels.models import set_max_ram, require_model_license
+from languagemodels.config import config
 from languagemodels.inference import (
     generate_instruct,
     rank_instruct,
