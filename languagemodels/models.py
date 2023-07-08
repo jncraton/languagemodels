@@ -8,7 +8,6 @@ from languagemodels.config import config, models
 
 
 modelcache = {}
-license_match = os.environ.get("LANGUAGEMODELS_MODEL_LICENSE")
 
 
 class ModelException(Exception):
@@ -67,9 +66,7 @@ def require_model_license(match_re):
     This can be used to enforce certain licensing constraints when using this
     package.
     """
-    global license_match
-
-    license_match = match_re
+    config["model_license"] = match_re
 
 
 def convert_to_gb(space):
@@ -187,7 +184,7 @@ def get_model(model_type, tokenizer_only=False):
     <class 'ctranslate2._ext.Encoder'>
     """
 
-    model_name = get_model_name(model_type, get_max_ram(), license_match)
+    model_name = get_model_name(model_type, get_max_ram(), config["model_license"])
 
     if get_max_ram() < 4 and not tokenizer_only:
         for model in modelcache:
