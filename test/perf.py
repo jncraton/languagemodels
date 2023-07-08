@@ -99,7 +99,7 @@ print(lm.get_doc_context("Which planets have rings?"))
 print(f"Search time: {(time.perf_counter_ns() - start) / 1e6:.0f}ms")
 lm.docs.clear()
 
-max_ram = lm.models.get_max_ram()
+max_ram = lm.config["max_ram"]
 print(
     f"Memory used after all tests: {mem_used_gb():.2f}GB (must be under {max_ram:.2f}GB)"
 )
