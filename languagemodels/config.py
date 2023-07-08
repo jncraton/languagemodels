@@ -127,6 +127,15 @@ models = [
         "license": "mit",
     },
     {
+        "name": "codet5p-220m-py-ct2-int8",
+        "tuning": "code",
+        "datasets": ["github-code"],
+        "params": 220e6,
+        "quantization": "int8",
+        "architecture": "encoder-decoder-transformer",
+        "license": "bsd-3-clause",
+    },
+    {
         "name": "all-MiniLM-L6-v2-ct2-int8",
         "tuning": "embedding",
         "params": 22e6,
@@ -293,6 +302,7 @@ Config.schema = {
     "model_license": ConfigItem(re.compile, ".*"),
     "instruct_model": ConfigItem(Config.validate_model, "LaMini-Flan-T5-248M-ct2-int8"),
     "embedding_model": ConfigItem(Config.validate_model, "all-MiniLM-L6-v2-ct2-int8"),
+    "code_model": ConfigItem(Config.validate_model, "codet5p-220m-py-ct2-int8"),
 }
 
 config = Config()
