@@ -121,6 +121,21 @@ Semantic search is provided to retrieve documents that may provide helpful conte
 From C document: It was designed to be compiled to provide low-level access to memory and language constructs that map efficiently to machine instructions, all with minimal runtime support.'
 ```
 
+### Code
+
+A model tuned on Python code is included. It can be used to complete code snippets.
+
+```python
+>>> import languagemodels as lm
+>>> lm.code("""
+... a = 2
+... b = 5
+...
+... # Swap a and b
+... """)
+'a, b = b, a'
+```
+
 [Full documentation](https://languagemodels.netlify.app/)
 
 ### Speed
