@@ -153,9 +153,9 @@ class Config(dict):
     >>> c
     {...'instruct_model': 'flan-t5-small-ct2-int8'...}
 
-    >>> c = Config({'license_filter': 'apache.*|mit'})
+    >>> c = Config({'model_license': 'apache.*|mit'})
     >>> c
-    {...'license_filter': re.compile('apache.*|mit')...}
+    {...'model_license': re.compile('apache.*|mit')...}
 
     >>> c = Config({'instruct_model': 'flan-t5-bad-ct2-int8'})
     Traceback (most recent call last):
@@ -272,7 +272,7 @@ class Config(dict):
 
 Config.schema = {
     "max_ram": ConfigItem(Config.convert_to_gb, 0.40),
-    "license_filter": ConfigItem(re.compile, ".*"),
+    "model_license": ConfigItem(re.compile, ".*"),
     "instruct_model": ConfigItem(Config.validate_model, "LaMini-Flan-T5-248M-ct2-int8"),
 }
 
