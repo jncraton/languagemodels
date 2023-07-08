@@ -48,7 +48,7 @@ class Config(dict):
         for key in Config.schema:
             value = os.environ.get(f"LANGUAGEMODELS_{key.upper()}")
             if value:
-                self[key] = config[key]
+                self[key] = value
 
         # Any values passed in the config dict override environment vars
         for key in config.keys():
