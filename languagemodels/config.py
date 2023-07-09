@@ -127,19 +127,19 @@ models = [
         "license": "mit",
     },
     {
-        "name": "codet5p-220m-py-ct2-int8",
+        "name": "codet5p-770m-py-ct2-int8",
         "tuning": "code",
         "datasets": ["github-code"],
-        "params": 220e6,
+        "params": 770e6,
         "quantization": "int8",
         "architecture": "encoder-decoder-transformer",
         "license": "bsd-3-clause",
     },
     {
-        "name": "codet5p-770m-py-ct2-int8",
+        "name": "codet5p-220m-py-ct2-int8",
         "tuning": "code",
         "datasets": ["github-code"],
-        "params": 770e6,
+        "params": 220e6,
         "quantization": "int8",
         "architecture": "encoder-decoder-transformer",
         "license": "bsd-3-clause",
@@ -213,6 +213,8 @@ class Config(dict):
     def __setitem__(self, key, value):
         super().__setitem__(key, Config.schema[key].initfn(value))
 
+        found = set()
+
         # Auto-adjust instruct_model when filters change
         if key == "max_ram" or key == "model_license":
             for model in models:
@@ -227,9 +229,9 @@ class Config(dict):
                 else:
                     licensematch = True
 
-                if model["tuning"] == "instruct" and sizefit and licensematch:
-                    self["instruct_model"] = model["name"]
-                    break
+                if model["tuning"] not in found and sizefit and licensematch:
+                    self[model["tuning"] + "_model"] = model["name"]
+                    found.add(model["tuning"])
 
     def update(self, other):
         for key in other:
