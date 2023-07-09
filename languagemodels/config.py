@@ -152,6 +152,14 @@ models = [
         "architecture": "encoder-only-transformer",
         "license": "apache-2.0",
     },
+    {
+        "name": "e5-small-v2-ct2-int8",
+        "tuning": "embedding",
+        "params": 33e6,
+        "quantization": "int8",
+        "architecture": "encoder-only-transformer",
+        "license": "mit",
+    },
 ]
 
 
