@@ -70,7 +70,7 @@ def get_model(model_type, tokenizer_only=False):
         tok_config = hf_hub_download(f"jncraton/{model_name}", "tokenizer.json")
         tokenizer = Tokenizer.from_file(tok_config)
 
-        if model_type == 'embedding':
+        if model_type == "embedding":
             tokenizer.no_padding()
             tokenizer.no_truncation()
 
