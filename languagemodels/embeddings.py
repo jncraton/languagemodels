@@ -3,13 +3,6 @@ import numpy as np
 from languagemodels.models import get_model
 
 
-def cosine_similarity(a, b):
-    dot_product = np.dot(a, b)
-    magnitude_a = np.linalg.norm(a)
-    magnitude_b = np.linalg.norm(b)
-    return dot_product / (magnitude_a * magnitude_b)
-
-
 def embed(doc):
     """Gets embeddings for a document
 
@@ -35,7 +28,7 @@ def search(query, docs):
 
     query_embedding = embed(query)
 
-    scores = [cosine_similarity(query_embedding, d.embedding) for d in docs]
+    scores = [np.dot(query_embedding, d.embedding) for d in docs]
 
     return sorted(enumerate(scores), key=lambda x: x[1], reverse=True)
 
