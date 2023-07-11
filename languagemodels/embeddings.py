@@ -201,7 +201,7 @@ class RetrievalContext:
                 if len(text.strip()) > len(label):
                     self.chunks.append(Document(text))
                 chunk = name_tokens.copy()
-                if full and not eof:
+                if full and not eof and not (half_full and sep):
                     # If the heuristic didn't get a semantic boundary, overlap
                     # next chunk to provide some context
                     i -= self.chunk_overlap
