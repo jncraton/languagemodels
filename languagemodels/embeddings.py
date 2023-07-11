@@ -191,7 +191,7 @@ class RetrievalContext:
             # Begin looking for probable sentence when half of target size
 
             full = len(chunk) == self.chunk_size
-            half_full = len(chunk) > self.chunk_size / 2
+            half_full = len(chunk) > self.chunk_size * 0.4
             eof = i == len(tokens)
             sep = token in separators
 
