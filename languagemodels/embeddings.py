@@ -44,7 +44,18 @@ def get_token_ids(doc):
 
     generative_tokenizer, _ = get_model("instruct", tokenizer_only=True)
 
-    return generative_tokenizer.encode(doc, add_special_tokens=False).ids
+    # We need to disable and re-enable truncation here
+    # This allows us to tokenize very large documents
+    # We won't be feeding the tokens themselves to a model, so this
+    # shouldn't cause any problems.
+    trunk = generative_tokenizer.truncation
+    generative_tokenizer.no_truncation()
+    ids = generative_tokenizer.encode(doc, add_special_tokens=False).ids
+    generative_tokenizer.enable_truncation(
+        trunk["max_length"], stride=trunk["stride"], strategy=trunk["strategy"]
+    )
+
+    return ids
 
 
 class Document:
@@ -81,6 +92,11 @@ class RetrievalContext:
 
     >>> rc.clear()
     >>> rc.get_match("Where is Paris?")
+
+    >>> rc.clear()
+    >>> rc.store(' '.join(['Python'] * 4096))
+    >>> len(rc.chunks)
+    73
 
     >>> rc.clear()
     >>> rc.store(' '.join(['Python'] * 232))
