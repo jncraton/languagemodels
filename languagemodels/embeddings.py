@@ -49,11 +49,13 @@ def get_token_ids(doc):
     # We won't be feeding the tokens themselves to a model, so this
     # shouldn't cause any problems.
     trunk = generative_tokenizer.truncation
-    generative_tokenizer.no_truncation()
+    if trunk:
+        generative_tokenizer.no_truncation()
     ids = generative_tokenizer.encode(doc, add_special_tokens=False).ids
-    generative_tokenizer.enable_truncation(
-        trunk["max_length"], stride=trunk["stride"], strategy=trunk["strategy"]
-    )
+    if trunk:
+        generative_tokenizer.enable_truncation(
+            trunk["max_length"], stride=trunk["stride"], strategy=trunk["strategy"]
+        )
 
     return ids
 
