@@ -198,7 +198,8 @@ class RetrievalContext:
             if eof or full or (half_full and sep):
                 # Store tokens and start next chunk
                 text = generative_tokenizer.decode(chunk)
-                self.chunks.append(Document(text))
+                if len(text.strip()) > len(label):
+                    self.chunks.append(Document(text))
                 chunk = name_tokens.copy()
                 if full and not eof:
                     # If the heuristic didn't get a semantic boundary, overlap
