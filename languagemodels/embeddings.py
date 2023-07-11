@@ -172,11 +172,14 @@ class RetrievalContext:
         generative_tokenizer, _ = get_model("instruct", tokenizer_only=True)
 
         tokens = get_token_ids(doc)
+        separators = [get_token_ids(t)[-1] for t in [".", "!", "?", ")."]]
 
         name_tokens = []
 
+        label = f"From {name} document:" if name else ""
+
         if name:
-            name_tokens = get_token_ids(f"From {name} document:")
+            name_tokens = get_token_ids(label)
 
         i = 0
         chunk = name_tokens.copy()
@@ -190,7 +193,7 @@ class RetrievalContext:
             full = len(chunk) == self.chunk_size
             half_full = len(chunk) > self.chunk_size / 2
             eof = i == len(tokens)
-            sep = token in [".", "!", "?", ")."]
+            sep = token in separators
 
             if eof or full or (half_full and sep):
                 # Store tokens and start next chunk
