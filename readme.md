@@ -13,10 +13,7 @@ Python building blocks to explore large language models on any computer with 512
 
 ![Translation hello world example](media/hello.gif)
 
-Target Audience
----------------
-
-This package is designed to be as simple as possible for **learners** and **educators** exploring how large language models intersect with modern software development. The interfaces to this package are all simple functions using standard types. The complexity of large language models is hidden from view while providing free local inference using light-weight, open models. All included models are free for educational use, no API keys are required, and all inference is performed locally by default.
+This package is designed to be as simple as possible for getting started with large language models. The interfaces are all simple functions using standard types. All included models are free for educational use, no API keys are required, and all inference is performed locally and your data is kept private by default.
 
 Installation and Getting Started
 --------------------------------
