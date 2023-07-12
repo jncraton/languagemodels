@@ -13,10 +13,7 @@ Python building blocks to explore large language models on any computer with 512
 
 ![Translation hello world example](media/hello.gif)
 
-Target Audience
----------------
-
-This package is designed to be as simple as possible for **learners** and **educators** exploring how large language models intersect with modern software development. The interfaces to this package are all simple functions using standard types. The complexity of large language models is hidden from view while providing free local inference using light-weight, open models. All included models are free for educational use, no API keys are required, and all inference is performed locally by default.
+This package makes using large language models in software as simple as possible. All inference is performed locally to keep your data private by default.
 
 Installation and Getting Started
 --------------------------------
@@ -42,15 +39,6 @@ Example Usage
 
 Here are some usage examples as Python REPL sessions. This should work in the REPL, notebooks, or in traditional scripts and applications.
 
-### Text Completions
-
-```python
->>> import languagemodels as lm
-
->>> lm.complete("She hid in her room until")
-'she was sure she was safe'
-```
-
 ### Instruction Following
 
 ```python
@@ -61,6 +49,29 @@ Here are some usage examples as Python REPL sessions. This should work in the RE
 
 >>> lm.do("What is the capital of France?")
 'Paris.'
+```
+
+### Adjusting Model Performance
+
+The base model should run quickly on any system with 512MB of memory, but this memory limit can be increased to select more powerful models that will consume more resources. Here's an example:
+
+```python
+>>> import languagemodels as lm
+>>> lm.do("If I have 7 apples then eat 5, how many apples do I have?")
+'You have 8 apples.'
+>>> lm.set_max_ram('4gb')
+4.0
+>>> lm.do("If I have 7 apples then eat 5, how many apples do I have?")
+'I have 2 apples left.'
+```
+
+### Text Completions
+
+```python
+>>> import languagemodels as lm
+
+>>> lm.complete("She hid in her room until")
+'she was sure she was safe'
 ```
 
 ### Chat
@@ -74,6 +85,21 @@ Here are some usage examples as Python REPL sessions. This should work in the RE
 ...      Assistant:
 ...      ''')
 'I'm sorry, but as an AI language model, I don't have access to real-time information. Please provide me with the specific time you are asking for so that I can assist you better.'
+```
+
+### Code
+
+A model tuned on Python code is included. It can be used to complete code snippets.
+
+```python
+>>> import languagemodels as lm
+>>> lm.code("""
+... a = 2
+... b = 5
+...
+... # Swap a and b
+... """)
+'a, b = b, a'
 ```
 
 ### External Retrieval
@@ -121,74 +147,49 @@ Semantic search is provided to retrieve documents that may provide helpful conte
 From C document: It was designed to be compiled to provide low-level access to memory and language constructs that map efficiently to machine instructions, all with minimal runtime support.'
 ```
 
-### Code
-
-A model tuned on Python code is included. It can be used to complete code snippets.
-
-```python
->>> import languagemodels as lm
->>> lm.code("""
-... a = 2
-... b = 5
-...
-... # Swap a and b
-... """)
-'a, b = b, a'
-```
-
 [Full documentation](https://languagemodels.netlify.app/)
 
 ### Speed
 
 This package currently outperforms Hugging Face `transformers` for CPU inference thanks to int8 quantization and the [CTranslate2](https://github.com/OpenNMT/CTranslate2) backend. The following table compares CPU inference performance on identical models using the best available quantization on a 20 question test set.
 
-| Backend                  | Inference Time | Memory Used |
-|--------------------------|----------------|-------------|
-| HuggingFace transformers | 22s            | 1.77GB      |
-| This package             | 11s            | 0.34GB      |
+| Backend                   | Inference Time | Memory Used |
+|---------------------------|----------------|-------------|
+| Hugging Face transformers | 22s            | 1.77GB      |
+| This package              | 11s            | 0.34GB      |
 
 Note that quantization does technically harm output quality slightly, but it should be negligible at this level.
 
-### Generation Quality
+### Models
 
-The models used by this package are 1000x smaller than the largest models in use today. They are useful as learning tools, but if you are expecting ChatGPT or similar performance, you will be very disappointed.
+This package does allow direct model selection, but sensible defaults are preferred to allow the package to improve over time as stronger models become available. The models used are 1000x smaller than the largest models in use today. They are useful as learning tools, but perform far below the current state of the art.
 
-The base model should work on any system with 512MB of memory, but this memory limit can be increased. Setting this value higher will require more memory and generate results more slowly, but the results should be superior. Here's an example:
-
-```python
->>> import languagemodels as lm
->>> lm.do("If I have 7 apples then eat 5, how many apples do I have?")
-'You have 8 apples.'
->>> lm.set_max_ram('4gb')
-4.0
->>> lm.do("If I have 7 apples then eat 5, how many apples do I have?")
-'I have 2 apples left.'
-```
-
-This pacakge currently uses [LaMini-Flan-T5-base](https://huggingface.co/MBZUAI/LaMini-Flan-T5-223M) as its default model. This is a fine-tuning of the T5 base model on top of the [FLAN](https://huggingface.co/google/flan-t5-base) fine-tuning provided by Google. The model is tuned to respond to instructions in a human-like manner. The following human evaluations were reported in the [paper](https://github.com/mbzuai-nlp/LaMini-LM) associated with this model family:
+This package currently uses [LaMini-Flan-T5-base](https://huggingface.co/MBZUAI/LaMini-Flan-T5-248M) as its default model. This is a fine-tuning of the T5 base model on top of the [FLAN](https://huggingface.co/google/flan-t5-base) fine-tuning. The model is tuned to respond to instructions in a human-like manner. The following human evaluations were reported in the [paper](https://github.com/mbzuai-nlp/LaMini-LM) associated with this model family:
 
 ![Human-rated model comparison](media/model-comparison.png)
+
+For code completions, the [CodeT5+](https://arxiv.org/abs/2305.07922) series of models are used.
 
 Commercial Use
 --------------
 
-This package itself is licensed for commerical use, but the models used may not be compatible with commercial use. In order to use this package commercially, you may want to filter models by their license type using the `require_model_license` function.
+This package itself is licensed for commercial use, but the models used may not be compatible with commercial use. In order to use this package commercially, you can filter models by license type using the `require_model_license` function.
 
 ```python
 >>> import languagemodels as lm
->>> lm.do("What is your favorite animal.")
->>> "As an AI language model, I don't have preferences or emotions."
->>> lm.require_model_license("apache.*|mit")
->>> lm.do("What is your favorite animal.")
-'Lion.'
+>>> lm.config['instruct_model']
+'LaMini-Flan-T5-248M-ct2-int8'
+>>> lm.require_model_license("apache|bsd|mit")
+>>> lm.config['instruct_model']
+'flan-t5-base-ct2-int8'
 ```
 
-The commercially-licensed models may not perform as well as the default models. It is recommended to confirm that the models used do meet the licensing requirements for your software.
+It is recommended to confirm that the models used meet the licensing requirements for your software.
 
 Projects Ideas
 --------------
 
-This package can be used to do the heavy lifting for a number of learning projects:
+One of the goals for this package is to be a straightforward tool for learners and educators exploring how large language models intersect with modern software development. It can be used to do the heavy lifting for a number of learning projects:
 
 - CLI Chatbot (see [examples/chat.py](examples/chat.py))
 - Streamlit chatbot (see [examples/streamlitchat.py](examples/streamlitchat.py))
