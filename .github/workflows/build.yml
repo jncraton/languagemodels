@@ -1,6 +1,10 @@
 name: x64 Desktop
 
-on: [push, pull_request]
+on:
+  push:
+    paths-ignore:
+      - '**/*.md'
+  pull_request:
 
 jobs:
   test:
