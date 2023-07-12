@@ -39,6 +39,20 @@ Example Usage
 
 Here are some usage examples as Python REPL sessions. This should work in the REPL, notebooks, or in traditional scripts and applications.
 
+### Adjusting Model Performance
+
+The base model should work on any system with 512MB of memory, but this memory limit can be increased to select more powerful models that will consume more resources. Here's an example:
+
+```python
+>>> import languagemodels as lm
+>>> lm.do("If I have 7 apples then eat 5, how many apples do I have?")
+'You have 8 apples.'
+>>> lm.set_max_ram('4gb')
+4.0
+>>> lm.do("If I have 7 apples then eat 5, how many apples do I have?")
+'I have 2 apples left.'
+```
+
 ### Text Completions
 
 ```python
@@ -150,18 +164,6 @@ Note that quantization does technically harm output quality slightly, but it sho
 
 The models used by this package are 1000x smaller than the largest models in use today. They are useful as learning tools, but if you are expecting ChatGPT or similar performance, you will be very disappointed.
 
-The base model should work on any system with 512MB of memory, but this memory limit can be increased. Setting this value higher will require more memory and generate results more slowly, but the results should be superior. Here's an example:
-
-```python
->>> import languagemodels as lm
->>> lm.do("If I have 7 apples then eat 5, how many apples do I have?")
-'You have 8 apples.'
->>> lm.set_max_ram('4gb')
-4.0
->>> lm.do("If I have 7 apples then eat 5, how many apples do I have?")
-'I have 2 apples left.'
-```
-
 This pacakge currently uses [LaMini-Flan-T5-base](https://huggingface.co/MBZUAI/LaMini-Flan-T5-223M) as its default model. This is a fine-tuning of the T5 base model on top of the [FLAN](https://huggingface.co/google/flan-t5-base) fine-tuning provided by Google. The model is tuned to respond to instructions in a human-like manner. The following human evaluations were reported in the [paper](https://github.com/mbzuai-nlp/LaMini-LM) associated with this model family:
 
 ![Human-rated model comparison](media/model-comparison.png)
@@ -169,15 +171,11 @@ This pacakge currently uses [LaMini-Flan-T5-base](https://huggingface.co/MBZUAI/
 Commercial Use
 --------------
 
-This package itself is licensed for commerical use, but the models used may not be compatible with commercial use. In order to use this package commercially, you may want to filter models by their license type using the `require_model_license` function.
+This package itself is licensed for commerical use, but the models used may not be compatible with commercial use. In order to use this package commercially, you can filter models by license type using the `require_model_license` function.
 
 ```python
 >>> import languagemodels as lm
->>> lm.do("What is your favorite animal.")
->>> "As an AI language model, I don't have preferences or emotions."
->>> lm.require_model_license("apache.*|mit")
->>> lm.do("What is your favorite animal.")
-'Lion.'
+>>> lm.require_model_license("apache.*|bsd.*|mit.*")
 ```
 
 The commercially-licensed models may not perform as well as the default models. It is recommended to confirm that the models used do meet the licensing requirements for your software.
