@@ -139,10 +139,10 @@ A model tuned on Python code is included. It can be used to complete code snippe
 
 This package currently outperforms Hugging Face `transformers` for CPU inference thanks to int8 quantization and the [CTranslate2](https://github.com/OpenNMT/CTranslate2) backend. The following table compares CPU inference performance on identical models using the best available quantization on a 20 question test set.
 
-| Backend                  | Inference Time | Memory Used |
-|--------------------------|----------------|-------------|
-| HuggingFace transformers | 22s            | 1.77GB      |
-| This package             | 11s            | 0.34GB      |
+| Backend                   | Inference Time | Memory Used |
+|---------------------------|----------------|-------------|
+| Hugging Face transformers | 22s            | 1.77GB      |
+| This package              | 11s            | 0.34GB      |
 
 Note that quantization does technically harm output quality slightly, but it should be negligible at this level.
 
