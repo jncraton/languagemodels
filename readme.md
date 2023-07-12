@@ -39,6 +39,18 @@ Example Usage
 
 Here are some usage examples as Python REPL sessions. This should work in the REPL, notebooks, or in traditional scripts and applications.
 
+### Instruction Following
+
+```python
+>>> import languagemodels as lm
+
+>>> lm.do("Translate to English: Hola, mundo!")
+'Hello, world!'
+
+>>> lm.do("What is the capital of France?")
+'Paris.'
+```
+
 ### Adjusting Model Performance
 
 The base model should work on any system with 512MB of memory, but this memory limit can be increased to select more powerful models that will consume more resources. Here's an example:
@@ -60,18 +72,6 @@ The base model should work on any system with 512MB of memory, but this memory l
 
 >>> lm.complete("She hid in her room until")
 'she was sure she was safe'
-```
-
-### Instruction Following
-
-```python
->>> import languagemodels as lm
-
->>> lm.do("Translate to English: Hola, mundo!")
-'Hello, world!'
-
->>> lm.do("What is the capital of France?")
-'Paris.'
 ```
 
 ### Chat
