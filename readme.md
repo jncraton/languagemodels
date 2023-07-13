@@ -179,7 +179,11 @@ This package itself is licensed for commerical use, but the models used may not 
 
 ```python
 >>> import languagemodels as lm
->>> lm.require_model_license("apache.*|bsd.*|mit.*")
+>>> lm.config['instruct_model']
+'LaMini-Flan-T5-248M-ct2-int8'
+>>> lm.require_model_license("apache|bsd|mit")
+>>> lm.config['instruct_model']
+'flan-t5-base-ct2-int8'
 ```
 
 The commercially-licensed models may not perform as well as the default models. It is recommended to confirm that the models used do meet the licensing requirements for your software.
