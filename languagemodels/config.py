@@ -4,6 +4,11 @@ from collections import namedtuple
 
 ConfigItem = namedtuple("ConfigItem", "initfn default")
 
+
+class ModelFilterException(Exception):
+    pass
+
+
 # Model list
 # This list is sorted in priority order, with the best models first
 # The best model that fits in the memory bounds and matches the model filter
@@ -179,9 +184,9 @@ class Config(dict):
     >>> c
     {...'instruct_model': 'flan-t5-small-ct2-int8'...}
 
-    >>> c = Config({'model_license': 'apache.*|mit'})
+    >>> c = Config({'model_license': 'apache|mit|bsd'})
     >>> c
-    {...'model_license': re.compile('apache.*|mit')...}
+    {...'model_license': re.compile('apache|mit|bsd')...}
 
     >>> c = Config({'instruct_model': 'flan-t5-bad-ct2-int8'})
     Traceback (most recent call last):
@@ -221,10 +226,9 @@ class Config(dict):
     def __setitem__(self, key, value):
         super().__setitem__(key, Config.schema[key].initfn(value))
 
-        found = set()
-
         # Auto-adjust instruct_model when filters change
         if key == "max_ram" or key == "model_license":
+            found = set()
             for model in models:
                 assert model["quantization"] == "int8"
 
@@ -240,6 +244,9 @@ class Config(dict):
                 if model["tuning"] not in found and sizefit and licensematch:
                     self[model["tuning"] + "_model"] = model["name"]
                     found.add(model["tuning"])
+
+            if len(found) < 3:
+                raise ModelFilterException("Unable to find models to match filters")
 
     def update(self, other):
         for key in other:
