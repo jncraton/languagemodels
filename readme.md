@@ -160,13 +160,17 @@ This package currently outperforms Hugging Face `transformers` for CPU inference
 
 Note that quantization does technically harm output quality slightly, but it should be negligible at this level.
 
-### Generation Quality
+### Models
+
+This package is opinionated about the models it uses. It is possible to directly select a model, but sensible defaults are prefered to allow the package to improve over time as stronger models become available.
 
 The models used by this package are 1000x smaller than the largest models in use today. They are useful as learning tools, but if you are expecting ChatGPT or similar performance, you will be very disappointed.
 
 This pacakge currently uses [LaMini-Flan-T5-base](https://huggingface.co/MBZUAI/LaMini-Flan-T5-223M) as its default model. This is a fine-tuning of the T5 base model on top of the [FLAN](https://huggingface.co/google/flan-t5-base) fine-tuning provided by Google. The model is tuned to respond to instructions in a human-like manner. The following human evaluations were reported in the [paper](https://github.com/mbzuai-nlp/LaMini-LM) associated with this model family:
 
 ![Human-rated model comparison](media/model-comparison.png)
+
+For code completions, the [CodeT5+](https://arxiv.org/abs/2305.07922) series of models are used.
 
 Commercial Use
 --------------
