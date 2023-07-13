@@ -13,7 +13,7 @@ Python building blocks to explore large language models on any computer with 512
 
 ![Translation hello world example](media/hello.gif)
 
-This package makes using large language models in software as simple as possible. All models are free for non-commercial use, no API keys are required, and all inference is performed locally to keep your data private by default.
+This package makes using large language models in software as simple as possible. All inference is performed locally to keep your data private by default.
 
 Installation and Getting Started
 --------------------------------
