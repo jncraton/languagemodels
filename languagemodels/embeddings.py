@@ -77,6 +77,10 @@ def chunk_doc(doc, name="", chunk_size=64, chunk_overlap=8):
 
     >>> chunk_doc("Hello " * 65)
     ['Hello Hello...', 'Hello...']
+
+    # Check to make sure sentences aren't broken on decimal points
+    >>> chunk_doc(('z. ' + ' 37.468 ' * 7) * 2)[0]
+    'z. 37.468 ...z.'
     """
     generative_tokenizer, _ = get_model("instruct", tokenizer_only=True)
 
@@ -104,6 +108,11 @@ def chunk_doc(doc, name="", chunk_size=64, chunk_overlap=8):
         half_full = len(chunk) > chunk_size * 0.4
         eof = i == len(tokens)
         sep = token in separators
+
+        if sep:
+            context = generative_tokenizer.decode(tokens[i - 1 : i + 1])
+            if " " not in context:
+                sep = False
 
         if eof or full or (half_full and sep):
             # Store tokens and start next chunk
