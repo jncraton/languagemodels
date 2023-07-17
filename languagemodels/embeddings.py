@@ -60,6 +60,66 @@ def get_token_ids(doc):
     return ids
 
 
+def chunk_doc(doc, name="", chunk_size=64, chunk_overlap=8):
+    """Break a document into chunks
+
+    :param doc: Document to chunk
+    :param name: Optional document name
+    :param chunk_size: Length of individual chunks in tokens
+    :param chunk_overlap: Number of tokens to overlap when breaking chunks
+    :return: List of strings representing the chunks
+
+    >>> chunk_doc("")
+    []
+
+    >>> chunk_doc("Hello")
+    ['Hello']
+
+    >>> chunk_doc("Hello " * 65)
+    ['Hello Hello...', 'Hello...']
+    """
+    generative_tokenizer, _ = get_model("instruct", tokenizer_only=True)
+
+    tokens = get_token_ids(doc)
+    separators = [get_token_ids(t)[-1] for t in [".", "!", "?", ")."]]
+
+    name_tokens = []
+
+    label = f"From {name} document:" if name else ""
+
+    if name:
+        name_tokens = get_token_ids(label)
+
+    i = 0
+    chunks = []
+    chunk = name_tokens.copy()
+    while i < len(tokens):
+        token = tokens[i]
+        chunk.append(token)
+        i += 1
+
+        # Begin looking for probable sentence when half of target size
+
+        full = len(chunk) == chunk_size
+        half_full = len(chunk) > chunk_size * 0.4
+        eof = i == len(tokens)
+        sep = token in separators
+
+        if eof or full or (half_full and sep):
+            # Store tokens and start next chunk
+            text = generative_tokenizer.decode(chunk)
+            if len(text.strip()) > len(label):
+                chunks.append(text)
+            chunk = name_tokens.copy()
+            if full and not eof and not (half_full and sep):
+                # If the heuristic didn't get a semantic boundary, overlap
+                # next chunk to provide some context
+                i -= chunk_overlap
+                i = max(0, i)
+
+    return chunks
+
+
 class Document:
     """
     A document used for semantic search
@@ -171,43 +231,10 @@ class RetrievalContext:
             self.store_chunks(doc, name)
 
     def store_chunks(self, doc, name=""):
-        generative_tokenizer, _ = get_model("instruct", tokenizer_only=True)
+        chunks = chunk_doc(doc, name, self.chunk_size, self.chunk_overlap)
 
-        tokens = get_token_ids(doc)
-        separators = [get_token_ids(t)[-1] for t in [".", "!", "?", ")."]]
-
-        name_tokens = []
-
-        label = f"From {name} document:" if name else ""
-
-        if name:
-            name_tokens = get_token_ids(label)
-
-        i = 0
-        chunk = name_tokens.copy()
-        while i < len(tokens):
-            token = tokens[i]
-            chunk.append(token)
-            i += 1
-
-            # Begin looking for probable sentence when half of target size
-
-            full = len(chunk) == self.chunk_size
-            half_full = len(chunk) > self.chunk_size * 0.4
-            eof = i == len(tokens)
-            sep = token in separators
-
-            if eof or full or (half_full and sep):
-                # Store tokens and start next chunk
-                text = generative_tokenizer.decode(chunk)
-                if len(text.strip()) > len(label):
-                    self.chunks.append(Document(text))
-                chunk = name_tokens.copy()
-                if full and not eof and not (half_full and sep):
-                    # If the heuristic didn't get a semantic boundary, overlap
-                    # next chunk to provide some context
-                    i -= self.chunk_overlap
-                    i = max(0, i)
+        for chunk in chunks:
+            self.chunks.append(Document(chunk))
 
     def get_context(self, query, max_tokens=128):
         """Gets context matching a query
