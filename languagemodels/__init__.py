@@ -1,6 +1,7 @@
 import requests
 import datetime
 import json
+import re
 
 from languagemodels.config import config
 from languagemodels.inference import (
@@ -317,7 +318,7 @@ def get_wiki(topic: str) -> str:
     for page in response["pages"]:
         wiki_result = requests.get(
             f"https://en.wikipedia.org/w/api.php?action=query&prop=extracts|pageprops&"
-            f"exintro&explaintext&redirects=1&titles={page['title']}&format=json"
+            f"exintro&redirects=1&titles={page['title']}&format=json"
         ).json()
 
         first = wiki_result["query"]["pages"].popitem()[1]
@@ -325,6 +326,11 @@ def get_wiki(topic: str) -> str:
             continue
 
         summary = first["extract"]
+
+        summary = re.sub(r"<p>", "\n\n", summary, flags=re.I)
+        summary = re.sub(r"\s*[\n\r]+\s*", "\n\n", summary, flags=re.I)
+        summary = re.sub(r"<.*?>", "", summary, flags=re.I)
+        summary = summary.strip()
         return summary
     else:
         return "No matching wiki page found."
