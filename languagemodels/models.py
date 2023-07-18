@@ -30,6 +30,33 @@ def get_model_info(model_type="instruct"):
     return m
 
 
+def initialize_tokenizer(model_type, model_name):
+    tok_config = hf_hub_download(f"jncraton/{model_name}", "tokenizer.json")
+    tokenizer = Tokenizer.from_file(tok_config)
+
+    if model_type == "embedding":
+        tokenizer.no_padding()
+        tokenizer.no_truncation()
+
+    return tokenizer
+
+
+def initialize_model(model_type, model_name):
+    hf_hub_download(f"jncraton/{model_name}", "config.json")
+    model_path = hf_hub_download(f"jncraton/{model_name}", "model.bin")
+    model_base_path = model_path[:-10]
+
+    if model_type == "embedding":
+        hf_hub_download(f"jncraton/{model_name}", "vocabulary.txt")
+        return ctranslate2.Encoder(model_base_path, compute_type="int8")
+    elif "gpt" in model_name.lower():
+        hf_hub_download(f"jncraton/{model_name}", "vocabulary.json")
+        return ctranslate2.Generator(model_base_path, compute_type="int8")
+    else:
+        hf_hub_download(f"jncraton/{model_name}", "shared_vocabulary.txt")
+        return ctranslate2.Translator(model_base_path, compute_type="int8")
+
+
 def get_model(model_type, tokenizer_only=False):
     """Gets a model from the loaded model cache
 
@@ -62,43 +89,18 @@ def get_model(model_type, tokenizer_only=False):
                     pass
 
     if model_name not in modelcache:
+        tokenizer = initialize_tokenizer(model_type, model_name)
         model = None
-
-        hf_hub_download(f"jncraton/{model_name}", "config.json")
-        model_path = hf_hub_download(f"jncraton/{model_name}", "model.bin")
-        model_base_path = model_path[:-10]
-        tok_config = hf_hub_download(f"jncraton/{model_name}", "tokenizer.json")
-        tokenizer = Tokenizer.from_file(tok_config)
-
-        if model_type == "embedding":
-            tokenizer.no_padding()
-            tokenizer.no_truncation()
-
-            if not tokenizer_only:
-                hf_hub_download(f"jncraton/{model_name}", "vocabulary.txt")
-                model = ctranslate2.Encoder(model_base_path, compute_type="int8")
-
-            modelcache[model_name] = (
-                tokenizer,
-                model,
-            )
-        elif "gpt" in model_name.lower():
-            if not tokenizer_only:
-                hf_hub_download(f"jncraton/{model_name}", "vocabulary.json")
-                model = ctranslate2.Generator(model_base_path, compute_type="int8")
-            modelcache[model_name] = (
-                tokenizer,
-                model,
-            )
-        else:
-            if not tokenizer_only:
-                hf_hub_download(f"jncraton/{model_name}", "shared_vocabulary.txt")
-                model = ctranslate2.Translator(model_base_path, compute_type="int8")
-            modelcache[model_name] = (
-                tokenizer,
-                model,
-            )
+        if not tokenizer_only:
+            model = initialize_model(model_type, model_name)
+        modelcache[model_name] = (tokenizer, model)
     elif not tokenizer_only:
+        # Make sure model is loaded if we've never loaded it
+        if not modelcache[model_name][1]:
+            modelcache[model_name] = (
+                modelcache[model_name][0],
+                initialize_model(model_type, model_name),
+            )
         # Make sure the model is reloaded if we've unloaded it
         try:
             modelcache[model_name][1].load_model()
