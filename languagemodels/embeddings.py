@@ -78,8 +78,17 @@ def chunk_doc(doc, name="", chunk_size=64, chunk_overlap=8):
     >>> chunk_doc("Hello " * 65)
     ['Hello Hello...', 'Hello...']
 
+    >>> chunk_doc("Hello world. " * 24)[0]
+    'Hello world. ...Hello world.'
+
+    >>> len(chunk_doc("Hello world. " * 20))
+    1
+
+    >>> len(chunk_doc("Hello world. " * 24))
+    2
+
     # Check to make sure sentences aren't broken on decimal points
-    >>> chunk_doc(('z. ' + ' 37.468 ' * 7) * 2)[0]
+    >>> chunk_doc(('z. ' + ' 37.468 ' * 5) * 3)[0]
     'z. 37.468 ...z.'
     """
     generative_tokenizer, _ = get_model("instruct", tokenizer_only=True)
@@ -102,29 +111,31 @@ def chunk_doc(doc, name="", chunk_size=64, chunk_overlap=8):
         chunk.append(token)
         i += 1
 
-        # Begin looking for probable sentence when half of target size
+        # Save the last chunk if we're done
+        if i == len(tokens):
+            chunks.append(generative_tokenizer.decode(chunk))
+            break
 
-        full = len(chunk) == chunk_size
-        half_full = len(chunk) > chunk_size * 0.4
-        eof = i == len(tokens)
-        sep = token in separators
-
-        if sep:
-            context = generative_tokenizer.decode(tokens[i - 1 : i + 1])
-            if " " not in context:
-                sep = False
-
-        if eof or full or (half_full and sep):
-            # Store tokens and start next chunk
-            text = generative_tokenizer.decode(chunk)
-            if len(text.strip()) > len(label):
+        if len(chunk) == chunk_size:
+            # Backtrack to find a reasonable cut point
+            for j in range(1, chunk_size // 2):
+                if chunk[chunk_size - j] in separators:
+                    ctx = generative_tokenizer.decode(
+                        chunk[chunk_size - j : chunk_size - j + 2]
+                    )
+                    if " " in ctx:
+                        # Found a good separator
+                        text = generative_tokenizer.decode(chunk[: chunk_size - j + 1])
+                        chunks.append(text)
+                        chunk = name_tokens + chunk[chunk_size - j + 1 :]
+                        break
+            else:
+                # No semantically meaningful cutpoint found
+                # Default to a hard cut
+                text = generative_tokenizer.decode(chunk)
                 chunks.append(text)
-            chunk = name_tokens.copy()
-            if full and not eof and not (half_full and sep):
-                # If the heuristic didn't get a semantic boundary, overlap
-                # next chunk to provide some context
-                i -= chunk_overlap
-                i = max(0, i)
+                # Share some overlap with next chunk
+                chunk = name_tokens + chunk[-chunk_overlap:]
 
     return chunks
 
