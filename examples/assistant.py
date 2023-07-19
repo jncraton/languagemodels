@@ -13,17 +13,17 @@ import languagemodels as lm
 
 
 def assist(question):
-    context = lm.get_doc_context(question).replace(": ", " - ")
+    context = lm.get_doc_context(question)
 
     return lm.do(f"Answer using context: {context} Question: {question}")
 
 
 lat, lon = (41.8, -87.6)
 
-lm.store_doc(lm.get_date())
-lm.store_doc(lm.get_weather(lat, lon))
-lm.store_doc(lm.get_wiki("Python language"))
-lm.store_doc(lm.get_wiki("Planet Saturn"))
+lm.store_doc(lm.get_wiki("Python language"), "Python")
+lm.store_doc(lm.get_wiki("Planet Saturn"), "Saturn")
+lm.store_doc(lm.get_weather(lat, lon), "Weather")
+lm.store_doc(lm.get_date(), "Time")
 
 questions = [
     "What day of the week is it?",
