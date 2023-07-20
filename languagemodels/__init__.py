@@ -147,7 +147,7 @@ def chat(prompt: str) -> str:
 
     messages = [f"{rolemap[m['role']]}: {m['content']}" for m in messages]
 
-    prompt = "\n\n".join(messages)
+    prompt = "\n\n".join(messages) + "\n\n" + "Assistant:"
 
     if prompt.startswith("System:"):
         prompt = prompt[7:].strip()
@@ -157,7 +157,8 @@ def chat(prompt: str) -> str:
         max_tokens=200,
         repetition_penalty=1.3,
         temperature=0.3,
-        prefix="Assistant: ",
+        topk=40,
+        prefix="Assistant:",
         suppress=suppress,
     )
 
