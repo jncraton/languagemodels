@@ -48,13 +48,17 @@ def initialize_model(model_type, model_name):
 
     if model_type == "embedding":
         hf_hub_download(f"jncraton/{model_name}", "vocabulary.txt")
-        return ctranslate2.Encoder(model_base_path, compute_type="int8")
+        return ctranslate2.Encoder(model_base_path, compute_type="int8", device="auto")
     elif "gpt" in model_name.lower():
         hf_hub_download(f"jncraton/{model_name}", "vocabulary.json")
-        return ctranslate2.Generator(model_base_path, compute_type="int8")
+        return ctranslate2.Generator(
+            model_base_path, compute_type="int8", device="auto"
+        )
     else:
         hf_hub_download(f"jncraton/{model_name}", "shared_vocabulary.txt")
-        return ctranslate2.Translator(model_base_path, compute_type="int8")
+        return ctranslate2.Translator(
+            model_base_path, compute_type="int8", device="auto"
+        )
 
 
 def get_model(model_type, tokenizer_only=False):
