@@ -118,7 +118,7 @@ def chunk_doc(doc, name="", chunk_size=64, chunk_overlap=8):
 
         if len(chunk) == chunk_size:
             # Backtrack to find a reasonable cut point
-            for j in range(1, chunk_size // 2):
+            for j in range(1, chunk_size - chunk_overlap * 2):
                 if chunk[chunk_size - j] in separators:
                     ctx = generative_tokenizer.decode(
                         chunk[chunk_size - j : chunk_size - j + 2]
