@@ -135,7 +135,10 @@ def chunk_doc(doc, name="", chunk_size=64, chunk_overlap=8):
                 text = generative_tokenizer.decode(chunk)
                 chunks.append(text)
                 # Share some overlap with next chunk
-                chunk = name_tokens + chunk[-chunk_overlap:]
+                overlap = max(
+                    chunk_overlap, chunk_size - len(name_tokens) - (len(tokens) - i)
+                )
+                chunk = name_tokens + chunk[-overlap:]
 
     return chunks
 
