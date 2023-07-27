@@ -328,6 +328,17 @@ def get_wiki(topic: str) -> str:
 
         summary = first["extract"]
 
+        cutoffs = [
+            "See_also",
+            "Notes",
+            "References",
+            "Further_reading",
+            "External_links",
+        ]
+
+        for cutoff in cutoffs:
+            summary = summary.split(f'<span id="{cutoff}">', 1)[0]
+
         summary = re.sub(r"<p>", "\n\n", summary, flags=re.I)
         summary = re.sub(r"\s*[\n\r]+\s*", "\n\n", summary, flags=re.I)
         summary = re.sub(r"<.*?>", "", summary, flags=re.I)
