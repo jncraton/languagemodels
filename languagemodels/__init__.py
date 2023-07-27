@@ -205,10 +205,11 @@ def extract_answer(question: str, context: str) -> str:
     Examples:
 
     >>> context = "There is a green ball and a red box"
-    >>> extract_answer("What color is the ball?", context) #doctest: +SKIP
-    'green'
+    >>> extract_answer("What color is the ball?", context).lower()
+    '...green...'
+
     >>> extract_answer("Who created Python?", get_wiki('Python')) #doctest: +SKIP
-    'Guido van Rossum'
+    '...Guido van Rossum...'
     """
 
     return generate_instruct(f"{context}\n\n{question}")
