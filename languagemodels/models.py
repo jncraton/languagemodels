@@ -17,7 +17,7 @@ def get_model_info(model_type="instruct"):
     """Gets info about the current model in use
 
     >>> get_model_info('instruct')
-    {'name': 'LaMini-Flan-T5-248M-ct2-int8', 'tuning': 'instruct'...
+    {'name': 'LaMini-Flan-T5-248M', 'tuning': 'instruct'...
     """
     model_name = config[f"{model_type}_model"]
 
@@ -26,12 +26,15 @@ def get_model_info(model_type="instruct"):
     param_bits = int(re.search(r"\d+", m["quantization"]).group(0))
 
     m["size_gb"] = m["params"] * param_bits / 8 / 1e9
+    m["path"] = f"jncraton/{m['name']}-{m['backend']}-{m['quantization']}"
 
     return m
 
 
 def initialize_tokenizer(model_type, model_name):
-    tok_config = hf_hub_download(f"jncraton/{model_name}", "tokenizer.json")
+    model_info = get_model_info(model_type)
+
+    tok_config = hf_hub_download(model_info["path"], "tokenizer.json")
     tokenizer = Tokenizer.from_file(tok_config)
 
     if model_type == "embedding":
@@ -42,20 +45,22 @@ def initialize_tokenizer(model_type, model_name):
 
 
 def initialize_model(model_type, model_name):
-    hf_hub_download(f"jncraton/{model_name}", "config.json")
-    model_path = hf_hub_download(f"jncraton/{model_name}", "model.bin")
+    model_info = get_model_info(model_type)
+
+    hf_hub_download(model_info["path"], "config.json")
+    model_path = hf_hub_download(model_info["path"], "model.bin")
     model_base_path = model_path[:-10]
 
-    if model_type == "embedding":
-        hf_hub_download(f"jncraton/{model_name}", "vocabulary.txt")
+    if model_info["architecture"] == "encoder-only-transformer":
+        hf_hub_download(model_info["path"], "vocabulary.txt")
         return ctranslate2.Encoder(model_base_path, compute_type="int8", device="auto")
-    elif "gpt" in model_name.lower():
-        hf_hub_download(f"jncraton/{model_name}", "vocabulary.json")
+    elif model_info["architecture"] == "decoder-only-transformer":
+        hf_hub_download(model_info["path"], "vocabulary.json")
         return ctranslate2.Generator(
             model_base_path, compute_type="int8", device="auto"
         )
     else:
-        hf_hub_download(f"jncraton/{model_name}", "shared_vocabulary.txt")
+        hf_hub_download(model_info["path"], "shared_vocabulary.txt")
         return ctranslate2.Translator(
             model_base_path, compute_type="int8", device="auto"
         )

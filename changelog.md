@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.8.0
+
+### Changed
+
+- Model names no longer include backend and quantization info
+
+### Added
+
+### Fixed
+
+### Removed
+
 ## 0.7.0 - 2023-07-27
 
 ### Changed

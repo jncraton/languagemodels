@@ -5,7 +5,7 @@ all: lint test
 test-base:
 	python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/*.py
 	env LANGUAGEMODELS_MODEL_LICENSE="apache|mit|bsd" python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/__init__.py
-	LANGUAGEMODELS_INSTRUCT_MODEL="LaMini-GPT-124M-ct2-int8" python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/inference.py
+	LANGUAGEMODELS_INSTRUCT_MODEL="LaMini-GPT-124M" python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/inference.py
 
 test: test-base
 	env LANGUAGEMODELS_SIZE=large python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/*.py
@@ -25,8 +25,8 @@ test-commercial:
 	env LANGUAGEMODELS_SIZE=xl LANGUAGEMODELS_MODEL_LICENSE="apache|mit|bsd" python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/*.py
 
 test-fastchat:
-	env LANGUAGEMODELS_SIZE=xl LANGUAGEMODELS_INSTRUCT_MODEL="fastchat-t5-3b-v1.0-ct2-int8" python3 -m doctest -v -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/__init__.py
-	env LANGUAGEMODELS_SIZE=xl LANGUAGEMODELS_INSTRUCT_MODEL="fastchat-t5-3b-v1.0-ct2-int8" python3 -m doctest -v -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/inference.py
+	env LANGUAGEMODELS_SIZE=xl LANGUAGEMODELS_INSTRUCT_MODEL="fastchat-t5-3b-v1.0" python3 -m doctest -v -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/__init__.py
+	env LANGUAGEMODELS_SIZE=xl LANGUAGEMODELS_INSTRUCT_MODEL="fastchat-t5-3b-v1.0" python3 -m doctest -v -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/inference.py
 
 lint:
 	flake8 --max-line-length 88 --extend-ignore E203,F401 languagemodels/__init__.py

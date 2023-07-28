@@ -15,7 +15,7 @@ class ModelFilterException(Exception):
 # will be selected
 models = [
     {
-        "name": "flan-alpaca-xl-ct2-int8",
+        "name": "flan-alpaca-xl",
         "tuning": "instruct",
         "datasets": ["c4", "flan", "alpaca"],
         "params": 3e9,
@@ -25,7 +25,7 @@ models = [
         "license": "cc-by-nc-4.0",  # HF says apache-2.0, but alpaca is NC
     },
     {
-        "name": "flan-alpaca-gpt4-xl-ct2-int8",
+        "name": "flan-alpaca-gpt4-xl",
         "tuning": "instruct",
         "datasets": ["c4", "flan", "gpt4-alpaca"],
         "params": 3e9,
@@ -35,7 +35,7 @@ models = [
         "license": "cc-by-nc-4.0",  # HF says apache-2.0, but alpaca is NC
     },
     {
-        "name": "flan-t5-xl-ct2-int8",
+        "name": "flan-t5-xl",
         "tuning": "instruct",
         "datasets": ["c4", "flan"],
         "params": 3e9,
@@ -45,7 +45,7 @@ models = [
         "license": "apache-2.0",
     },
     {
-        "name": "fastchat-t5-3b-v1.0-ct2-int8",
+        "name": "fastchat-t5-3b-v1.0",
         "tuning": "instruct",
         "datasets": ["c4", "flan", "sharegpt"],
         "params": 3e9,
@@ -55,7 +55,7 @@ models = [
         "license": "apache-2.0",  # This does use OpenAI-generated data
     },
     {
-        "name": "LaMini-Flan-T5-783M-ct2-int8",
+        "name": "LaMini-Flan-T5-783M",
         "tuning": "instruct",
         "datasets": ["c4", "flan", "lamini"],
         "params": 783e6,
@@ -65,7 +65,7 @@ models = [
         "license": "cc-by-nc-4.0",
     },
     {
-        "name": "flan-t5-large-ct2-int8",
+        "name": "flan-t5-large",
         "tuning": "instruct",
         "datasets": ["c4", "flan"],
         "params": 783e6,
@@ -75,7 +75,7 @@ models = [
         "license": "apache-2.0",
     },
     {
-        "name": "LaMini-Flan-T5-248M-ct2-int8",
+        "name": "LaMini-Flan-T5-248M",
         "tuning": "instruct",
         "datasets": ["c4", "flan", "lamini"],
         "params": 248e6,
@@ -85,7 +85,7 @@ models = [
         "license": "cc-by-nc-4.0",
     },
     {
-        "name": "flan-alpaca-base-ct2-int8",
+        "name": "flan-alpaca-base",
         "tuning": "instruct",
         "datasets": ["c4", "flan", "alpaca"],
         "params": 248e6,
@@ -95,7 +95,7 @@ models = [
         "license": "cc-by-nc-4.0",  # HF says apache-2.0, but alpaca is NC
     },
     {
-        "name": "flan-t5-base-ct2-int8",
+        "name": "flan-t5-base",
         "tuning": "instruct",
         "datasets": ["c4", "flan"],
         "params": 248e6,
@@ -105,7 +105,7 @@ models = [
         "license": "apache-2.0",
     },
     {
-        "name": "LaMini-Flan-T5-77M-ct2-int8",
+        "name": "LaMini-Flan-T5-77M",
         "tuning": "instruct",
         "datasets": ["c4", "flan", "lamini"],
         "params": 77e6,
@@ -115,7 +115,7 @@ models = [
         "license": "cc-by-nc-4.0",
     },
     {
-        "name": "flan-t5-small-ct2-int8",
+        "name": "flan-t5-small",
         "tuning": "instruct",
         "datasets": ["c4", "flan"],
         "params": 77e6,
@@ -125,7 +125,7 @@ models = [
         "license": "apache-2.0",
     },
     {
-        "name": "LaMini-GPT-774M-ct2-int8",
+        "name": "LaMini-GPT-774M",
         "tuning": "instruct",
         "datasets": ["webtext", "lamini"],
         "params": 774e6,
@@ -135,7 +135,7 @@ models = [
         "license": "mit",
     },
     {
-        "name": "LaMini-GPT-124M-ct2-int8",
+        "name": "LaMini-GPT-124M",
         "tuning": "instruct",
         "datasets": ["webtext", "lamini"],
         "params": 124e6,
@@ -145,7 +145,7 @@ models = [
         "license": "mit",
     },
     {
-        "name": "codet5p-770m-py-ct2-int8",
+        "name": "codet5p-770m-py",
         "tuning": "code",
         "datasets": ["github-code"],
         "params": 770e6,
@@ -155,7 +155,7 @@ models = [
         "license": "bsd-3-clause",
     },
     {
-        "name": "codet5p-220m-py-ct2-int8",
+        "name": "codet5p-220m-py",
         "tuning": "code",
         "datasets": ["github-code"],
         "params": 220e6,
@@ -165,7 +165,7 @@ models = [
         "license": "bsd-3-clause",
     },
     {
-        "name": "all-MiniLM-L6-v2-ct2-int8",
+        "name": "all-MiniLM-L6-v2",
         "tuning": "embedding",
         "params": 22e6,
         "quantization": "int8",
@@ -174,7 +174,7 @@ models = [
         "license": "apache-2.0",
     },
     {
-        "name": "e5-small-v2-ct2-int8",
+        "name": "e5-small-v2",
         "tuning": "embedding",
         "params": 33e6,
         "quantization": "int8",
@@ -197,18 +197,18 @@ class Config(dict):
     >>> c
     {...'max_ram': 4.0...}
 
-    >>> c = Config({'instruct_model': 'flan-t5-small-ct2-int8'})
+    >>> c = Config({'instruct_model': 'flan-t5-small'})
     >>> c
-    {...'instruct_model': 'flan-t5-small-ct2-int8'...}
+    {...'instruct_model': 'flan-t5-small'...}
 
     >>> c = Config({'model_license': 'apache|mit|bsd'})
     >>> c
     {...'model_license': re.compile('apache|mit|bsd')...}
 
-    >>> c = Config({'instruct_model': 'flan-t5-bad-ct2-int8'})
+    >>> c = Config({'instruct_model': 'flan-t5-bad'})
     Traceback (most recent call last):
       ...
-    KeyError: 'flan-t5-bad-ct2-int8'
+    KeyError: 'flan-t5-bad'
 
     >>> c = Config({'bad_value': 1})
     Traceback (most recent call last):
@@ -343,9 +343,9 @@ class Config(dict):
 Config.schema = {
     "max_ram": ConfigItem(Config.convert_to_gb, 0.48),
     "model_license": ConfigItem(re.compile, ".*"),
-    "instruct_model": ConfigItem(Config.validate_model, "LaMini-Flan-T5-248M-ct2-int8"),
-    "embedding_model": ConfigItem(Config.validate_model, "all-MiniLM-L6-v2-ct2-int8"),
-    "code_model": ConfigItem(Config.validate_model, "codet5p-220m-py-ct2-int8"),
+    "instruct_model": ConfigItem(Config.validate_model, "LaMini-Flan-T5-248M"),
+    "embedding_model": ConfigItem(Config.validate_model, "all-MiniLM-L6-v2"),
+    "code_model": ConfigItem(Config.validate_model, "codet5p-220m-py"),
 }
 
 config = Config()
