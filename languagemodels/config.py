@@ -247,9 +247,12 @@ class Config(dict):
         if key == "max_ram" or key == "model_license":
             found = set()
             for model in models:
-                assert model["quantization"] == "int8"
-
-                memsize = model["params"] / 1e9
+                if model["quantization"] == "int8":
+                    memsize = model["params"] / 1e9
+                elif model["quantization"] == "q3_k_m":
+                    memsize = model["params"] * 0.48 / 1e9
+                elif model["quantization"] == "q4_k_m":
+                    memsize = model["params"] * 0.59 / 1e9
 
                 sizefit = memsize < self["max_ram"]
 

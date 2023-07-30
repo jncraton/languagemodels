@@ -8,6 +8,8 @@
 
 ### Added
 
+- Add quantization info to config and use it for memory usage calculation
+
 ### Fixed
 
 ### Removed
