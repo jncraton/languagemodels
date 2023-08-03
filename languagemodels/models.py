@@ -53,16 +53,18 @@ def initialize_model(model_type, model_name):
 
     if model_info["architecture"] == "encoder-only-transformer":
         hf_hub_download(model_info["path"], "vocabulary.txt")
-        return ctranslate2.Encoder(model_base_path, compute_type="int8", device="auto")
+        return ctranslate2.Encoder(
+            model_base_path, compute_type="int8", device=config["device"]
+        )
     elif model_info["architecture"] == "decoder-only-transformer":
         hf_hub_download(model_info["path"], "vocabulary.json")
         return ctranslate2.Generator(
-            model_base_path, compute_type="int8", device="auto"
+            model_base_path, compute_type="int8", device=config["device"]
         )
     else:
         hf_hub_download(model_info["path"], "shared_vocabulary.txt")
         return ctranslate2.Translator(
-            model_base_path, compute_type="int8", device="auto"
+            model_base_path, compute_type="int8", device=config["device"]
         )
 
 

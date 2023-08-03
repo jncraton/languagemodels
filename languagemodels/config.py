@@ -277,6 +277,12 @@ class Config(dict):
         return Config.model_names[model_name]["name"]
 
     @staticmethod
+    def validate_device(device):
+        assert device in ["auto", "cpu"]
+
+        return device
+
+    @staticmethod
     def convert_to_gb(space):
         """Convert max RAM string to int
 
@@ -345,6 +351,7 @@ class Config(dict):
 
 Config.schema = {
     "max_ram": ConfigItem(Config.convert_to_gb, 0.48),
+    "device": ConfigItem(Config.validate_device, "cpu"),
     "model_license": ConfigItem(re.compile, ".*"),
     "instruct_model": ConfigItem(Config.validate_model, "LaMini-Flan-T5-248M"),
     "embedding_model": ConfigItem(Config.validate_model, "all-MiniLM-L6-v2"),

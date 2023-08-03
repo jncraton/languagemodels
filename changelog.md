@@ -5,6 +5,7 @@
 ### Changed
 
 - Model names no longer include backend and quantization info
+- Default to CPU inference unless GPU enabled using `lm.config["device"]="auto"`
 
 ### Added
 
