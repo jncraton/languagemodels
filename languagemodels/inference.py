@@ -115,7 +115,7 @@ def generate_instruct(
     max_tokens=200,
     temperature=0.1,
     topk=1,
-    repetition_penalty=1.2,
+    repetition_penalty=1.3,
     prefix="",
     suppress=[],
 ):

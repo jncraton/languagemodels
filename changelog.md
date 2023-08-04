@@ -12,7 +12,7 @@
 
 ### Fixed
 
-### Removed
+- Increase repetition penalty to 1.3 from 1.2 to help avoid repetition in smaller models
 
 ## 0.7.0 - 2023-07-27
 
