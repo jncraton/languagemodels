@@ -174,6 +174,15 @@ models = [
         "license": "apache-2.0",
     },
     {
+        "name": "gte-small",
+        "tuning": "embedding",
+        "params": 33e6,
+        "quantization": "int8",
+        "backend": "ct2",
+        "architecture": "encoder-only-transformer",
+        "license": "mit",
+    },
+    {
         "name": "e5-small-v2",
         "tuning": "embedding",
         "params": 33e6,

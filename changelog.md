@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.9.0
+
+### Added
+
+- Add support for gte-small embeddings
+
 ## 0.8.0
 
 ### Changed
