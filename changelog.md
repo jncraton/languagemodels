@@ -5,6 +5,7 @@
 ### Added
 
 - Add support for gte-small embeddings
+- Add support for bge-small-en embeddings
 
 ## 0.8.0
 
