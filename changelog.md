@@ -4,6 +4,7 @@
 
 ### Added
 
+- Automatically use query prefixes as needed for embeddings
 - Add support for gte-small embeddings
 - Add support for bge-small-en embeddings
 

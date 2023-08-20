@@ -1,6 +1,6 @@
 import numpy as np
 
-from languagemodels.models import get_model
+from languagemodels.models import get_model, get_model_info
 
 
 def embed(doc):
@@ -26,7 +26,9 @@ def search(query, docs):
     :return: List of (doc_num, score) tuples sorted by score descending
     """
 
-    query_embedding = embed(query)
+    prefix = get_model_info("embedding")["query_prefix"]
+
+    query_embedding = embed(f"{prefix}{query}")
 
     scores = [np.dot(query_embedding, d.embedding) for d in docs]
 
