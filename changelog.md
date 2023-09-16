@@ -2,6 +2,10 @@
 
 ## 0.9.0
 
+### Changed
+
+- Use per-model instruction formats
+
 ### Added
 
 - Automatically use query prefixes as needed for embeddings

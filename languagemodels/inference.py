@@ -2,7 +2,7 @@ import requests
 import re
 import os
 
-from languagemodels.models import get_model
+from languagemodels.models import get_model, get_model_info
 
 
 class InferenceException(Exception):
@@ -111,7 +111,7 @@ def chat_oa(engine, prompt, max_tokens=200, temperature=0):
 
 
 def generate_instruct(
-    prompt,
+    instruction,
     max_tokens=200,
     temperature=0.1,
     topk=1,
@@ -127,14 +127,20 @@ def generate_instruct(
     if os.environ.get("LANGUAGEMODELS_TS_KEY") or os.environ.get(
         "LANGUAGEMODELS_TS_SERVER"
     ):
-        return generate_ts("flan_t5_xxl_q4", prompt, max_tokens).strip()
+        return generate_ts("flan_t5_xxl_q4", instruction, max_tokens).strip()
 
     if os.environ.get("LANGUAGEMODELS_OA_KEY"):
-        return chat_oa("gpt-3.5-turbo", prompt, max_tokens).strip()
+        return chat_oa("gpt-3.5-turbo", instruction, max_tokens).strip()
 
     tokenizer, model = get_model("instruct")
 
     suppress = [tokenizer.encode(s, add_special_tokens=False).tokens for s in suppress]
+
+    model_info = get_model_info("instruct")
+
+    fmt = model_info.get('prompt_fmt', '{instruction}')
+
+    prompt = fmt.replace("{instruction}", instruction)
 
     if hasattr(model, "translate_batch"):
         results = model.translate_batch(
@@ -151,11 +157,6 @@ def generate_instruct(
         output_ids = [tokenizer.token_to_id(t) for t in output_tokens]
         text = tokenizer.decode(output_ids, skip_special_tokens=True)
     else:
-        prompt = (
-            "Below is an instruction that describes a task.\n"
-            "Write a response that appropriately completes the request.\n\n"
-            f"### Instruction:{prompt}\n\n### Response:"
-        )
         results = model.generate_batch(
             [tokenizer.encode(prompt).tokens],
             repetition_penalty=repetition_penalty,

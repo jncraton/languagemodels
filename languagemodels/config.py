@@ -143,6 +143,11 @@ models = [
         "backend": "ct2",
         "architecture": "decoder-only-transformer",
         "license": "mit",
+        "prompt_fmt": (
+            "Below is an instruction that describes a task.\n"
+            "Write a response that completes the request.\n\n"
+            "### Instruction:\n{instruction}\n\n### Response:"
+        ),
     },
     {
         "name": "LaMini-GPT-124M",
@@ -153,6 +158,11 @@ models = [
         "backend": "ct2",
         "architecture": "decoder-only-transformer",
         "license": "mit",
+        "prompt_fmt": (
+            "Below is an instruction that describes a task.\n"
+            "Write a response that completes the request.\n\n"
+            "### Instruction:\n{instruction}\n\n### Response:"
+        ),
     },
     {
         "name": "codet5p-770m-py",
