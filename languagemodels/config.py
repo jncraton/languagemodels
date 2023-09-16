@@ -125,6 +125,16 @@ models = [
         "license": "apache-2.0",
     },
     {
+        "name": "phi-1_5",
+        "tuning": "instruct",
+        "datasets": ["phi-1_5"],
+        "params": 14e8,
+        "quantization": "int8",
+        "backend": "ct2",
+        "architecture": "decoder-only-transformer",
+        "license": "other",
+    },
+    {
         "name": "LaMini-GPT-774M",
         "tuning": "instruct",
         "datasets": ["webtext", "lamini"],
