@@ -10,6 +10,7 @@
 
 - Automatically use query prefixes as needed for embeddings
 - Add phi-1.5 model
+- Add dialogstudio base model
 - Add support for gte-small embeddings
 - Add support for bge-small-en embeddings
 

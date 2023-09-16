@@ -105,6 +105,20 @@ models = [
         "license": "apache-2.0",
     },
     {
+        "name": "dialogstudio-t5-base-v1.0",
+        "tuning": "instruct",
+        "datasets": ["c4", "flan", "dialogstudio"],
+        "params": 248e6,
+        "quantization": "int8",
+        "backend": "ct2",
+        "architecture": "encoder-decoder-transformer",
+        "license": "apache-2.0",
+        "prompt_fmt": (
+            "Instruction: Answer honestly and helpfully. "
+            "<USER> {instruction}"
+        ),
+    },
+    {
         "name": "LaMini-Flan-T5-77M",
         "tuning": "instruct",
         "datasets": ["c4", "flan", "lamini"],
