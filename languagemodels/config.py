@@ -179,6 +179,21 @@ models = [
         ),
     },
     {
+        "name": "TinyLlama-1.1B-Chat-v0.3",
+        "tuning": "instruct",
+        "datasets": ["slimpajama", "starcoderdata"],
+        "params": 1.1e9,
+        "quantization": "int8",
+        "backend": "ct2",
+        "architecture": "decoder-only-transformer",
+        "license": "mit",
+        "prompt_fmt": (
+            "<|im_start|>user\n{instruction} <|im_end|>"
+            " <|im_start|>assistant\n"
+        ),
+        "support": "deprecated",
+    },
+    {
         "name": "codet5p-770m-py",
         "tuning": "code",
         "datasets": ["github-code"],
