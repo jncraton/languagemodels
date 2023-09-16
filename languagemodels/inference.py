@@ -162,6 +162,7 @@ def generate_instruct(
             max_length=max_tokens,
             sampling_temperature=temperature,
             sampling_topk=topk,
+            suppress_sequences=suppress,
             beam_size=1,
         )
         output_ids = results[0].sequences_ids[0]

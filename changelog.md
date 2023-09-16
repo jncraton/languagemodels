@@ -9,6 +9,10 @@
 - Add support for gte-small embeddings
 - Add support for bge-small-en embeddings
 
+### Fixed
+
+- Allow token suppression on decoder-only models
+
 ## 0.8.0
 
 ### Changed
