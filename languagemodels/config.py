@@ -1,3 +1,14 @@
+"""Global model and inference configuration
+
+This module manages the global configuration object shared between other
+modules in the package. It implements a dictionary with data validation
+on the keys and values.
+
+Note that this module provides access to many implementation details
+that are not expected to be used by average users. Specific models that
+have never been the default for the package may be removed at any time.
+"""
+
 import re
 import os
 from collections import namedtuple
