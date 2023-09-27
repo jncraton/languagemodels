@@ -3,19 +3,27 @@ import numpy as np
 from languagemodels.models import get_model, get_model_info
 
 
-def embed(doc):
-    """Gets embeddings for a document
+def embed(docs):
+    """Get embeddings for a batch of documents
 
-    >>> embed("I love Python!")[-3:]
+    >>> embed(["I love Python!"])[0].shape
+    (384,)
+
+    >>> embed(["I love Python!"])[0][-3:]
     array([0.1..., 0.1..., 0.0...], dtype=float32)
     """
+
     tokenizer, model = get_model("embedding")
 
-    tokens = tokenizer.encode(doc).ids
-    output = model.forward_batch([tokens[:512]])
-    embedding = np.mean(np.array(output.last_hidden_state), axis=1)[0]
-    embedding = embedding / np.linalg.norm(embedding)
-    return embedding
+    tokens = [tokenizer.encode(doc).ids[:512] for doc in docs]
+    outputs = model.forward_batch(tokens)
+
+    def mean_pool(last_hidden_state):
+        embedding = np.mean(last_hidden_state, axis=0)
+        embedding = embedding / np.linalg.norm(embedding)
+        return embedding
+
+    return [mean_pool(lhs) for lhs in np.array(outputs.last_hidden_state)]
 
 
 def search(query, docs):
@@ -28,7 +36,7 @@ def search(query, docs):
 
     prefix = get_model_info("embedding")["query_prefix"]
 
-    query_embedding = embed(f"{prefix}{query}")
+    query_embedding = embed([f"{prefix}{query}"])[0]
 
     scores = [np.dot(query_embedding, d.embedding) for d in docs]
 
@@ -153,9 +161,9 @@ class Document:
     against other semantically similar documents.
     """
 
-    def __init__(self, content, name=""):
+    def __init__(self, content, name="", embedding=None):
         self.content = content
-        self.embedding = embed(content)
+        self.embedding = embedding if embedding is not None else embed([content])[0]
         self.name = name
 
 
@@ -258,8 +266,10 @@ class RetrievalContext:
     def store_chunks(self, doc, name=""):
         chunks = chunk_doc(doc, name, self.chunk_size, self.chunk_overlap)
 
-        for chunk in chunks:
-            self.chunks.append(Document(chunk))
+        embeddings = embed(chunks)
+
+        for embedding, chunk in zip(embeddings, chunks):
+            self.chunks.append(Document(chunk, embedding=embedding))
 
     def get_context(self, query, max_tokens=128):
         """Gets context matching a query

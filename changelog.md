@@ -5,6 +5,7 @@
 ### Changed
 
 - Use per-model instruction formats
+- Batch chunk embeddings for faster performance embedding larger documents
 
 ### Added
 
