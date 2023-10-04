@@ -341,8 +341,9 @@ def get_wiki(topic: str) -> str:
             summary = summary.split(f'<span id="{cutoff}">', 1)[0]
 
         summary = re.sub(r"<p>", "\n\n", summary, flags=re.I)
-        summary = re.sub(r"\s*[\n\r]+\s*", "\n\n", summary, flags=re.I)
+        summary = re.sub(r"<!\-\-.*?\-\->", "", summary, flags=re.I | re.DOTALL)
         summary = re.sub(r"<.*?>", "", summary, flags=re.I)
+        summary = re.sub(r"\s*[\n\r]+\s*[\r\n]+[\s\r\n]*", "\n\n", summary, flags=re.I)
         summary = summary.strip()
         return summary
     else:

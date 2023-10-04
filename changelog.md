@@ -18,6 +18,7 @@
 ### Fixed
 
 - Allow token suppression on decoder-only models
+- Remove HTML comments appearing in some wiki pages
 
 ## 0.8.0
 
