@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.9.0
+## 0.9.0 - 2023-10-07
 
 ### Changed
 
@@ -20,7 +20,7 @@
 - Allow token suppression on decoder-only models
 - Remove HTML comments appearing in some wiki pages
 
-## 0.8.0
+## 0.8.0 - 2023-08-04
 
 ### Changed
 
