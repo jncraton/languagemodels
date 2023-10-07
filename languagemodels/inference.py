@@ -138,7 +138,7 @@ def generate_instruct(
 
     model_info = get_model_info("instruct")
 
-    fmt = model_info.get('prompt_fmt', '{instruction}')
+    fmt = model_info.get("prompt_fmt", "{instruction}")
 
     prompt = fmt.replace("{instruction}", instruction)
 

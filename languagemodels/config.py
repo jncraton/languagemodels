@@ -125,8 +125,7 @@ models = [
         "architecture": "encoder-decoder-transformer",
         "license": "apache-2.0",
         "prompt_fmt": (
-            "Instruction: Answer honestly and helpfully. "
-            "<USER> {instruction}"
+            "Instruction: Answer honestly and helpfully. <USER> {instruction}"
         ),
     },
     {
@@ -199,8 +198,7 @@ models = [
         "architecture": "decoder-only-transformer",
         "license": "mit",
         "prompt_fmt": (
-            "<|im_start|>user\n{instruction} <|im_end|>"
-            " <|im_start|>assistant\n"
+            "<|im_start|>user\n{instruction} <|im_end|> <|im_start|>assistant\n"
         ),
         "support": "deprecated",
     },
