@@ -233,6 +233,16 @@ models = [
         "license": "apache-2.0",
     },
     {
+        "name": "gte-tiny",
+        "tuning": "embedding",
+        "query_prefix": "",
+        "params": 22e6,
+        "quantization": "int8",
+        "backend": "ct2",
+        "architecture": "encoder-only-transformer",
+        "license": "mit",
+    },
+    {
         "name": "gte-small",
         "tuning": "embedding",
         "query_prefix": "",

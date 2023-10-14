@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.10.0
+
+### Added
+
+- Add gte-tiny embedding model
+
 ## 0.9.0 - 2023-10-07
 
 ### Changed
