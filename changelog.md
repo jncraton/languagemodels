@@ -5,6 +5,7 @@
 ### Added
 
 - Add gte-tiny embedding model
+- Properly support Python 3.12
 
 ## 0.9.0 - 2023-10-07
 
