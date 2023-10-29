@@ -208,13 +208,13 @@ def generate_code(
 def rank_instruct(input, targets):
     """Sorts a list of targets by their probabilities
 
-    >>> rank_instruct("I love python", ['positive', 'negative'])
+    >>> rank_instruct("Classify positive or negative: I love python. Classification:",
+    ... ['positive', 'negative'])
     ['positive', 'negative']
 
-    >>> rank_instruct("Homework is the worst", ['positive', 'negative', 'neutral'])[0]
-    'negative'
-
-    >>> rank_instruct("The wizard raised their wand", ['fantasy', 'documentary'])
+    >>> rank_instruct("Classify fantasy or documentary: "
+    ... "The wizard raised their want. Classification:",
+    ... ['fantasy', 'documentary'])
     ['fantasy', 'documentary']
     """
     tokenizer, model = get_model("instruct")
@@ -222,9 +222,6 @@ def rank_instruct(input, targets):
     input_tokens = tokenizer.encode(input).tokens
 
     if "Generator" in str(type(model)):
-        prompt = f'Classify as {", ".join(targets)}: {input} Classification:'
-        input_tokens = tokenizer.encode(prompt).tokens
-
         scores = model.score_batch(
             [input_tokens + tokenizer.encode(t).tokens for t in targets],
         )

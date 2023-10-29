@@ -7,6 +7,10 @@
 - Add gte-tiny embedding model
 - Properly support Python 3.12
 
+### Fixed
+
+- Removed extra classification prompt when performing classification with generative models
+
 ## 0.9.0 - 2023-10-07
 
 ### Changed
