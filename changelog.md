@@ -10,6 +10,7 @@
 ### Fixed
 
 - Removed extra classification prompt when performing classification with generative models
+- Prevent doubling of special tokens during classification
 
 ## 0.9.0 - 2023-10-07
 
