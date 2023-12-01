@@ -12,6 +12,7 @@
 ### Added
 
 - Add neural-chat-7b-v3-1 as default 8GB model
+- Add max_tokens config option
 
 ## 0.10.0 - 2023-10-29
 

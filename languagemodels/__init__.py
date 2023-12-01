@@ -35,7 +35,8 @@ def complete(prompt: str) -> str:
     """
 
     result = generate_instruct(
-        "Write a sentence", max_tokens=200, temperature=0.7, topk=40, prefix=prompt
+        "Write a sentence", prefix=prompt,
+        max_tokens=config["max_tokens"], temperature=0.7, topk=40
     )
 
     if result.startswith(prompt):
@@ -62,7 +63,7 @@ def do(prompt: str) -> str:
     >>> do("Is the following positive or negative: I love Star Trek.")
     'Positive.'
     """
-    result = generate_instruct(prompt, max_tokens=200, topk=1)
+    result = generate_instruct(prompt, max_tokens=config["max_tokens"], topk=1)
 
     if len(result.split()) == 1:
         result = result.title()
@@ -154,7 +155,7 @@ def chat(prompt: str) -> str:
 
     response = generate_instruct(
         prompt,
-        max_tokens=200,
+        max_tokens=config["max_tokens"],
         repetition_penalty=1.3,
         temperature=0.3,
         topk=40,
@@ -186,7 +187,7 @@ def code(prompt: str) -> str:
     >>> code("def return_4():")
     '...return 4...'
     """
-    result = generate_code(prompt, max_tokens=200, topk=1)
+    result = generate_code(prompt, max_tokens=config["max_tokens"], topk=1)
 
     return result
 
