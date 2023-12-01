@@ -2,6 +2,11 @@
 
 ## 0.11.0
 
+### Changed
+
+- Default to 8GB model size on Colab
+- Use Colab GPU by default if available
+
 ### Added
 
 - Add neural-chat-7b-v3-1 as default 8GB model

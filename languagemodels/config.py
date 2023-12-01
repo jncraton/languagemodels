@@ -465,3 +465,11 @@ Config.schema = {
 }
 
 config = Config()
+
+if "COLAB_GPU" in os.environ:
+    # We're running in Colab, so increase max ram by default
+    config["max_ram"] = 8
+
+    if len(os.environ["COLAB_GPU"]) > 0:
+        # We have a Colab GPU, so default to using it
+        config["device"] = "auto"
