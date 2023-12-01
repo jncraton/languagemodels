@@ -5,6 +5,7 @@
 ### Changed
 
 - Default to 8GB model size on Colab
+- Allow 2048 token response by default on Colab
 - Use Colab GPU by default if available
 - Skip returning prompt for decoder-only models
 - Ensure whitespace is removed from decoder-only outputs
