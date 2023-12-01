@@ -168,7 +168,7 @@ def generate_instruct(
             include_prompt_in_result=False,
         )
         output_ids = results[0].sequences_ids[0]
-        text = tokenizer.decode(output_ids, skip_special_tokens=True)
+        text = tokenizer.decode(output_ids, skip_special_tokens=True).lstrip()
 
     return text
 
