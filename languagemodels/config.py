@@ -26,6 +26,22 @@ class ModelFilterException(Exception):
 # will be selected
 models = [
     {
+        "name": "neural-chat-7b-v3-1",
+        "tuning": "instruct",
+        "datasets": ["mistral", "slimorca"],
+        "params": 7e9,
+        "quantization": "int8",
+        "backend": "ct2",
+        "architecture": "decoder-only-transformer",
+        "license": "apache-2.0",
+        "prompt_fmt": (
+            "### System:\n"
+            "Be helpful\n"
+            "### User:\n{instruction}\n"
+            "### Assistant:\n"
+        ),
+    },
+    {
         "name": "flan-alpaca-xl",
         "tuning": "instruct",
         "datasets": ["c4", "flan", "alpaca"],

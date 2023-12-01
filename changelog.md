@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.11.0
+
+### Added
+
+- Add neural-chat-7b-v3-1 as default 8GB model
+
 ## 0.10.0 - 2023-10-29
 
 ### Added
