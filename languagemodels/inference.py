@@ -165,10 +165,10 @@ def generate_instruct(
             sampling_topk=topk,
             suppress_sequences=suppress,
             beam_size=1,
+            include_prompt_in_result=False,
         )
         output_ids = results[0].sequences_ids[0]
         text = tokenizer.decode(output_ids, skip_special_tokens=True)
-        text = text[len(prompt) :]
 
     return text
 

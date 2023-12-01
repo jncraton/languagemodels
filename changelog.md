@@ -6,6 +6,7 @@
 
 - Default to 8GB model size on Colab
 - Use Colab GPU by default if available
+- Skip returning prompt for decoder-only models
 
 ### Added
 
