@@ -1,5 +1,5 @@
 import re
-from huggingface_hub import hf_hub_download
+from huggingface_hub import hf_hub_download, snapshot_download
 from tokenizers import Tokenizer
 import ctranslate2
 
@@ -47,25 +47,14 @@ def initialize_tokenizer(model_type, model_name):
 def initialize_model(model_type, model_name):
     model_info = get_model_info(model_type)
 
-    hf_hub_download(model_info["path"], "config.json")
-    model_path = hf_hub_download(model_info["path"], "model.bin")
-    model_base_path = model_path[:-10]
+    path = snapshot_download(model_info["path"])
 
     if model_info["architecture"] == "encoder-only-transformer":
-        hf_hub_download(model_info["path"], "vocabulary.txt")
-        return ctranslate2.Encoder(
-            model_base_path, compute_type="int8", device=config["device"]
-        )
+        return ctranslate2.Encoder(path, config["device"], compute_type="int8", )
     elif model_info["architecture"] == "decoder-only-transformer":
-        hf_hub_download(model_info["path"], "vocabulary.json")
-        return ctranslate2.Generator(
-            model_base_path, compute_type="int8", device=config["device"]
-        )
+        return ctranslate2.Generator(path, config["device"], compute_type="int8")
     else:
-        hf_hub_download(model_info["path"], "shared_vocabulary.txt")
-        return ctranslate2.Translator(
-            model_base_path, compute_type="int8", device=config["device"]
-        )
+        return ctranslate2.Translator(path, config["device"], compute_type="int8")
 
 
 def get_model(model_type, tokenizer_only=False):
