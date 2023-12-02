@@ -5,6 +5,7 @@
 ### Changed
 
 - Remove explicit setuptools dependency (see [CTranslate2#1526](https://github.com/OpenNMT/CTranslate2/pull/1526))
+- Reduce model size when not using a CPU in Colab
 
 ## 0.11.0 - 2023-12-02
 

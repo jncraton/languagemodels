@@ -469,9 +469,10 @@ config = Config()
 
 if "COLAB_GPU" in os.environ:
     # We're running in Colab, so increase default performance parameters
-    config["max_ram"] = 8
-    config["max_tokens"] = 2048
+    config["max_ram"] = 1
 
     if len(os.environ["COLAB_GPU"]) > 0:
         # We have a Colab GPU, so default to using it
         config["device"] = "auto"
+        config["max_ram"] = 8
+        config["max_tokens"] = 2048
