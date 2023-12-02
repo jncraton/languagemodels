@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.12.0
+
+### Changed
+
+- Remove explicit setuptools dependency (see [CTranslate2#1526](https://github.com/OpenNMT/CTranslate2/pull/1526))
+
 ## 0.11.0 - 2023-12-02
 
 ### Changed
