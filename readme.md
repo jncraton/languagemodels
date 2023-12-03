@@ -13,7 +13,7 @@ Python building blocks to explore large language models on any computer with 512
 
 ![Translation hello world example](media/hello.gif)
 
-This package makes using large language models in software as simple as possible. All inference is performed locally to keep your data private by default.
+This package makes using large language models from Python as simple as possible. All inference is performed locally to keep your data private by default.
 
 Installation and Getting Started
 --------------------------------
@@ -162,9 +162,9 @@ Note that quantization does technically harm output quality slightly, but it sho
 
 ### Models
 
-This package does allow direct model selection, but sensible defaults are preferred to allow the package to improve over time as stronger models become available. The models used are 1000x smaller than the largest models in use today. They are useful as learning tools, but perform far below the current state of the art.
+Sensible default models are provided. The package should improve over time as stronger models become available. The basic models used are 1000x smaller than the largest models in use today. They are useful as learning tools, but perform far below the current state of the art.
 
-This package currently uses [LaMini-Flan-T5-base](https://huggingface.co/MBZUAI/LaMini-Flan-T5-248M) as its default model. This is a fine-tuning of the T5 base model on top of the [FLAN](https://huggingface.co/google/flan-t5-base) fine-tuning. The model is tuned to respond to instructions in a human-like manner. The following human evaluations were reported in the [paper](https://github.com/mbzuai-nlp/LaMini-LM) associated with this model family:
+This package currently uses [LaMini-Flan-T5-base](https://huggingface.co/MBZUAI/LaMini-Flan-T5-248M) as its default model. The model is tuned to respond to instructions in a human-like manner. The following human evaluations were reported in the [paper](https://github.com/mbzuai-nlp/LaMini-LM) associated with this model family:
 
 ![Human-rated model comparison](media/model-comparison.png)
 
