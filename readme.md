@@ -59,7 +59,7 @@ The base model should run quickly on any system with 512MB of memory, but this m
 >>> import languagemodels as lm
 >>> lm.do("If I have 7 apples then eat 5, how many apples do I have?")
 'You have 8 apples.'
->>> lm.set_max_ram('4gb')
+>>> lm.config["max_ram"] = "4gb"
 4.0
 >>> lm.do("If I have 7 apples then eat 5, how many apples do I have?")
 'I have 2 apples left.'
