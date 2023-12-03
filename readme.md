@@ -65,6 +65,15 @@ The base model should run quickly on any system with 512MB of memory, but this m
 'I have 2 apples left.'
 ```
 
+### GPU Acceleration
+
+If you have an NVIDIA GPU with CUDA available, you can opt in to using the GPU for inference:
+
+```python
+>>> import languagemodels as lm
+>>> lm.config["device"] = "auto"
+```
+
 ### Text Completions
 
 ```python
