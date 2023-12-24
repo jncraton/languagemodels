@@ -1,9 +1,9 @@
 import languagemodels as lm
+import numpy as np
 import time
 import json
 import os
 import psutil
-
 
 def mem_used_gb():
     process = psutil.Process(os.getpid())
@@ -36,6 +36,15 @@ start = time.perf_counter_ns()
 print(lm.get_doc_context("Which planets have rings?"))
 print(f"Search time: {(time.perf_counter_ns() - start) / 1e6:.0f}ms")
 lm.docs.clear()
+
+# Create many fake docs to benchmark search
+# We create 10 unique docs then duplicate them
+# A fully random set of docs would be better, but takes a long time to generate
+docs = [lm.embeddings.Document(str(i), np.random.rand(384)) for i in range(10)]
+start = time.perf_counter_ns()
+lm.embeddings.search("Test", docs * 10000)
+print(f"100k search time: {(time.perf_counter_ns() - start) / 1e6:.0f}ms")
+docs = None
 
 max_ram = lm.config["max_ram"]
 print(
