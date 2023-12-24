@@ -38,7 +38,7 @@ def search(query, docs):
 
     query_embedding = embed([f"{prefix}{query}"])[0]
 
-    scores = [np.dot(query_embedding, d.embedding) for d in docs]
+    scores = np.dot([d.embedding for d in docs], query_embedding)
 
     return sorted(enumerate(scores), key=lambda x: x[1], reverse=True)
 

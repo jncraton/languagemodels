@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.13.0
+
+### Changed
+
+- Improved search speed when searching many documents
+
 ## 0.12.0 - 2023-12-02
 
 ### Changed
