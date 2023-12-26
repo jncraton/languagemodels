@@ -5,6 +5,7 @@
 ### Changed
 
 - Improved search speed when searching many documents
+- Reduce memory usage for large document embeddings
 
 ## 0.12.0 - 2023-12-02
 

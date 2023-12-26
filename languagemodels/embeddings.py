@@ -15,15 +15,20 @@ def embed(docs):
 
     tokenizer, model = get_model("embedding")
 
-    tokens = [tokenizer.encode(doc).ids[:512] for doc in docs]
-    outputs = model.forward_batch(tokens)
+    tokens = [tokenizer.encode(doc[:8192]).ids[:512] for doc in docs]
 
     def mean_pool(last_hidden_state):
         embedding = np.mean(last_hidden_state, axis=0)
         embedding = embedding / np.linalg.norm(embedding)
         return embedding
 
-    return [mean_pool(lhs) for lhs in np.array(outputs.last_hidden_state)]
+    bs = 64
+    embeddings = []
+    for i in range(0, len(docs), bs):
+        outputs = model.forward_batch(tokens[i : i + bs])
+        embeddings += [mean_pool(lhs) for lhs in np.array(outputs.last_hidden_state)]
+
+    return embeddings
 
 
 def search(query, docs):
