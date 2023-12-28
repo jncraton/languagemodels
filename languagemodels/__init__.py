@@ -5,8 +5,7 @@ import re
 
 from languagemodels.config import config
 from languagemodels.inference import (
-    generate_instruct,
-    generate_code,
+    generate,
     rank_instruct,
     parse_chat,
     list_tokens,
@@ -34,7 +33,7 @@ def complete(prompt: str) -> str:
     'she was sure she was safe'
     """
 
-    result = generate_instruct(
+    result = generate(
         "Write a sentence", prefix=prompt,
         max_tokens=config["max_tokens"], temperature=0.7, topk=40
     )
@@ -63,7 +62,7 @@ def do(prompt: str) -> str:
     >>> do("Is the following positive or negative: I love Star Trek.")
     'Positive.'
     """
-    result = generate_instruct(prompt, max_tokens=config["max_tokens"], topk=1)
+    result = generate(prompt, max_tokens=config["max_tokens"], topk=1)
 
     if len(result.split()) == 1:
         result = result.title()
@@ -153,7 +152,7 @@ def chat(prompt: str) -> str:
     if prompt.startswith("System:"):
         prompt = prompt[7:].strip()
 
-    response = generate_instruct(
+    response = generate(
         prompt,
         max_tokens=config["max_tokens"],
         repetition_penalty=1.3,
@@ -187,7 +186,7 @@ def code(prompt: str) -> str:
     >>> code("def return_4():")
     '...return 4...'
     """
-    result = generate_code(prompt, max_tokens=config["max_tokens"], topk=1)
+    result = generate(prompt, max_tokens=config["max_tokens"], topk=1, model="code")
 
     return result
 
@@ -213,7 +212,7 @@ def extract_answer(question: str, context: str) -> str:
     '...Guido van Rossum...'
     """
 
-    return generate_instruct(f"{context}\n\n{question}")
+    return generate(f"{context}\n\n{question}")
 
 
 def classify(doc: str, label1: str, label2: str) -> str:

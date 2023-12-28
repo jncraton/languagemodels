@@ -110,7 +110,7 @@ def chat_oa(engine, prompt, max_tokens=200, temperature=0):
         raise InferenceException(f"OpenAI error: {resp}")
 
 
-def generate_instruct(
+def generate(
     instruction,
     max_tokens=200,
     temperature=0.1,
@@ -118,6 +118,7 @@ def generate_instruct(
     repetition_penalty=1.3,
     prefix="",
     suppress=[],
+    model="instruct",
 ):
     """Generates one completion for a prompt using an instruction-tuned model
 
@@ -132,7 +133,7 @@ def generate_instruct(
     if os.environ.get("LANGUAGEMODELS_OA_KEY"):
         return chat_oa("gpt-3.5-turbo", instruction, max_tokens).strip()
 
-    tokenizer, model = get_model("instruct")
+    tokenizer, model = get_model(model)
 
     suppress = [tokenizer.encode(s, add_special_tokens=False).tokens for s in suppress]
 
@@ -169,38 +170,6 @@ def generate_instruct(
         )
         output_ids = results[0].sequences_ids[0]
         text = tokenizer.decode(output_ids, skip_special_tokens=True).lstrip()
-
-    return text
-
-
-def generate_code(
-    prompt,
-    max_tokens=200,
-    temperature=0.1,
-    topk=1,
-    repetition_penalty=1.2,
-    prefix="",
-):
-    """Generates one completion for a prompt using a code-tuned model
-
-    >>> generate_code("# Print Hello, World!\\n")
-    'print("Hello, World!")\\n'
-    """
-
-    tokenizer, model = get_model("code")
-
-    results = model.translate_batch(
-        [tokenizer.encode(prompt).tokens],
-        target_prefix=[tokenizer.encode(prefix, add_special_tokens=False).tokens],
-        repetition_penalty=repetition_penalty,
-        max_decoding_length=max_tokens,
-        sampling_temperature=temperature,
-        sampling_topk=topk,
-        beam_size=1,
-    )
-    output_tokens = results[0].hypotheses[0]
-    output_ids = [tokenizer.token_to_id(t) for t in output_tokens]
-    text = tokenizer.decode(output_ids, skip_special_tokens=True)
 
     return text
 
