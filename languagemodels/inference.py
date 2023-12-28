@@ -189,22 +189,13 @@ def rank_instruct(input, targets):
     """
     tokenizer, model = get_model("instruct")
 
-    input_tokens = tokenizer.encode(input, add_special_tokens=False).tokens
+    in_tok = tokenizer.encode(input, add_special_tokens=False).tokens
+    targ_tok = [tokenizer.encode(t, add_special_tokens=False).tokens for t in targets]
 
     if "Generator" in str(type(model)):
-        scores = model.score_batch(
-            [
-                input_tokens + tokenizer.encode(t, add_special_tokens=False).tokens
-                for t in targets
-            ],
-        )
+        scores = model.score_batch([in_tok + t for t in targ_tok])
     else:
-        scores = model.score_batch(
-            [input_tokens] * len(targets),
-            target=[
-                tokenizer.encode(t, add_special_tokens=False).tokens for t in targets
-            ],
-        )
+        scores = model.score_batch([in_tok] * len(targ_tok), target=targ_tok)
 
     logprobs = [sum(r.log_probs) for r in scores]
 
