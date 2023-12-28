@@ -56,7 +56,7 @@ def do(prompt: str) -> str:
     ...
 
 
-def do(prompt):
+def do(prompt, grammar=None):
     """Follow a single-turn instructional prompt
 
     :param prompt: Instructional prompt(s) to follow
@@ -79,18 +79,29 @@ def do(prompt):
 
     >>> do(["Pick the sport from the list: baseball, texas, chemistry"] * 2)
     ['Baseball.', 'Baseball.']
+
+    >>> do(["Say red", "Say blue"], 'root ::= "red" | "blue"')
+    ['red', 'blue']
     """
 
     prompts = [prompt] if isinstance(prompt, str) else prompt
 
-    results = generate(prompts, max_tokens=config["max_tokens"], topk=1)
+    if grammar:
+        assert grammar.startswith("root ::= ")
+        grammar = grammar[len("root ::= "):]
+        grammar = grammar.strip('"')
+        targets = grammar.split('" | "')
 
-    for i, result in enumerate(results):
-        if len(result.split()) == 1:
-            results[i] = result.title()
+        results = [r[0] for r in rank_instruct(prompts, targets)]
+    else:
+        results = generate(prompts, max_tokens=config["max_tokens"], topk=1)
 
-            if result[-1] not in (".", "!", "?"):
-                results[i] = results[i] + "."
+        for i, result in enumerate(results):
+            if len(result.split()) == 1:
+                results[i] = result.title()
+
+                if result[-1] not in (".", "!", "?"):
+                    results[i] = results[i] + "."
 
     return results[0] if isinstance(prompt, str) else results
 
