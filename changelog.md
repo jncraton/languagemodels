@@ -7,6 +7,10 @@
 - Improved search speed when searching many documents
 - Reduce memory usage for large document embeddings
 
+### Added
+
+- Support static batching by passing lists to `do`
+
 ## 0.12.0 - 2023-12-02
 
 ### Changed

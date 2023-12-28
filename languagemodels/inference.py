@@ -111,7 +111,7 @@ def chat_oa(engine, prompt, max_tokens=200, temperature=0):
 
 
 def generate(
-    instruction,
+    instructions,
     max_tokens=200,
     temperature=0.1,
     topk=1,
@@ -120,7 +120,7 @@ def generate(
     suppress=[],
     model="instruct",
 ):
-    """Generates one completion for a prompt using an instruction-tuned model
+    """Generates completions for a prompt
 
     This may use a local model, or it may make an API call to an external
     model if API keys are available.
@@ -128,10 +128,10 @@ def generate(
     if os.environ.get("LANGUAGEMODELS_TS_KEY") or os.environ.get(
         "LANGUAGEMODELS_TS_SERVER"
     ):
-        return generate_ts("flan_t5_xxl_q4", instruction, max_tokens).strip()
+        return generate_ts("flan_t5_xxl_q4", instructions, max_tokens).strip()
 
     if os.environ.get("LANGUAGEMODELS_OA_KEY"):
-        return chat_oa("gpt-3.5-turbo", instruction, max_tokens).strip()
+        return chat_oa("gpt-3.5-turbo", instructions, max_tokens).strip()
 
     tokenizer, model = get_model(model)
 
@@ -141,12 +141,14 @@ def generate(
 
     fmt = model_info.get("prompt_fmt", "{instruction}")
 
-    prompt = fmt.replace("{instruction}", instruction)
+    prompts = [fmt.replace("{instruction}", inst) for inst in instructions]
 
+    outputs_ids = []
     if hasattr(model, "translate_batch"):
+        prefix = tokenizer.encode(prefix, add_special_tokens=False).tokens
         results = model.translate_batch(
-            [tokenizer.encode(prompt).tokens],
-            target_prefix=[tokenizer.encode(prefix, add_special_tokens=False).tokens],
+            [tokenizer.encode(p).tokens for p in prompts],
+            target_prefix=[prefix] * len(prompts),
             repetition_penalty=repetition_penalty,
             max_decoding_length=max_tokens,
             sampling_temperature=temperature,
@@ -154,12 +156,12 @@ def generate(
             suppress_sequences=suppress,
             beam_size=1,
         )
-        output_tokens = results[0].hypotheses[0]
-        output_ids = [tokenizer.token_to_id(t) for t in output_tokens]
-        text = tokenizer.decode(output_ids, skip_special_tokens=True)
+        outputs_tokens = [r.hypotheses[0] for r in results]
+        for output in outputs_tokens:
+            outputs_ids.append([tokenizer.token_to_id(t) for t in output])
     else:
         results = model.generate_batch(
-            [tokenizer.encode(prompt).tokens],
+            [tokenizer.encode(p).tokens for p in prompts],
             repetition_penalty=repetition_penalty,
             max_length=max_tokens,
             sampling_temperature=temperature,
@@ -168,10 +170,9 @@ def generate(
             beam_size=1,
             include_prompt_in_result=False,
         )
-        output_ids = results[0].sequences_ids[0]
-        text = tokenizer.decode(output_ids, skip_special_tokens=True).lstrip()
+        outputs_ids = results[0].sequences_ids[0]
 
-    return text
+    return [tokenizer.decode(i, skip_special_tokens=True).lstrip() for i in outputs_ids]
 
 
 def rank_instruct(input, targets):

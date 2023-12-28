@@ -2,6 +2,7 @@ import requests
 import datetime
 import json
 import re
+from typing import overload
 
 from languagemodels.config import config
 from languagemodels.inference import (
@@ -34,9 +35,9 @@ def complete(prompt: str) -> str:
     """
 
     result = generate(
-        "Write a sentence", prefix=prompt,
+        ["Write a sentence"], prefix=prompt,
         max_tokens=config["max_tokens"], temperature=0.7, topk=40
-    )
+    )[0]
 
     if result.startswith(prompt):
         prefix_length = len(prompt)
@@ -45,11 +46,25 @@ def complete(prompt: str) -> str:
         return result
 
 
+@overload
+def do(prompt: list) -> list:
+    ...
+
+
+@overload
 def do(prompt: str) -> str:
+    ...
+
+
+def do(prompt):
     """Follow a single-turn instructional prompt
 
-    :param prompt: Instructional prompt to follow
+    :param prompt: Instructional prompt(s) to follow
     :return: Completion returned from the language model
+
+    Note that this function is overloaded to return a list of results if
+    a list if of prompts is provided and a single string if a single
+    prompt is provided as a string
 
     Examples:
 
@@ -61,16 +76,23 @@ def do(prompt: str) -> str:
 
     >>> do("Is the following positive or negative: I love Star Trek.")
     'Positive.'
+
+    >>> do(["Pick the sport from the list: baseball, texas, chemistry"] * 2)
+    ['Baseball.', 'Baseball.']
     """
-    result = generate(prompt, max_tokens=config["max_tokens"], topk=1)
 
-    if len(result.split()) == 1:
-        result = result.title()
+    prompts = [prompt] if isinstance(prompt, str) else prompt
 
-        if result[-1] not in (".", "!", "?"):
-            result = result + "."
+    results = generate(prompts, max_tokens=config["max_tokens"], topk=1)
 
-    return result
+    for i, result in enumerate(results):
+        if len(result.split()) == 1:
+            results[i] = result.title()
+
+            if result[-1] not in (".", "!", "?"):
+                results[i] = results[i] + "."
+
+    return results[0] if isinstance(prompt, str) else results
 
 
 def chat(prompt: str) -> str:
@@ -153,14 +175,14 @@ def chat(prompt: str) -> str:
         prompt = prompt[7:].strip()
 
     response = generate(
-        prompt,
+        [prompt],
         max_tokens=config["max_tokens"],
         repetition_penalty=1.3,
         temperature=0.3,
         topk=40,
         prefix="Assistant:",
         suppress=suppress,
-    )
+    )[0]
 
     # Remove duplicate assistant being generated
     if response.startswith("Assistant:"):
@@ -186,9 +208,7 @@ def code(prompt: str) -> str:
     >>> code("def return_4():")
     '...return 4...'
     """
-    result = generate(prompt, max_tokens=config["max_tokens"], topk=1, model="code")
-
-    return result
+    return generate([prompt], max_tokens=config["max_tokens"], topk=1, model="code")[0]
 
 
 def extract_answer(question: str, context: str) -> str:
@@ -212,7 +232,7 @@ def extract_answer(question: str, context: str) -> str:
     '...Guido van Rossum...'
     """
 
-    return generate(f"{context}\n\n{question}")
+    return generate([f"{context}\n\n{question}"])[0]
 
 
 def classify(doc: str, label1: str, label2: str) -> str:
