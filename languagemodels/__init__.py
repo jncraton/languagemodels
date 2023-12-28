@@ -257,10 +257,11 @@ def classify(doc: str, label1: str, label2: str) -> str:
     """
 
     results = rank_instruct(
-        f"Classify as {label1} or {label2}: {doc}\n\nClassification:", [label1, label2]
+        [f"Classify as {label1} or {label2}: {doc}\n\nClassification:"],
+        [label1, label2]
     )
 
-    return results[0]
+    return results[0][0]
 
 
 def store_doc(doc: str, name: str = "") -> None:
