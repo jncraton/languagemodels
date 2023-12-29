@@ -56,10 +56,11 @@ def do(prompt: str) -> str:
     ...
 
 
-def do(prompt, grammar=None):
+def do(prompt, choices=None):
     """Follow a single-turn instructional prompt
 
     :param prompt: Instructional prompt(s) to follow
+    :param choices: If provided, outputs are restricted to values in choices
     :return: Completion returned from the language model
 
     Note that this function is overloaded to return a list of results if
@@ -80,19 +81,14 @@ def do(prompt, grammar=None):
     >>> do(["Pick the sport from the list: baseball, texas, chemistry"] * 2)
     ['Baseball.', 'Baseball.']
 
-    >>> do(["Say red", "Say blue"], 'root ::= "red" | "blue"')
+    >>> do(["Say red", "Say blue"], choices=["red", "blue"])
     ['red', 'blue']
     """
 
     prompts = [prompt] if isinstance(prompt, str) else prompt
 
-    if grammar:
-        assert grammar.startswith("root ::= ")
-        grammar = grammar[len("root ::= "):]
-        grammar = grammar.strip('"')
-        targets = grammar.split('" | "')
-
-        results = [r[0] for r in rank_instruct(prompts, targets)]
+    if choices:
+        results = [r[0] for r in rank_instruct(prompts, choices)]
     else:
         results = generate(prompts, max_tokens=config["max_tokens"], topk=1)
 

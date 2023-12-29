@@ -10,7 +10,7 @@
 ### Added
 
 - Support static batching by passing lists to `do`
-- Support basic BNF grammar on `do`
+- Support choices list on `do` to restrict possible outputs
 
 ## 0.12.0 - 2023-12-02
 
