@@ -170,7 +170,7 @@ def generate(
             beam_size=1,
             include_prompt_in_result=False,
         )
-        outputs_ids = results[0].sequences_ids[0]
+        outputs_ids = [r.sequences_ids[0] for r in results]
 
     return [tokenizer.decode(i, skip_special_tokens=True).lstrip() for i in outputs_ids]
 
