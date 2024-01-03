@@ -47,7 +47,8 @@ def initialize_tokenizer(model_type, model_name):
 def initialize_model(model_type, model_name):
     model_info = get_model_info(model_type)
 
-    path = snapshot_download(model_info["path"], max_workers=1)
+    path = snapshot_download(model_info["path"], max_workers=1,
+                             allow_patterns=["*.bin", "*.txt", "*.json"])
 
     if model_info["architecture"] == "encoder-only-transformer":
         return ctranslate2.Encoder(path, config["device"], compute_type="int8", )
