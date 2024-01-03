@@ -7,6 +7,7 @@
 - Improved search speed when searching many documents
 - Reduce memory usage for large document embeddings
 - Updated to TinyLlama Chat v1.0
+- Remove auto model scaling on Colab
 
 ### Added
 
