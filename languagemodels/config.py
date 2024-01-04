@@ -179,6 +179,16 @@ models = [
         "license": "apache-2.0",
     },
     {
+        "name": "phi-2",
+        "tuning": "instruct",
+        "datasets": ["phi-2"],
+        "params": 2.7e9,
+        "quantization": "int8",
+        "backend": "ct2",
+        "architecture": "decoder-only-transformer",
+        "license": "microsoft-research-license",
+    },
+    {
         "name": "phi-1_5",
         "tuning": "instruct",
         "datasets": ["phi-1_5"],
