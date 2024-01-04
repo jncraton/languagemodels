@@ -198,6 +198,7 @@ models = [
         "backend": "ct2",
         "architecture": "decoder-only-transformer",
         "license": "other",
+        "prompt_fmt": "{instruction}\n\nAnswer:",
     },
     {
         "name": "LaMini-GPT-774M",
