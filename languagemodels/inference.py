@@ -124,6 +124,9 @@ def generate(
 
     This may use a local model, or it may make an API call to an external
     model if API keys are available.
+
+    >>> generate(["What is the capital of France?"])
+    ['...Paris...']
     """
     if os.environ.get("LANGUAGEMODELS_TS_KEY") or os.environ.get(
         "LANGUAGEMODELS_TS_SERVER"
