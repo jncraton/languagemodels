@@ -1,3 +1,4 @@
+from typing import List
 import requests
 import re
 import os
@@ -111,14 +112,14 @@ def chat_oa(engine, prompt, max_tokens=200, temperature=0):
 
 
 def generate(
-    instructions,
-    max_tokens=200,
-    temperature=0.1,
-    topk=1,
-    repetition_penalty=1.3,
-    prefix="",
-    suppress=[],
-    model="instruct",
+    instructions: List[str],
+    max_tokens: int = 200,
+    temperature: float = 0.1,
+    topk: int = 1,
+    repetition_penalty: float = 1.3,
+    prefix: str = "",
+    suppress: List[str] = [],
+    model: str = "instruct",
 ):
     """Generates completions for a prompt
 
