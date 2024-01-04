@@ -187,6 +187,7 @@ models = [
         "backend": "ct2",
         "architecture": "decoder-only-transformer",
         "license": "microsoft-research-license",
+        "prompt_fmt": "Instruct: {instruction}\nOutput:",
     },
     {
         "name": "phi-1_5",
