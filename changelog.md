@@ -12,6 +12,7 @@
 
 ### Added
 
+- Add Mistral-7B-Instruct-v0.2 model
 - Add openchat-3.5-1210 model
 - Add phi-2 model
 - Support static batching by passing lists to `do`

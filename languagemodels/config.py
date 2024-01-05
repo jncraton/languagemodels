@@ -56,6 +56,17 @@ models = [
         ),
     },
     {
+        "name": "Mistral-7B-Instruct-v0.2",
+        "tuning": "instruct",
+        "datasets": ["mistral"],
+        "params": 7e9,
+        "quantization": "int8",
+        "backend": "ct2",
+        "architecture": "decoder-only-transformer",
+        "license": "apache-2.0",
+        "prompt_fmt": "<s>[INST] {instruction} [/INST]",
+    },
+    {
         "name": "flan-alpaca-xl",
         "tuning": "instruct",
         "datasets": ["c4", "flan", "alpaca"],
