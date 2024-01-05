@@ -74,7 +74,7 @@ models = [
         "quantization": "int8",
         "backend": "ct2",
         "architecture": "encoder-decoder-transformer",
-        "license": "cc-by-nc-4.0",  # HF says apache-2.0, but alpaca is NC
+        "license": "apache-2.0",
     },
     {
         "name": "flan-alpaca-gpt4-xl",
@@ -84,7 +84,7 @@ models = [
         "quantization": "int8",
         "backend": "ct2",
         "architecture": "encoder-decoder-transformer",
-        "license": "cc-by-nc-4.0",  # HF says apache-2.0, but alpaca is NC
+        "license": "apache-2.0",
     },
     {
         "name": "flan-t5-xl",
@@ -104,7 +104,7 @@ models = [
         "quantization": "int8",
         "backend": "ct2",
         "architecture": "encoder-decoder-transformer",
-        "license": "apache-2.0",  # This does use OpenAI-generated data
+        "license": "apache-2.0",
     },
     {
         "name": "LaMini-Flan-T5-783M",
@@ -144,7 +144,7 @@ models = [
         "quantization": "int8",
         "backend": "ct2",
         "architecture": "encoder-decoder-transformer",
-        "license": "cc-by-nc-4.0",  # HF says apache-2.0, but alpaca is NC
+        "license": "apache-2.0",
     },
     {
         "name": "flan-t5-base",

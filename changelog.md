@@ -9,6 +9,7 @@
 - Updated to TinyLlama Chat v1.0
 - Remove auto model scaling on Colab
 - Correct phi-1.5 prompt format
+- Correct model license metadata
 
 ### Added
 
