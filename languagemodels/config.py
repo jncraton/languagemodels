@@ -137,9 +137,9 @@ models = [
         "license": "cc-by-nc-4.0",
     },
     {
-        "name": "flan-alpaca-base",
+        "name": "flan-t5-base",
         "tuning": "instruct",
-        "datasets": ["c4", "flan", "alpaca"],
+        "datasets": ["c4", "flan"],
         "params": 248e6,
         "quantization": "int8",
         "backend": "ct2",
@@ -147,9 +147,9 @@ models = [
         "license": "apache-2.0",
     },
     {
-        "name": "flan-t5-base",
+        "name": "flan-alpaca-base",
         "tuning": "instruct",
-        "datasets": ["c4", "flan"],
+        "datasets": ["c4", "flan", "alpaca"],
         "params": 248e6,
         "quantization": "int8",
         "backend": "ct2",
