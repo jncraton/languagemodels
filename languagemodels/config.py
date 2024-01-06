@@ -204,7 +204,7 @@ models = [
         "name": "phi-1_5",
         "tuning": "instruct",
         "datasets": ["phi-1_5"],
-        "params": 14e8,
+        "params": 1.4e9,
         "quantization": "int8",
         "backend": "ct2",
         "architecture": "decoder-only-transformer",
