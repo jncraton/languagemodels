@@ -6,6 +6,10 @@
 
 - Simplified dialogstudio system message
 
+### Fixed
+
+- Correct missing instruction in openchat prompt
+
 ## 0.13.0 - 2024-01-05
 
 ### Changed

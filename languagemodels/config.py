@@ -35,7 +35,7 @@ models = [
         "architecture": "decoder-only-transformer",
         "license": "apache-2.0",
         "prompt_fmt": (
-            "GPT4 Correct User: Hello<|end_of_turn|>"
+            "GPT4 Correct User: {instruction}<|end_of_turn|>"
             "GPT4 Correct Assistant:"
         ),
     },
