@@ -166,7 +166,7 @@ models = [
         "architecture": "encoder-decoder-transformer",
         "license": "apache-2.0",
         "prompt_fmt": (
-            "Instruction: Answer honestly and helpfully. <USER> {instruction}"
+            "Instruction: Be helpful. <USER> {instruction}"
         ),
     },
     {

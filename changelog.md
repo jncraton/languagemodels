@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.14.0
+
+### Changed
+
+- Simplified dialogstudio system message
+
 ## 0.13.0 - 2024-01-05
 
 ### Changed
