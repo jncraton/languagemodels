@@ -259,12 +259,8 @@ def classify(doc: str, label1: str, label2: str) -> str:
     'negative'
     """
 
-    results = rank_instruct(
-        [f"Classify as {label1} or {label2}: {doc}\n\nClassification:"],
-        [label1, label2]
-    )
-
-    return results[0][0]
+    return do(f"Classify as {label1} or {label2}: {doc}\n\nClassification:",
+              choices=[label1, label2])
 
 
 def store_doc(doc: str, name: str = "") -> None:
