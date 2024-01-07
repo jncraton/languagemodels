@@ -67,9 +67,9 @@ models = [
         "prompt_fmt": "<s>[INST] {instruction} [/INST]",
     },
     {
-        "name": "flan-alpaca-xl",
+        "name": "flan-alpaca-gpt4-xl",
         "tuning": "instruct",
-        "datasets": ["c4", "flan", "alpaca"],
+        "datasets": ["c4", "flan", "gpt4-alpaca"],
         "params": 3e9,
         "quantization": "int8",
         "backend": "ct2",
@@ -77,9 +77,9 @@ models = [
         "license": "apache-2.0",
     },
     {
-        "name": "flan-alpaca-gpt4-xl",
+        "name": "flan-alpaca-xl",
         "tuning": "instruct",
-        "datasets": ["c4", "flan", "gpt4-alpaca"],
+        "datasets": ["c4", "flan", "alpaca"],
         "params": 3e9,
         "quantization": "int8",
         "backend": "ct2",
