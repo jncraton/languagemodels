@@ -11,12 +11,8 @@ test: test-base
 	env LANGUAGEMODELS_MAX_RAM=large python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/*.py
 	env LANGUAGEMODELS_MAX_RAM=xl python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/*.py
 
-test-perf-base:
+test-perf:
 	PYTHONPATH=. python3 test/perf.py
-
-test-perf: test-perf-base
-	PYTHONPATH=. LANGUAGEMODELS_SIZE=1g python3 test/perf.py
-	PYTHONPATH=. LANGUAGEMODELS_SIZE=4g python3 test/perf.py
 
 test-commercial:
 	env LANGUAGEMODELS_SIZE=small LANGUAGEMODELS_MODEL_LICENSE="apache|mit|bsd" python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/*.py

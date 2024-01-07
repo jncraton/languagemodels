@@ -12,6 +12,7 @@ jobs:
       matrix:
         python-version: ["3.11"]
         os: [ubuntu-latest, windows-latest, macos-latest]
+        max_ram: [".5", "1", "4"]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
@@ -32,4 +33,4 @@ jobs:
           pip install -r requirements.txt
           pip install psutil
       - name: Test Memory Usage
-        run: make test-perf
+        run: env LANGUAGEMODELS_MAX_RAM=${{ matrix.max_ram }} make test-perf
