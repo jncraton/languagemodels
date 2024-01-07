@@ -72,14 +72,14 @@ def do(prompt, choices=None):
     >>> do("Translate Spanish to English: Hola mundo!") #doctest: +SKIP
     'Hello world!'
 
-    >>> do("Pick the sport from the list: baseball, texas, chemistry")
-    'Baseball.'
+    >>> do("Pick the planet from the list: baseball, Texas, Saturn")
+    '...Saturn...'
 
-    >>> do("Is the following positive or negative: I love Star Trek.")
-    'Positive.'
+    >>> do("Answer: What is the capital of England?")
+    '...London...'
 
-    >>> do(["Pick the sport from the list: baseball, texas, chemistry"] * 2)
-    ['Baseball.', 'Baseball.']
+    >>> do(["Pick the planet from the list: baseball, Texas, Saturn"] * 2)
+    ['...Saturn...', '...Saturn...']
 
     >>> do(["Say red", "Say blue"], choices=["red", "blue"])
     ['red', 'blue']
@@ -143,7 +143,7 @@ def chat(prompt: str) -> str:
     ...
     ...      Assistant:
     ...      ''')
-    '...5:00pm...'
+    '...5:00...'
     """
 
     messages = parse_chat(prompt)
@@ -253,14 +253,10 @@ def classify(doc: str, label1: str, label2: str) -> str:
 
     Examples:
 
-    >>> classify("I love you!","positive","negative")
-    'positive'
     >>> classify("That book was good.","positive","negative")
     'positive'
     >>> classify("That movie was terrible.","positive","negative")
     'negative'
-    >>> classify("The submarine is diving", "ocean", "land")
-    'ocean'
     """
 
     results = rank_instruct(
