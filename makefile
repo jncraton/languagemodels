@@ -8,8 +8,8 @@ test-base:
 	LANGUAGEMODELS_INSTRUCT_MODEL="LaMini-GPT-124M" python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/inference.py
 
 test: test-base
-	env LANGUAGEMODELS_SIZE=large python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/*.py
-	env LANGUAGEMODELS_SIZE=xl python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/*.py
+	env LANGUAGEMODELS_MAX_RAM=large python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/*.py
+	env LANGUAGEMODELS_MAX_RAM=xl python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/*.py
 
 test-perf-base:
 	PYTHONPATH=. python3 test/perf.py
