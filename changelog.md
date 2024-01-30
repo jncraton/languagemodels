@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.15.0
+
+### Added
+
+- Add openchat-3.5-0106 model
+
 ## 0.14.0 - 2024-01-06
 
 ### Changed

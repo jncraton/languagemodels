@@ -26,6 +26,20 @@ class ModelFilterException(Exception):
 # will be selected
 models = [
     {
+        "name": "openchat-3.5-0106",
+        "tuning": "instruct",
+        "datasets": ["mistral", "openorca", "flan"],
+        "params": 7e9,
+        "quantization": "int8",
+        "backend": "ct2",
+        "architecture": "decoder-only-transformer",
+        "license": "apache-2.0",
+        "prompt_fmt": (
+            "GPT4 Correct User: {instruction}<|end_of_turn|>"
+            "GPT4 Correct Assistant:"
+        ),
+    },
+    {
         "name": "openchat-3.5-1210",
         "tuning": "instruct",
         "datasets": ["mistral", "openorca", "flan"],
