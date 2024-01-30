@@ -31,11 +31,12 @@ def embed(docs):
     return embeddings
 
 
-def search(query, docs):
-    """Return docs sorted by match against query
+def search(query, docs, count=16):
+    """Return `count` `docs` sorted by match against `query`
 
     :param query: Input to match in search
     :param docs: List of docs to search against
+    :param count: Number of document to return
     :return: List of (doc_num, score) tuples sorted by score descending
     """
 
@@ -45,7 +46,7 @@ def search(query, docs):
 
     scores = np.dot([d.embedding for d in docs], query_embedding)
 
-    return sorted(enumerate(scores), key=lambda x: x[1], reverse=True)
+    return [(i, scores[i]) for i in reversed(np.argsort(scores)[-count:])]
 
 
 def get_token_ids(doc):

@@ -2,6 +2,10 @@
 
 ## 0.15.0
 
+### Changed
+
+- Improve embedding search performance
+
 ### Added
 
 - Add openchat-3.5-0106 model
