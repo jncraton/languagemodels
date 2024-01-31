@@ -215,6 +215,17 @@ models = [
         "prompt_fmt": "Instruct: {instruction}\nOutput:",
     },
     {
+        "name": "h2o-danube-1.8b-chat",
+        "tuning": "instruct",
+        "datasets": [],
+        "params": 1.8e9,
+        "quantization": "int8",
+        "backend": "ct2",
+        "architecture": "decoder-only-transformer",
+        "license": "other",
+        "prompt_fmt": "<|prompt|>{instruction}</s><|answer|>",
+    },
+    {
         "name": "phi-1_5",
         "tuning": "instruct",
         "datasets": ["phi-1_5"],

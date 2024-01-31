@@ -9,6 +9,7 @@
 ### Added
 
 - Add openchat-3.5-0106 model
+- Add h2o-danube-1.8b-chat model
 
 ## 0.14.0 - 2024-01-06
 
