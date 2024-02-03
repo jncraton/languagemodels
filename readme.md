@@ -180,9 +180,15 @@ Note that quantization does technically harm output quality slightly, but it sho
 
 Sensible default models are provided. The package should improve over time as stronger models become available. The basic models used are 1000x smaller than the largest models in use today. They are useful as learning tools, but perform far below the current state of the art.
 
-This package currently uses [LaMini-Flan-T5-base](https://huggingface.co/MBZUAI/LaMini-Flan-T5-248M) as its default model. The model is tuned to respond to instructions in a human-like manner. The following human evaluations were reported in the [paper](https://github.com/mbzuai-nlp/LaMini-LM) associated with this model family:
+Here are the current default models used by the package for a supplied `max_ram` value:
 
-![Human-rated model comparison](media/model-comparison.png)
+| max_ram | Model Name            | Parameters (B)
+| ------- | --------------------- | --------------
+| 0.5     | LaMini-Flan-T5-248M   | 0.248
+| 1.0     | LaMini-Flan-T5-783M   | 0.783
+| 2.0     | LaMini-Flan-T5-783M   | 0.783
+| 4.0     | flan-alpaca-gpt4-xl   | 3.0
+| 8.0     | openchat-3.5-0106     | 7.0
 
 For code completions, the [CodeT5+](https://arxiv.org/abs/2305.07922) series of models are used.
 
