@@ -51,7 +51,7 @@ def initialize_model(model_type, model_name):
                              allow_patterns=["*.bin", "*.txt", "*.json"])
 
     if model_info["architecture"] == "encoder-only-transformer":
-        return ctranslate2.Encoder(path, config["device"], compute_type="int8", )
+        return ctranslate2.Encoder(path, "cpu", compute_type="int8", )
     elif model_info["architecture"] == "decoder-only-transformer":
         return ctranslate2.Generator(path, config["device"], compute_type="int8")
     else:
