@@ -6,7 +6,7 @@
 
 - Run embedding models on CPU to work around memory copy issue
 
-## 0.15.0 - 2024-01-04
+## 0.15.0 - 2024-02-04
 
 ### Changed
 
