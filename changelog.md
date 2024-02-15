@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.17.0 - 2024-02-15
+
+### Added
+
+- CUDA 12 support
+
 ## 0.16.0 - 2024-02-04
 
 ### Fixed
