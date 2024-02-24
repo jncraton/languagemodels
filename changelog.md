@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.18.0
+
+### Fixed
+
+- Correct issue causing `choices` to be scored improperly
+
 ## 0.17.0 - 2024-02-15
 
 ### Added

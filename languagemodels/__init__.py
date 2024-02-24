@@ -83,6 +83,14 @@ def do(prompt, choices=None):
 
     >>> do(["Say red", "Say blue"], choices=["red", "blue"])
     ['red', 'blue']
+
+    >>> do("Classify as positive or negative: LLMs are bad",
+    ... choices=["Positive", "Negative"])
+    'Negative'
+
+    >>> do("Classify as positive or negative: LLMs are great",
+    ... choices=["Positive", "Negative"])
+    'Positive'
     """
 
     prompts = [prompt] if isinstance(prompt, str) else prompt
