@@ -32,7 +32,7 @@ doc:
 	python3 -m pdoc -o doc languagemodels
 
 paper.pdf: paper.md paper.bib
-	pandoc $< --citeproc -o $@
+	pandoc $< --citeproc --pdf-engine=xelatex -o $@
 
 spellcheck:
 	aspell -c --dont-backup readme.md
