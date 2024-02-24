@@ -187,7 +187,7 @@ def rank_instruct(inputs, targets):
     [['positive', 'negative']]
 
     >>> rank_instruct(["Classify fantasy or documentary: "
-    ... "The wizard raised their want. Classification:"],
+    ... "The wizard raised their wand. Classification:"],
     ... ['fantasy', 'documentary'])
     [['fantasy', 'documentary']]
 
