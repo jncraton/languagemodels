@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.19
+
+### Added
+
+- Support gemma-2b-it
+
 ## 0.18.0 - 2024-02-23
 
 ### Fixed

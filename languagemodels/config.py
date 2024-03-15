@@ -215,6 +215,19 @@ models = [
         "prompt_fmt": "Instruct: {instruction}\nOutput:",
     },
     {
+        "name": "gemma-2b-it",
+        "tuning": "instruct",
+        "datasets": ["gemma"],
+        "params": 2.5e9,
+        "quantization": "int8",
+        "backend": "ct2",
+        "architecture": "decoder-only-transformer",
+        "license": "gemma-terms-of-use",
+        "prompt_fmt": "<bos><start_of_turn>user\n"
+                      "{instruction}<end_of_turn>\n"
+                      "<start_of_turn>model",
+    },
+    {
         "name": "h2o-danube-1.8b-chat",
         "tuning": "instruct",
         "datasets": [],
