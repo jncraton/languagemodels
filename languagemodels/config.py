@@ -228,6 +228,17 @@ models = [
                       "<start_of_turn>model",
     },
     {
+        "name": "h2o-danube2-1.8b-chat",
+        "tuning": "instruct",
+        "datasets": [],
+        "params": 1.8e9,
+        "quantization": "int8",
+        "backend": "ct2",
+        "architecture": "decoder-only-transformer",
+        "license": "other",
+        "prompt_fmt": "<|prompt|>{instruction}</s><|answer|>",
+    },
+    {
         "name": "h2o-danube-1.8b-chat",
         "tuning": "instruct",
         "datasets": [],

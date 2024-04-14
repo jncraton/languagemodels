@@ -5,6 +5,7 @@
 ### Added
 
 - Support gemma-2b-it
+- Support h2o-danube2-1.8b-chat
 
 ## 0.18.0 - 2024-02-23
 
