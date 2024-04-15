@@ -6,6 +6,7 @@
 
 - Support gemma-2b-it
 - Support h2o-danube2-1.8b-chat
+- Support WizardLM-2-7B
 
 ## 0.18.0 - 2024-02-23
 

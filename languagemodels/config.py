@@ -54,6 +54,17 @@ models = [
         ),
     },
     {
+        "name": "WizardLM-2-7B",
+        "tuning": "instruct",
+        "datasets": ["mistral", "wizardlm"],
+        "params": 7e9,
+        "quantization": "int8",
+        "backend": "ct2",
+        "architecture": "decoder-only-transformer",
+        "license": "apache-2.0",
+        "prompt_fmt": "USER: {instruction} ASSISTANT:",
+    },
+    {
         "name": "neural-chat-7b-v3-1",
         "tuning": "instruct",
         "datasets": ["mistral", "slimorca"],
