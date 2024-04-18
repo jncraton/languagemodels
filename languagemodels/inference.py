@@ -205,13 +205,13 @@ def rank_instruct(inputs, targets):
         in_tok += toks * len(targets)
 
     if "Generator" in str(type(model)):
-        scores = model.score_batch([i+t for i, t in zip(in_tok, targ_tok)])
+        scores = model.score_batch([i + t for i, t in zip(in_tok, targ_tok)])
     else:
         scores = model.score_batch(in_tok, target=targ_tok)
 
     ret = []
     for i in range(0, len(inputs) * len(targets), len(targets)):
-        logprobs = [sum(r.log_probs) for r in scores[i:i+len(targets)]]
+        logprobs = [sum(r.log_probs) for r in scores[i : i + len(targets)]]
         results = sorted(zip(targets, logprobs), key=lambda r: -r[1])
         ret.append([r[0] for r in results])
 

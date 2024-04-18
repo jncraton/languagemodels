@@ -5,6 +5,7 @@ import json
 import os
 import psutil
 
+
 def mem_used_gb():
     process = psutil.Process(os.getpid())
     bytes = process.memory_info().rss

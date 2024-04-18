@@ -35,8 +35,11 @@ def complete(prompt: str) -> str:
     """
 
     result = generate(
-        ["Write a sentence"], prefix=prompt,
-        max_tokens=config["max_tokens"], temperature=0.7, topk=40
+        ["Write a sentence"],
+        prefix=prompt,
+        max_tokens=config["max_tokens"],
+        temperature=0.7,
+        topk=40,
     )[0]
 
     if result.startswith(prompt):
@@ -267,8 +270,10 @@ def classify(doc: str, label1: str, label2: str) -> str:
     'negative'
     """
 
-    return do(f"Classify as {label1} or {label2}: {doc}\n\nClassification:",
-              choices=[label1, label2])
+    return do(
+        f"Classify as {label1} or {label2}: {doc}\n\nClassification:",
+        choices=[label1, label2],
+    )
 
 
 def store_doc(doc: str, name: str = "") -> None:

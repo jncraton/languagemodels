@@ -35,8 +35,7 @@ models = [
         "architecture": "decoder-only-transformer",
         "license": "apache-2.0",
         "prompt_fmt": (
-            "GPT4 Correct User: {instruction}<|end_of_turn|>"
-            "GPT4 Correct Assistant:"
+            "GPT4 Correct User: {instruction}<|end_of_turn|>" "GPT4 Correct Assistant:"
         ),
     },
     {
@@ -48,9 +47,10 @@ models = [
         "backend": "ct2",
         "architecture": "decoder-only-transformer",
         "license": "llama3",
-        "prompt_fmt": ("<|start_header_id|>user<|end_header_id|>\n\n"
-                       "{instruction}<|eot_id|>"
-                       "<|start_header_id|>assistant<|end_header_id|>\n\n"
+        "prompt_fmt": (
+            "<|start_header_id|>user<|end_header_id|>\n\n"
+            "{instruction}<|eot_id|>"
+            "<|start_header_id|>assistant<|end_header_id|>\n\n"
         ),
     },
     {
@@ -63,8 +63,7 @@ models = [
         "architecture": "decoder-only-transformer",
         "license": "apache-2.0",
         "prompt_fmt": (
-            "GPT4 Correct User: {instruction}<|end_of_turn|>"
-            "GPT4 Correct Assistant:"
+            "GPT4 Correct User: {instruction}<|end_of_turn|>" "GPT4 Correct Assistant:"
         ),
     },
     {
@@ -204,9 +203,7 @@ models = [
         "backend": "ct2",
         "architecture": "encoder-decoder-transformer",
         "license": "apache-2.0",
-        "prompt_fmt": (
-            "Instruction: Be helpful. <USER> {instruction}"
-        ),
+        "prompt_fmt": ("Instruction: Be helpful. <USER> {instruction}"),
     },
     {
         "name": "LaMini-Flan-T5-77M",
@@ -249,8 +246,8 @@ models = [
         "architecture": "decoder-only-transformer",
         "license": "gemma-terms-of-use",
         "prompt_fmt": "<bos><start_of_turn>user\n"
-                      "{instruction}<end_of_turn>\n"
-                      "<start_of_turn>model",
+        "{instruction}<end_of_turn>\n"
+        "<start_of_turn>model",
     },
     {
         "name": "h2o-danube2-1.8b-chat",
@@ -324,9 +321,7 @@ models = [
         "backend": "ct2",
         "architecture": "decoder-only-transformer",
         "license": "mit",
-        "prompt_fmt": (
-            "<|user|>{instruction}<|assistant|>"
-        ),
+        "prompt_fmt": ("<|user|>{instruction}<|assistant|>"),
     },
     {
         "name": "codet5p-770m-py",
@@ -553,7 +548,7 @@ class Config(dict):
 
         multipliers = {
             "g": 1.0,
-            "m": 2 ** -10,
+            "m": 2**-10,
         }
 
         space = space.lower()
