@@ -4,6 +4,7 @@
 
 ### Added
 
+- Support Meta-Llama-3-8B-Instruct
 - Support gemma-2b-it
 - Support h2o-danube2-1.8b-chat
 - Support WizardLM-2-7B

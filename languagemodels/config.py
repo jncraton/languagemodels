@@ -40,6 +40,20 @@ models = [
         ),
     },
     {
+        "name": "Meta-Llama-3-8B-Instruct",
+        "tuning": "instruct",
+        "datasets": ["llama3"],
+        "params": 8e9,
+        "quantization": "int8",
+        "backend": "ct2",
+        "architecture": "decoder-only-transformer",
+        "license": "llama3",
+        "prompt_fmt": ("<|start_header_id|>user<|end_header_id|>\n\n"
+                       "{instruction}<|eot_id|>"
+                       "<|start_header_id|>assistant<|end_header_id|>\n\n"
+        ),
+    },
+    {
         "name": "openchat-3.5-1210",
         "tuning": "instruct",
         "datasets": ["mistral", "openorca", "flan"],
