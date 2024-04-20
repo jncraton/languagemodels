@@ -146,12 +146,13 @@ def generate(
     fmt = model_info.get("prompt_fmt", "{instruction}")
 
     prompts = [fmt.replace("{instruction}", inst) for inst in instructions]
+    prompts_tok = [tokenizer.encode(p).tokens for p in prompts]
 
     outputs_ids = []
     if hasattr(model, "translate_batch"):
         prefix = tokenizer.encode(prefix, add_special_tokens=False).tokens
         results = model.translate_batch(
-            [tokenizer.encode(p).tokens for p in prompts],
+            prompts_tok,
             target_prefix=[prefix] * len(prompts),
             repetition_penalty=repetition_penalty,
             max_decoding_length=max_tokens,
@@ -165,7 +166,7 @@ def generate(
             outputs_ids.append([tokenizer.token_to_id(t) for t in output])
     else:
         results = model.generate_batch(
-            [tokenizer.encode(p).tokens for p in prompts],
+            prompts_tok,
             repetition_penalty=repetition_penalty,
             max_length=max_tokens,
             sampling_temperature=temperature,
@@ -176,7 +177,10 @@ def generate(
         )
         outputs_ids = [r.sequences_ids[0] for r in results]
 
-    model_info['requests'] = model_info.get('requests', 0) + len(prompts)
+    model_info["requests"] = model_info.get("requests", 0) + len(prompts)
+
+    in_toks = sum(len(p) for p in prompts_tok)
+    model_info["input_tokens"] = model_info.get("input_tokens", 0) + in_toks
 
     return [tokenizer.decode(i, skip_special_tokens=True).lstrip() for i in outputs_ids]
 
