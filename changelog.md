@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.20
+
+### Added
+
+- Store model runtime stats to improve benchmarking and analysis
+
 ## 0.19 - 2024-04-18
 
 ### Added
