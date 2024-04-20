@@ -4,6 +4,7 @@
 
 ### Added
 
+- Support GIST-small-Embedding-v0 embedding model
 - Store model runtime stats to improve benchmarking and analysis
 
 ## 0.19 - 2024-04-18

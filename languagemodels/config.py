@@ -374,6 +374,15 @@ models = [
         "license": "mit",
     },
     {
+        "name": "GIST-small-Embedding-v0",
+        "tuning": "embedding",
+        "params": 33e6,
+        "quantization": "int8",
+        "backend": "ct2",
+        "architecture": "encoder-only-transformer",
+        "license": "mit",
+    },
+    {
         "name": "bge-small-en",
         "tuning": "embedding",
         "query_prefix": "Represent this sentence for searching relevant passages: ",
