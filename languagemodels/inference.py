@@ -184,6 +184,10 @@ def generate(
 
     in_toks = sum(len(p) for p in prompts_tok)
     model_info["input_tokens"] = model_info.get("input_tokens", 0) + in_toks
+
+    out_toks = sum(len(o) for o in outputs_ids)
+    model_info["output_tokens"] = model_info.get("output_tokens", 0) + out_toks
+
     elapsed_time = perf_counter() - start_time
     model_info["runtime"] = model_info.get("runtime", 0) + elapsed_time
 
