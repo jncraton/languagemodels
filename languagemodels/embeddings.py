@@ -1,4 +1,5 @@
 import numpy as np
+from time import perf_counter
 
 from languagemodels.models import get_model, get_model_info
 
@@ -14,6 +15,9 @@ def embed(docs):
     """
 
     tokenizer, model = get_model("embedding")
+    model_info = get_model_info("embedding")
+
+    start_time = perf_counter()
 
     tokens = [tokenizer.encode(doc[:8192]).ids[:512] for doc in docs]
 
@@ -27,6 +31,14 @@ def embed(docs):
     for i in range(0, len(docs), bs):
         outputs = model.forward_batch(tokens[i : i + bs])
         embeddings += [mean_pool(lhs) for lhs in np.array(outputs.last_hidden_state)]
+
+    model_info["requests"] = model_info.get("requests", 0) + len(tokens)
+
+    in_toks = sum(len(d) for d in tokens)
+    model_info["input_tokens"] = model_info.get("input_tokens", 0) + in_toks
+
+    runtime = perf_counter() - start_time
+    model_info["runtime"] = model_info.get("runtime", 0) + runtime
 
     return embeddings
 
