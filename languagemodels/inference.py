@@ -176,6 +176,8 @@ def generate(
         )
         outputs_ids = [r.sequences_ids[0] for r in results]
 
+    model_info['requests'] = model_info.get('requests', 0) + len(prompts)
+
     return [tokenizer.decode(i, skip_special_tokens=True).lstrip() for i in outputs_ids]
 
 
