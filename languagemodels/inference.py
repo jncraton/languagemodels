@@ -2,6 +2,7 @@ from typing import List
 import requests
 import re
 import os
+from time import perf_counter
 
 from languagemodels.models import get_model, get_model_info
 
@@ -139,6 +140,8 @@ def generate(
 
     tokenizer, model = get_model(model)
 
+    start_time = perf_counter()
+
     suppress = [tokenizer.encode(s, add_special_tokens=False).tokens for s in suppress]
 
     model_info = get_model_info("instruct")
@@ -181,6 +184,8 @@ def generate(
 
     in_toks = sum(len(p) for p in prompts_tok)
     model_info["input_tokens"] = model_info.get("input_tokens", 0) + in_toks
+    elapsed_time = perf_counter() - start_time
+    model_info["runtime"] = model_info.get("runtime", 0) + elapsed_time
 
     return [tokenizer.decode(i, skip_special_tokens=True).lstrip() for i in outputs_ids]
 
