@@ -97,6 +97,17 @@ def chunk_doc(doc, name="", chunk_size=64, chunk_overlap=8):
     :param chunk_overlap: Number of tokens to overlap when breaking chunks
     :return: List of strings representing the chunks
 
+    The simple chunking approach used here consist of the following:
+
+    1. Attempt to chunk the remainder of the document.
+    2. If we can't fit all tokens in chunk_size, backtrack to look for a
+    meaningful cut point.
+    3. If a cut point is found, use that as the chunk boundary. There will
+    be no overlap between this chunk and the next in this case.
+    4. If a cut point is not found, use chunk_size a the boundary. There
+    will be chunk_overlap overlapping tokens starting the next chunk.
+    5. Repeat until entire document has been split into chunks.
+
     >>> chunk_doc("")
     []
 
