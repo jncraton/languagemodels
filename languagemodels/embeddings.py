@@ -145,7 +145,7 @@ def chunk_doc(doc, name="", chunk_size=64, chunk_overlap=8):
 
     tokens = get_token_ids(doc)
 
-    separator_tokens = [".", "!", "?", ").", "\n\n", '."']
+    separator_tokens = [".", "!", "?", ").", "\n\n", "\n", '."']
 
     separators = [get_token_ids(t)[-1] for t in separator_tokens]
 
