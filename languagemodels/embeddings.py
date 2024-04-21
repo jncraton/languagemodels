@@ -144,7 +144,10 @@ def chunk_doc(doc, name="", chunk_size=64, chunk_overlap=8):
     generative_tokenizer, _ = get_model("instruct", tokenizer_only=True)
 
     tokens = get_token_ids(doc)
-    separators = [get_token_ids(t)[-1] for t in [".", "!", "?", ").", "\n\n"]]
+
+    separator_tokens = [".", "!", "?", ").", "\n\n", '."']
+
+    separators = [get_token_ids(t)[-1] for t in separator_tokens]
 
     name_tokens = []
 
