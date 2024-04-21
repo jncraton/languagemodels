@@ -100,7 +100,7 @@ def chunk_doc(doc, name="", chunk_size=64, chunk_overlap=8):
     >>> chunk_doc("")
     []
 
-    >>> chunk_doc(""
+    >>> chunk_doc(
     ... "It was the best of times, it was the worst of times, it was the age "
     ... "of wisdom, it was the age of foolishness, it was the epoch of belief, "
     ... "it was the epoch of incredulity, it was the season of Light, it was "
@@ -111,6 +111,16 @@ def chunk_doc(doc, name="", chunk_size=64, chunk_overlap=8):
     ... "some of its noisiest authorities insisted on its being received, for "
     ... "good or for evil, in the superlative degree of comparison only.")
     ['It was the best of times...']
+
+    >>> chunk_doc(
+    ... "One morning, when Gregor Samsa woke from troubled dreams, he found "
+    ... "himself transformed in his bed into a horrible vermin. He lay on his "
+    ... "armour-like back, and if he lifted his head a little he could see "
+    ... "his brown belly, slightly domed and divided by arches into stiff "
+    ... "sections. The bedding was hardly able to cover it and seemed ready "
+    ... "to slide off any moment. His many legs, pitifully thin compared with "
+    ... "the size of the rest of him, waved about helplessly as he looked.")
+    ['One morning, ...']
 
     >>> chunk_doc("Hello")
     ['Hello']
