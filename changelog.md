@@ -2,6 +2,10 @@
 
 ## 0.20
 
+### Changed
+
+- Add new separators to document chunking heuristic
+
 ### Fixed
 
 - Allow missing query prefixes for embedding models
