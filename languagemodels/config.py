@@ -346,7 +346,6 @@ models = [
     {
         "name": "all-MiniLM-L6-v2",
         "tuning": "embedding",
-        "query_prefix": "",
         "params": 22e6,
         "quantization": "int8",
         "backend": "ct2",
@@ -356,7 +355,6 @@ models = [
     {
         "name": "gte-tiny",
         "tuning": "embedding",
-        "query_prefix": "",
         "params": 22e6,
         "quantization": "int8",
         "backend": "ct2",
@@ -366,7 +364,6 @@ models = [
     {
         "name": "gte-small",
         "tuning": "embedding",
-        "query_prefix": "",
         "params": 33e6,
         "quantization": "int8",
         "backend": "ct2",
@@ -395,7 +392,6 @@ models = [
     {
         "name": "e5-small-v2",
         "tuning": "embedding",
-        "query_prefix": "",
         "params": 33e6,
         "quantization": "int8",
         "backend": "ct2",

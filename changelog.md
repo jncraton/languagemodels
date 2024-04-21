@@ -2,6 +2,10 @@
 
 ## 0.20
 
+### Fixed
+
+- Allow missing query prefixes for embedding models
+
 ### Added
 
 - Support GIST-small-Embedding-v0 embedding model

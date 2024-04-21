@@ -52,7 +52,7 @@ def search(query, docs, count=16):
     :return: List of (doc_num, score) tuples sorted by score descending
     """
 
-    prefix = get_model_info("embedding")["query_prefix"]
+    prefix = get_model_info("embedding").get("query_prefix", "")
 
     query_embedding = embed([f"{prefix}{query}"])[0]
 
