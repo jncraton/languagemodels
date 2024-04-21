@@ -5,13 +5,21 @@ from languagemodels.models import get_model, get_model_info
 
 
 def embed(docs):
-    """Get embeddings for a batch of documents
+    """Compute embeddings for a batch of documents
 
     >>> embed(["I love Python!"])[0].shape
     (384,)
 
     >>> embed(["I love Python!"])[0][-3:]
     array([0.1..., 0.1..., 0.0...], dtype=float32)
+
+    Embeddings are computed by running the first 512 tokens of each doc
+    through a forward pass of the embedding model. The last hidden state
+    of the model is mean pooled to produce a single vector
+
+    Documents will be processed in batches. The batch size is fixed at 64
+    as this size was found to maximize throughput on a number of test
+    systems while limiting memory usage.
     """
 
     tokenizer, model = get_model("embedding")
