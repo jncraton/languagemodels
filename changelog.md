@@ -12,6 +12,7 @@
 
 ### Added
 
+- Support Phi-3-mini-4k-instruct
 - Support GIST-small-Embedding-v0 embedding model
 - Store model runtime stats to improve benchmarking and analysis
 
