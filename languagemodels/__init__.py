@@ -339,7 +339,7 @@ def get_wiki(topic: str) -> str:
 
     Examples:
 
-    >>> get_wiki('Python')
+    >>> get_wiki('Python language')
     'Python is a high-level...'
 
     >>> get_wiki('Chemistry')
