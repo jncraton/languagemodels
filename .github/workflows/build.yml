@@ -17,6 +17,10 @@ jobs:
             python-version: "3.8"
           - os: macos-14
             python-version: "3.9"
+          - os: macos-latest
+            python-version: "3.8"
+          - os: macos-latest
+            python-version: "3.9"
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
