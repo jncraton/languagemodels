@@ -226,6 +226,18 @@ models = [
         "license": "apache-2.0",
     },
     {
+        "name": "Phi-3-mini-4k-instruct-20240701",
+        "tuning": "instruct",
+        "datasets": ["phi-3"],
+        "params": 3.8e9,
+        "quantization": "int8",
+        "backend": "ct2",
+        "architecture": "decoder-only-transformer",
+        "license": "mit",
+        "prompt_fmt": "<|user|>\n{instruction}<|end|>\n<|assistant|>",
+        "repetition_penalty": 1.1,
+    },
+    {
         "name": "Phi-3-mini-4k-instruct",
         "tuning": "instruct",
         "datasets": ["phi-3"],
