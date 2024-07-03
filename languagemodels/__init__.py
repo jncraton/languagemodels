@@ -195,7 +195,6 @@ def chat(prompt: str) -> str:
     response = generate(
         [prompt],
         max_tokens=config["max_tokens"],
-        repetition_penalty=1.3,
         temperature=0.3,
         topk=40,
         prefix="Assistant:",

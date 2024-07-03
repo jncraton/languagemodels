@@ -235,6 +235,7 @@ models = [
         "architecture": "decoder-only-transformer",
         "license": "mit",
         "prompt_fmt": "<|user|>\n{instruction}<|end|>\n<|assistant|>",
+        "repetition_penalty": 1.1,
     },
     {
         "name": "phi-2",

@@ -117,7 +117,7 @@ def generate(
     max_tokens: int = 200,
     temperature: float = 0.1,
     topk: int = 1,
-    repetition_penalty: float = 1.3,
+    repetition_penalty: float = 0.0,
     prefix: str = "",
     suppress: List[str] = [],
     model: str = "instruct",
@@ -147,6 +147,9 @@ def generate(
     model_info = get_model_info("instruct")
 
     fmt = model_info.get("prompt_fmt", "{instruction}")
+
+    if repetition_penalty == 0.0:
+        repetition_penalty = model_info.get("repetition_penalty", 1.3)
 
     prompts = [fmt.replace("{instruction}", inst) for inst in instructions]
     prompts_tok = [tokenizer.encode(p).tokens for p in prompts]
