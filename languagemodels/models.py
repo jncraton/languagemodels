@@ -2,6 +2,7 @@ import re
 from huggingface_hub import hf_hub_download, snapshot_download
 from tokenizers import Tokenizer
 import ctranslate2
+from llama_cpp import Llama
 
 from languagemodels.config import config, models
 
@@ -95,11 +96,21 @@ def get_model(model_type, tokenizer_only=False):
                     pass
 
     if model_name not in modelcache:
-        tokenizer = initialize_tokenizer(model_type, model_name)
-        model = None
-        if not tokenizer_only:
-            model = initialize_model(model_type, model_name)
-        modelcache[model_name] = (tokenizer, model)
+        model_config = get_model_info(model_type)
+
+        if model_config["backend"] == "llamacpp":
+            model_path = hf_hub_download(
+                repo_id=model_config["repo"], filename=model_config["file"]
+            )
+
+            model = Llama(model_path=model_path, seed=0)
+            modelcache[model_name] = (None, model)
+        else:
+            tokenizer = initialize_tokenizer(model_type, model_name)
+            model = None
+            if not tokenizer_only:
+                model = initialize_model(model_type, model_name)
+            modelcache[model_name] = (tokenizer, model)
     elif not tokenizer_only:
         # Make sure model is loaded if we've never loaded it
         if not modelcache[model_name][1]:

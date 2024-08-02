@@ -152,10 +152,15 @@ def generate(
         repetition_penalty = model_info.get("repetition_penalty", 1.3)
 
     prompts = [fmt.replace("{instruction}", inst) for inst in instructions]
-    prompts_tok = [tokenizer.encode(p).tokens for p in prompts]
+    if tokenizer:
+        prompts_tok = [tokenizer.encode(p).tokens for p in prompts]
 
     outputs_ids = []
-    if hasattr(model, "translate_batch"):
+    if model_info["backend"] == "llamacpp":
+        # TODO: This can become more efficient once llama_cpp_python supports
+        # batching
+        results = [model(p, top_k=1) for p in prompts]
+    elif hasattr(model, "translate_batch"):
         prefix = tokenizer.encode(prefix, add_special_tokens=False).tokens
         results = model.translate_batch(
             prompts_tok,
@@ -185,16 +190,24 @@ def generate(
 
     model_info["requests"] = model_info.get("requests", 0) + len(prompts)
 
-    in_toks = sum(len(p) for p in prompts_tok)
-    model_info["input_tokens"] = model_info.get("input_tokens", 0) + in_toks
+    if tokenizer:
+        # TODO: This data could be properly extracted from llamacpp results
+        in_toks = sum(len(p) for p in prompts_tok)
+        model_info["input_tokens"] = model_info.get("input_tokens", 0) + in_toks
 
-    out_toks = sum(len(o) for o in outputs_ids)
-    model_info["output_tokens"] = model_info.get("output_tokens", 0) + out_toks
+        out_toks = sum(len(o) for o in outputs_ids)
+        model_info["output_tokens"] = model_info.get("output_tokens", 0) + out_toks
 
     elapsed_time = perf_counter() - start_time
     model_info["runtime"] = model_info.get("runtime", 0) + elapsed_time
 
-    return [tokenizer.decode(i, skip_special_tokens=True).lstrip() for i in outputs_ids]
+    if not tokenizer:
+        print(results)
+        return [r["choices"][0]["text"] for r in results]
+    else:
+        return [
+            tokenizer.decode(i, skip_special_tokens=True).lstrip() for i in outputs_ids
+        ]
 
 
 def rank_instruct(inputs, targets):
