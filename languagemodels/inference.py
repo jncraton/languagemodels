@@ -166,7 +166,7 @@ def generate(
             # We need to include special tokens here
             # These are excluded by create_completion unless we include them
             # manually
-            tokens = model.tokenize(prompt.encode(), special=True)
+            tokens = model.tokenize(prompt.encode(), add_bos=False, special=True)
             results.append(
                 model.create_completion(
                     tokens,
