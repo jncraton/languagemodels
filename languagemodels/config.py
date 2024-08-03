@@ -261,6 +261,22 @@ models = [
         "prompt_fmt": "Instruct: {instruction}\nOutput:",
     },
     {
+        "name": "gemma-2-2b-it-q4",
+        "repo": "bartowski/gemma-2-2b-it-GGUF",
+        "file": "gemma-2-2b-it-Q4_K_M.gguf",
+        "tuning": "instruct",
+        "datasets": ["gemma"],
+        "params": 2.5e9,
+        "quantization": "q4_k_m",
+        "context_length": 8192,
+        "backend": "llamacpp",
+        "architecture": "decoder-only-transformer",
+        "license": "gemma-terms-of-use",
+        "prompt_fmt": "<bos><start_of_turn>user\n"
+        "{instruction}<end_of_turn>\n"
+        "<start_of_turn>model",
+    },
+    {
         "name": "gemma-2b-it",
         "tuning": "instruct",
         "datasets": ["gemma"],
