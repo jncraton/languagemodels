@@ -167,7 +167,15 @@ def generate(
             # These are excluded by create_completion unless we include them
             # manually
             tokens = model.tokenize(prompt.encode(), special=True)
-            results.append(model.create_completion(tokens, top_k=1))
+            results.append(
+                model.create_completion(
+                    tokens,
+                    top_k=topk,
+                    temperature=temperature,
+                    repeat_penalty=repetition_penalty,
+                    max_tokens=max_tokens,
+                )
+            )
     elif hasattr(model, "translate_batch"):
         prefix = tokenizer.encode(prefix, add_special_tokens=False).tokens
         results = model.translate_batch(
