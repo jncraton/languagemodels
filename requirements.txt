@@ -1,3 +1,4 @@
 huggingface_hub
 ctranslate2>=3.15.0
 tokenizers
+llama_cpp_python
