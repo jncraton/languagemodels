@@ -103,7 +103,9 @@ def get_model(model_type, tokenizer_only=False):
                 repo_id=model_config["repo"], filename=model_config["file"]
             )
 
-            model = Llama(model_path=model_path, verbose=False)
+            n_ctx = model_config.get("context_length", 512)
+
+            model = Llama(model_path=model_path, verbose=True, n_ctx=n_ctx, n_batch=64)
             modelcache[model_name] = (None, model)
         else:
             tokenizer = initialize_tokenizer(model_type, model_name)
