@@ -103,7 +103,7 @@ def get_model(model_type, tokenizer_only=False):
                 repo_id=model_config["repo"], filename=model_config["file"]
             )
 
-            model = Llama(model_path=model_path, seed=0)
+            model = Llama(model_path=model_path, verbose=False)
             modelcache[model_name] = (None, model)
         else:
             tokenizer = initialize_tokenizer(model_type, model_name)
