@@ -218,7 +218,6 @@ def generate(
     model_info["runtime"] = model_info.get("runtime", 0) + elapsed_time
 
     if not tokenizer:
-        print(results)
         return [r["choices"][0]["text"] for r in results]
     else:
         return [
