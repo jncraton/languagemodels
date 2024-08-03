@@ -159,7 +159,15 @@ def generate(
     if model_info["backend"] == "llamacpp":
         # TODO: This can become more efficient once llama_cpp_python supports
         # batching
-        results = [model(p, top_k=1) for p in prompts]
+
+        results = []
+
+        for prompt in prompts:
+            # We need to include special tokens here
+            # These are excluded by create_completion unless we include them
+            # manually
+            tokens = model.tokenize(prompt.encode(), special=True)
+            results.append(model.create_completion(tokens, top_k=1))
     elif hasattr(model, "translate_batch"):
         prefix = tokenizer.encode(prefix, add_special_tokens=False).tokens
         results = model.translate_batch(
