@@ -358,6 +358,20 @@ models = [
         "prompt_fmt": "<|prompt|>{instruction}</s><|answer|>",
     },
     {
+        "name": "Qwen2-0.5B-Instruct-q4",
+        "repo": "Qwen/Qwen2-0.5B-Instruct-GGUF",
+        "file": "qwen2-0_5b-instruct-q4_k_m.gguf",
+        "tuning": "instruct",
+        "datasets": [],
+        "params": 0.5e9,
+        "quantization": "q4_k_m",
+        "backend": "llamacpp",
+        "context_length": 4096, # Could be extended to 32768
+        "architecture": "decoder-only-transformer",
+        "license": "apache-2.0",
+        "prompt_fmt": "<|im_start|>user\n{instruction}<|im_end|>\n<|im_start|>assistant\n",
+    },
+    {
         "name": "LaMini-GPT-774M",
         "tuning": "instruct",
         "datasets": ["webtext", "lamini"],
