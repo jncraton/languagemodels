@@ -329,6 +329,36 @@ models = [
         "prompt_fmt": "<|prompt|>{instruction}</s><|answer|>",
     },
     {
+        "name": "SmolLM-360M-Instruct",
+        "tuning": "instruct",
+        "datasets": [],
+        "params": 360e6,
+        "quantization": "int8",
+        "backend": "ct2",
+        "context_length": 2048,
+        "repetition_penalty": 1.1,
+        "architecture": "decoder-only-transformer",
+        "license": "apache-2.0",
+        "prompt_fmt": (
+            "<|im_start|>user\n{instruction}<|im_end|>\n<|im_start|>assistant\n"
+        ),
+    },
+    {
+        "name": "SmolLM-135M-Instruct",
+        "tuning": "instruct",
+        "datasets": [],
+        "params": 135e6,
+        "quantization": "int8",
+        "backend": "ct2",
+        "context_length": 2048,
+        "repetition_penalty": 1.1,
+        "architecture": "decoder-only-transformer",
+        "license": "apache-2.0",
+        "prompt_fmt": (
+            "<|im_start|>user\n{instruction}<|im_end|>\n<|im_start|>assistant\n"
+        ),
+    },
+    {
         "name": "LaMini-GPT-774M",
         "tuning": "instruct",
         "datasets": ["webtext", "lamini"],
