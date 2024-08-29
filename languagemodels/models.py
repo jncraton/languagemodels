@@ -47,9 +47,25 @@ def initialize_tokenizer(model_type, model_name):
 def initialize_model(model_type, model_name):
     model_info = get_model_info(model_type)
 
-    path = snapshot_download(
-        model_info["path"], max_workers=1, allow_patterns=["*.bin", "*.txt", "*.json"]
-    )
+    allowed = ["*.bin", "*.txt", "*.json"]
+    rev = model_info.get("revision", None)
+
+    # snapshot_download checks for updates by default
+    # This can cause significant lag in offline usecases or high latency networks
+    # To avoid this penalty, we try to use the local cache first.
+    # If the files are not available, then we attempt a download
+    try:
+        path = snapshot_download(
+            model_info["path"],
+            max_workers=1,
+            allow_patterns=allowed,
+            revision=rev,
+            local_files_only=True,
+        )
+    except FileNotFoundError:
+        path = snapshot_download(
+            model_info["path"], max_workers=1, allow_patterns=allowed, revision=rev
+        )
 
     if model_info["architecture"] == "encoder-only-transformer":
         return ctranslate2.Encoder(

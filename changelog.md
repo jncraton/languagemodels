@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.21
+
+### Changed
+
+- Skip checking for model updates
+
 ## 0.20 - 2024-04-25
 
 ### Changed
