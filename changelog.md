@@ -7,6 +7,11 @@
 - Skip checking for model updates
 - Download entire model upfront even if we only need the tokenizer initially
 
+### Added
+
+- Support Danube3
+- Support SmolLM
+
 ## 0.20 - 2024-04-25
 
 ### Changed
