@@ -33,8 +33,11 @@ def get_model_info(model_type="instruct"):
 
 def initialize_tokenizer(model_type, model_name):
     model_info = get_model_info(model_type)
+    rev = model_info.get("revision", None)
 
-    tok_config = hf_hub_download(model_info["path"], "tokenizer.json")
+    tok_config = hf_hub_download(
+        model_info["path"], "tokenizer.json", revision=rev, local_files_only=True
+    )
     tokenizer = Tokenizer.from_file(tok_config)
 
     if model_type == "embedding":
@@ -44,7 +47,7 @@ def initialize_tokenizer(model_type, model_name):
     return tokenizer
 
 
-def initialize_model(model_type, model_name):
+def initialize_model(model_type, model_name, tokenizer_only=False):
     model_info = get_model_info(model_type)
 
     allowed = ["*.bin", "*.txt", "*.json"]
@@ -66,6 +69,9 @@ def initialize_model(model_type, model_name):
         path = snapshot_download(
             model_info["path"], max_workers=1, allow_patterns=allowed, revision=rev
         )
+
+    if tokenizer_only:
+        return None
 
     if model_info["architecture"] == "encoder-only-transformer":
         return ctranslate2.Encoder(
@@ -111,10 +117,8 @@ def get_model(model_type, tokenizer_only=False):
                     pass
 
     if model_name not in modelcache:
+        model = initialize_model(model_type, model_name, tokenizer_only)
         tokenizer = initialize_tokenizer(model_type, model_name)
-        model = None
-        if not tokenizer_only:
-            model = initialize_model(model_type, model_name)
         modelcache[model_name] = (tokenizer, model)
     elif not tokenizer_only:
         # Make sure model is loaded if we've never loaded it
