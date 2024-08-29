@@ -147,6 +147,7 @@ models = [
     {
         "name": "LaMini-Flan-T5-783M",
         "tuning": "instruct",
+        "revision": "e5e20a1",
         "datasets": ["c4", "flan", "lamini"],
         "params": 783e6,
         "quantization": "int8",
@@ -167,6 +168,7 @@ models = [
     {
         "name": "LaMini-Flan-T5-248M",
         "tuning": "instruct",
+        "revision": "96cfe99",
         "datasets": ["c4", "flan", "lamini"],
         "params": 248e6,
         "quantization": "int8",
