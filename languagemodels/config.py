@@ -343,6 +343,7 @@ models = [
         "architecture": "decoder-only-transformer",
         "license": "apache-2.0",
         "prompt_fmt": (
+            "<|im_start|>system\nAnswer concisely.<|im_end|>\n"
             "<|im_start|>user\n{instruction}<|im_end|>\n<|im_start|>assistant\n"
         ),
     },
@@ -359,6 +360,7 @@ models = [
         "architecture": "decoder-only-transformer",
         "license": "apache-2.0",
         "prompt_fmt": (
+            "<|im_start|>system\nAnswer concisely.<|im_end|>\n"
             "<|im_start|>user\n{instruction}<|im_end|>\n<|im_start|>assistant\n"
         ),
     },
@@ -371,10 +373,11 @@ models = [
         "quantization": "int8",
         "backend": "ct2",
         "context_length": 2048,
-        "repetition_penalty": 1.1,
+        "repetition_penalty": 1.3,
         "architecture": "decoder-only-transformer",
         "license": "apache-2.0",
         "prompt_fmt": (
+            "<|im_start|>system\nAnswer concisely.<|im_end|>\n"
             "<|im_start|>user\n{instruction}<|im_end|>\n<|im_start|>assistant\n"
         ),
     },
