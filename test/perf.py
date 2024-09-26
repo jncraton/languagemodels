@@ -83,4 +83,4 @@ print(
 
 # Confirm that we used the right model size and roughly fit in memory constraints
 # Note that memory usage will vary between operating systems and specific usage
-assert mem_used_gb() < max_ram*1.10
+assert mem_used_gb() < max_ram * 1.10
