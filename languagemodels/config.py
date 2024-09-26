@@ -137,6 +137,7 @@ models = [
     {
         "name": "Llama-3.2-3B-Instruct",
         "tuning": "instruct",
+        "revision": "5da4ba8",
         "datasets": ["llama3"],
         "params": 1e9,
         "quantization": "int8",
@@ -183,6 +184,7 @@ models = [
     {
         "name": "Llama-3.2-1B-Instruct",
         "tuning": "instruct",
+        "revision": "6e3e3a1",
         "datasets": ["llama3"],
         "params": 1e9,
         "quantization": "int8",

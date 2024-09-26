@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.22
+
+### Changed
+
+- Pin Llama 3.2 model versions
+
 ## 0.21 - 2024-09-25
 
 ### Changed
