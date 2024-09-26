@@ -10,7 +10,7 @@
 
 ### Added
 
-- Support Llama 3.2 1B
+- Support Llama 3.2 1B and 3B
 - Support Danube3
 - Support SmolLM
 
