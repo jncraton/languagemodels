@@ -6,6 +6,7 @@
 
 - Skip checking for model updates
 - Download entire model upfront even if we only need the tokenizer initially
+- Use most recent version of CTranslate2
 
 ### Added
 
