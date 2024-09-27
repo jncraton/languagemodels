@@ -635,6 +635,42 @@ class Config(dict):
         for key in other:
             self[key] = other[key]
 
+    def use_hf_model(self, hf_path, revision, model_type="instruct"):
+        assert "ct2" in hf_path.lower()
+        assert "int8" in hf_path.lower()
+
+        from huggingface_hub import hf_hub_download
+        from jinja2 import Environment, BaseLoader
+        import json
+
+        tok_config = hf_hub_download(hf_path, "tokenizer_config.json", revision=revision)
+
+        with open(tok_config) as f:
+            chat_template = json.load(f)["chat_template"]
+
+        env = Environment(loader=BaseLoader())
+
+        template = env.from_string(chat_template)
+
+        prompt_fmt = template.render(
+            messages=[{"role": "user", "content": "{instruction}"}],
+            add_generation_prompt=True,
+        )
+
+        model = {
+            "name": hf_path,
+            "backend": "ct2",
+            "quantization": "int8",
+            "architecture": "decoder-only-transformer",
+            "max_tokens": 2048,
+            "params": 0,
+            "prompt_fmt": prompt_fmt,
+        }
+
+        models.insert(0, model)
+        self.model_names[model["name"]] = model
+        self[f"{model_type}_model"] = model["name"]
+
     @staticmethod
     def validate_model(model_name):
         return Config.model_names[model_name]["name"]
