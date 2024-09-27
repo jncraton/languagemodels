@@ -9,6 +9,7 @@
 ### Added
 
 - Support Llama 3.1 8B instruct
+- Use models directly from Huggingface with config.use_hf_model()
 
 ## 0.21 - 2024-09-25
 
