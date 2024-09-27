@@ -39,6 +39,22 @@ models = [
         ),
     },
     {
+        "name": "Llama-3.1-8B-Instruct",
+        "tuning": "instruct",
+        "revision": "d02fc85",
+        "datasets": ["llama3"],
+        "params": 8e9,
+        "quantization": "int8",
+        "backend": "ct2",
+        "architecture": "decoder-only-transformer",
+        "license": "llama3",
+        "prompt_fmt": (
+            "<|start_header_id|>user<|end_header_id|>\n\n"
+            "{instruction}<|eot_id|>"
+            "<|start_header_id|>assistant<|end_header_id|>\n\n"
+        ),
+    },
+    {
         "name": "Meta-Llama-3-8B-Instruct",
         "tuning": "instruct",
         "datasets": ["llama3"],

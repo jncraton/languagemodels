@@ -6,6 +6,10 @@
 
 - Pin Llama 3.2 model versions
 
+### Added
+
+- Support Llama 3.1 8B instruct
+
 ## 0.21 - 2024-09-25
 
 ### Changed
