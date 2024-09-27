@@ -643,7 +643,9 @@ class Config(dict):
         from jinja2 import Environment, BaseLoader
         import json
 
-        tok_config = hf_hub_download(hf_path, "tokenizer_config.json", revision=revision)
+        tok_config = hf_hub_download(
+            hf_path, "tokenizer_config.json", revision=revision
+        )
 
         with open(tok_config) as f:
             chat_template = json.load(f)["chat_template"]
