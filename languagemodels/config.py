@@ -638,6 +638,13 @@ class Config(dict):
             self[key] = other[key]
 
     def use_hf_model(self, hf_path, revision, model_type="instruct"):
+        """Load and use a model from Huggingface
+
+        :param hf_path: Path for the model e.g. "org/model"
+        :param revision: The model git revision to load
+        :param model_type: Model type to load
+        """
+
         assert "ct2" in hf_path.lower()
         assert "int8" in hf_path.lower()
 
