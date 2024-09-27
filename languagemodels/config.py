@@ -12,6 +12,8 @@ have never been the default for the package may be removed at any time.
 import re
 import os
 from collections import namedtuple
+from huggingface_hub import hf_hub_download
+import json
 
 ConfigItem = namedtuple("ConfigItem", "initfn default")
 
@@ -639,9 +641,10 @@ class Config(dict):
         assert "ct2" in hf_path.lower()
         assert "int8" in hf_path.lower()
 
-        from huggingface_hub import hf_hub_download
+        # We defer importing jinja2 until this point as it is only needed
+        # for interpolating hf model chat templates and does not need
+        # to be installed unless this method is used
         from jinja2 import Environment, BaseLoader
-        import json
 
         tok_config = hf_hub_download(
             hf_path, "tokenizer_config.json", revision=revision
