@@ -26,7 +26,10 @@ def get_model_info(model_type="instruct"):
     param_bits = int(re.search(r"\d+", m["quantization"]).group(0))
 
     m["size_gb"] = m["params"] * param_bits / 8 / 1e9
-    m["path"] = f"jncraton/{m['name']}-{m['backend']}-{m['quantization']}"
+    if "/" in m["name"]:
+        m["path"] = m["name"]
+    else:
+        m["path"] = f"jncraton/{m['name']}-{m['backend']}-{m['quantization']}"
 
     return m
 
