@@ -5,6 +5,7 @@
 ### Changed
 
 - Pin Llama 3.2 model versions
+- Decrease repetition penalty for Llama 3.2 models
 
 ### Added
 

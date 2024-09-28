@@ -162,6 +162,7 @@ models = [
         "backend": "ct2",
         "architecture": "decoder-only-transformer",
         "license": "llama3.2",
+        "repetition_penalty": 1.1,
         "prompt_fmt": (
             "<|start_header_id|>user<|end_header_id|>\n\n"
             "{instruction}<|eot_id|>"
@@ -209,6 +210,7 @@ models = [
         "backend": "ct2",
         "architecture": "decoder-only-transformer",
         "license": "llama3.2",
+        "repetition_penalty": 1.1,
         "prompt_fmt": (
             "<|start_header_id|>user<|end_header_id|>\n\n"
             "{instruction}<|eot_id|>"
