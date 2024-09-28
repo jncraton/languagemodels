@@ -2,9 +2,11 @@ from typing import List
 import requests
 import re
 import os
+import sys
 from time import perf_counter
 
 from languagemodels.models import get_model, get_model_info
+from languagemodels.config import config
 
 
 class InferenceException(Exception):
@@ -124,6 +126,21 @@ def stream_results(results, tokenizer):
         last_len = len(text)
 
 
+def echo_results(results, tokenizer):
+    """Output results to stderr as they are collected"""
+    tokens = []
+    last_len = 0
+
+    for result in results:
+        tokens.append(result.token_id)
+        text = tokenizer.decode(tokens)
+        sys.stderr.write(text[last_len:])
+        sys.stderr.flush()
+        last_len = len(text)
+
+    return tokens
+
+
 def generate(
     instructions: List[str],
     max_tokens: int = 200,
@@ -173,7 +190,7 @@ def generate(
     outputs_ids = []
     if hasattr(model, "translate_batch"):
         prefix = tokenizer.encode(prefix, add_special_tokens=False).tokens
-        if stream:
+        if stream or (config["echo"] and len(prompts_tok) == 1):
             results = model.generate_tokens(
                 prompts_tok[0],
                 target_prefix=prefix,
@@ -184,7 +201,10 @@ def generate(
                 suppress_sequences=suppress,
             )
 
-            return stream_results(results, tokenizer)
+            if stream:
+                return stream_results(results, tokenizer)
+            else:
+                outputs_ids = [echo_results(results, tokenizer)]
         else:
             results = model.translate_batch(
                 prompts_tok,
@@ -200,7 +220,7 @@ def generate(
             for output in outputs_tokens:
                 outputs_ids.append([tokenizer.token_to_id(t) for t in output])
     else:
-        if stream:
+        if stream or (config["echo"] and len(prompts_tok) == 1):
             results = model.generate_tokens(
                 prompts_tok,
                 repetition_penalty=repetition_penalty,
@@ -210,7 +230,10 @@ def generate(
                 suppress_sequences=suppress,
             )
 
-            return stream_results(results, tokenizer)
+            if stream:
+                return stream_results(results, tokenizer)
+            else:
+                outputs_ids = [echo_results(results, tokenizer)]
         else:
             results = model.generate_batch(
                 prompts_tok,

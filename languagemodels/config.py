@@ -763,6 +763,7 @@ class Config(dict):
 Config.schema = {
     "max_ram": ConfigItem(Config.convert_to_gb, 0.48),
     "max_tokens": ConfigItem(int, 200),
+    "echo": ConfigItem(int, False),
     "device": ConfigItem(Config.validate_device, "cpu"),
     "model_license": ConfigItem(re.compile, ".*"),
     "instruct_model": ConfigItem(Config.validate_model, "LaMini-Flan-T5-248M"),
