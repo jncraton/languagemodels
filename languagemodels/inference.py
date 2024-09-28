@@ -138,6 +138,8 @@ def echo_results(results, tokenizer):
         sys.stderr.flush()
         last_len = len(text)
 
+    sys.stderr.write("\n\n")
+    sys.stderr.flush()
     return tokens
 
 
