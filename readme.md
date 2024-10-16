@@ -9,8 +9,6 @@ Language Models
 
 Python building blocks to explore large language models in as little as 512MB of RAM
 
-[![Try with Replit Badge](https://replit.com/badge?caption=Try%20with%20Replit&variant=small)](https://replit.com/@jncraton/langaugemodels#main.py)
-
 ![Translation hello world example](media/hello.gif)
 
 This package makes using large language models from Python as simple as possible. All inference is performed locally to keep your data private by default.
