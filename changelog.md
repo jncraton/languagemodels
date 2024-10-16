@@ -9,6 +9,7 @@
 
 ### Added
 
+- Add `embed` function
 - Support Llama 3.1 8B instruct
 - Use models directly from Huggingface with config.use_hf_model()
 - Add "echo" config option to allow streaming tokens to stdout as they are generated

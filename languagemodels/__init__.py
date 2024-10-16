@@ -11,9 +11,9 @@ from languagemodels.inference import (
     parse_chat,
     list_tokens,
 )
-from languagemodels.embeddings import RetrievalContext
+from languagemodels import embeddings
 
-docs = RetrievalContext()
+docs = embeddings.RetrievalContext()
 
 
 def complete(prompt: str) -> str:
@@ -111,6 +111,43 @@ def do(prompt, choices=None):
                     results[i] = results[i] + "."
 
     return results[0] if isinstance(prompt, str) else results
+
+
+@overload
+def embed(doc: list) -> list:
+    ...
+
+
+@overload
+def embed(doc: str) -> str:
+    ...
+
+
+def embed(doc):
+    """Create embedding for a document
+
+    :param doc: Document(s) to embed
+    :return: Embedding
+
+    Note that this function is overloaded to return a list of embeddings if
+    a list if of docs is provided and a single embedding if a single
+    doc is provided as a string
+
+    Examples:
+
+    >>> embed("Hello, world")
+    [-0.0...]
+
+    >>> embed(["Hello", "world"])
+    [[-0.0...]]
+    """
+
+    docs = [doc] if isinstance(doc, str) else doc
+
+    # Create embeddings and convert to lists of floats
+    emb = [[float(n) for n in e] for e in embeddings.embed(docs)]
+
+    return emb[0] if isinstance(doc, str) else emb
 
 
 def chat(prompt: str) -> str:
