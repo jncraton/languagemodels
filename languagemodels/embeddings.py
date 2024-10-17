@@ -13,6 +13,9 @@ def embed(docs):
     >>> embed(["I love Python!"])[0][-3:]
     array([0.1..., 0.1..., 0.0...], dtype=float32)
 
+    >>> float(np.linalg.norm(embed(["I love Python!"])[0]))
+    1.0
+
     Embeddings are computed by running the first 512 tokens of each doc
     through a forward pass of the embedding model. The last hidden state
     of the model is mean pooled to produce a single vector
