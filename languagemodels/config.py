@@ -497,6 +497,7 @@ models = [
     {
         "name": "all-MiniLM-L6-v2",
         "tuning": "embedding",
+        "revision": "28efeb4",
         "params": 22e6,
         "quantization": "int8",
         "backend": "ct2",
