@@ -385,7 +385,7 @@ models = [
     {
         "name": "SmolLM2-1.7B-Instruct",
         "tuning": "instruct",
-        "revision": "84e8f3e",
+        "revision": "83b1658",
         "datasets": [],
         "params": 1.7e9,
         "quantization": "int8",
@@ -419,7 +419,7 @@ models = [
     {
         "name": "SmolLM2-360M-Instruct",
         "tuning": "instruct",
-        "revision": "028493f",
+        "revision": "ed9c4fe",
         "datasets": [],
         "params": 360e6,
         "quantization": "int8",
