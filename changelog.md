@@ -9,6 +9,7 @@
 
 ### Added
 
+- Support SmolLM2
 - Add `embed` function
 - Support Llama 3.1 8B instruct
 - Use models directly from Huggingface with config.use_hf_model()

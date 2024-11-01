@@ -383,11 +383,45 @@ models = [
         "prompt_fmt": "<|prompt|>{instruction}</s><|answer|>",
     },
     {
+        "name": "SmolLM2-1.7B-Instruct",
+        "tuning": "instruct",
+        "revision": "84e8f3e",
+        "datasets": [],
+        "params": 1.7e9,
+        "quantization": "int8",
+        "backend": "ct2",
+        "context_length": 2048,
+        "repetition_penalty": 1.1,
+        "architecture": "decoder-only-transformer",
+        "license": "apache-2.0",
+        "prompt_fmt": (
+            "<|im_start|>system\nAnswer concisely.<|im_end|>\n"
+            "<|im_start|>user\n{instruction}<|im_end|>\n<|im_start|>assistant\n"
+        ),
+    },
+    {
         "name": "SmolLM-1.7B-Instruct",
         "tuning": "instruct",
         "revision": "dc3dfe2",
         "datasets": [],
         "params": 1.7e9,
+        "quantization": "int8",
+        "backend": "ct2",
+        "context_length": 2048,
+        "repetition_penalty": 1.1,
+        "architecture": "decoder-only-transformer",
+        "license": "apache-2.0",
+        "prompt_fmt": (
+            "<|im_start|>system\nAnswer concisely.<|im_end|>\n"
+            "<|im_start|>user\n{instruction}<|im_end|>\n<|im_start|>assistant\n"
+        ),
+    },
+    {
+        "name": "SmolLM2-360M-Instruct",
+        "tuning": "instruct",
+        "revision": "028493f",
+        "datasets": [],
+        "params": 360e6,
         "quantization": "int8",
         "backend": "ct2",
         "context_length": 2048,
@@ -409,6 +443,23 @@ models = [
         "backend": "ct2",
         "context_length": 2048,
         "repetition_penalty": 1.1,
+        "architecture": "decoder-only-transformer",
+        "license": "apache-2.0",
+        "prompt_fmt": (
+            "<|im_start|>system\nAnswer concisely.<|im_end|>\n"
+            "<|im_start|>user\n{instruction}<|im_end|>\n<|im_start|>assistant\n"
+        ),
+    },
+    {
+        "name": "SmolLM2-135M-Instruct",
+        "tuning": "instruct",
+        "revision": "e52a3dc",
+        "datasets": [],
+        "params": 135e6,
+        "quantization": "int8",
+        "backend": "ct2",
+        "context_length": 2048,
+        "repetition_penalty": 1.3,
         "architecture": "decoder-only-transformer",
         "license": "apache-2.0",
         "prompt_fmt": (
