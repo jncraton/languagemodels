@@ -391,7 +391,7 @@ models = [
         "quantization": "int8",
         "backend": "ct2",
         "context_length": 2048,
-        "repetition_penalty": 1.1,
+        "repetition_penalty": 1.0,
         "architecture": "decoder-only-transformer",
         "license": "apache-2.0",
         "prompt_fmt": (
@@ -425,7 +425,7 @@ models = [
         "quantization": "int8",
         "backend": "ct2",
         "context_length": 2048,
-        "repetition_penalty": 1.1,
+        "repetition_penalty": 1.0,
         "architecture": "decoder-only-transformer",
         "license": "apache-2.0",
         "prompt_fmt": (
@@ -459,7 +459,7 @@ models = [
         "quantization": "int8",
         "backend": "ct2",
         "context_length": 2048,
-        "repetition_penalty": 1.3,
+        "repetition_penalty": 1.0,
         "architecture": "decoder-only-transformer",
         "license": "apache-2.0",
         "prompt_fmt": (
