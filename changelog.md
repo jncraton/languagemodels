@@ -5,6 +5,7 @@
 ### Fixed
 
 - Properly apply prompt format when providing `choices`
+- Do not add special tokens before `choices`
 
 ## 0.22 - 2024-11-02
 

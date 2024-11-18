@@ -284,7 +284,7 @@ def rank_instruct(inputs, targets):
     fmt = model_info.get("prompt_fmt", "{instruction}")
     inputs = [fmt.replace("{instruction}", inst) for inst in inputs]
 
-    targ_tok = [tokenizer.encode(t).tokens for t in targets]
+    targ_tok = [tokenizer.encode(t, add_special_tokens=False).tokens for t in targets]
     targ_tok *= len(inputs)
 
     in_tok = []
