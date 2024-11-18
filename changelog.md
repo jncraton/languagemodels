@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.23
+
+### Fixed
+
+- Properly apply prompt format when providing `choices`
+
 ## 0.22 - 2024-11-02
 
 ### Changed
