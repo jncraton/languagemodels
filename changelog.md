@@ -7,6 +7,10 @@
 - Properly apply prompt format when providing `choices`
 - Do not add special tokens before `choices`
 
+### Added
+
+- Support multilingual-e5-small embedding model
+
 ## 0.22 - 2024-11-02
 
 ### Changed

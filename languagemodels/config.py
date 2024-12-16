@@ -601,6 +601,15 @@ models = [
         "architecture": "encoder-only-transformer",
         "license": "mit",
     },
+    {
+        "name": "multilingual-e5-small",
+        "tuning": "embedding",
+        "params": 120e6,
+        "quantization": "int8",
+        "backend": "ct2",
+        "architecture": "encoder-only-transformer",
+        "license": "mit",
+    },
 ]
 
 
