@@ -2,6 +2,10 @@
 
 ## 0.23
 
+### Changed
+
+- Drop support for Python 3.8
+
 ### Fixed
 
 - Properly apply prompt format when providing `choices`
