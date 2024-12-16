@@ -88,34 +88,6 @@ If you have an NVIDIA GPU with CUDA available, you can opt in to using the GPU f
 'she was sure she was safe'
 ```
 
-### Chat
-
-```python
->>> lm.chat('''
-...      System: Respond as a helpful assistant.
-...
-...      User: What time is it?
-...
-...      Assistant:
-...      ''')
-'I'm sorry, but as an AI language model, I don't have access to real-time information. Please provide me with the specific time you are asking for so that I can assist you better.'
-```
-
-### Code
-
-A model tuned on Python code is included. It can be used to complete code snippets.
-
-```python
->>> import languagemodels as lm
->>> lm.code("""
-... a = 2
-... b = 5
-...
-... # Swap a and b
-... """)
-'a, b = b, a'
-```
-
 ### External Retrieval
 
 Helper functions are provided to retrieve text from external sources that can be used to augment prompt context.
@@ -136,14 +108,8 @@ Helper functions are provided to retrieve text from external sources that can be
 Here's an example showing how this can be used (compare to previous chat example):
 
 ```python
->>> lm.chat(f'''
-...      System: Respond as a helpful assistant. It is {lm.get_date()}
-...
-...      User: What time is it?
-...
-...      Assistant:
-...      ''')
-'It is currently Wednesday, June 07, 2023 at 12:53PM.'
+>>> lm.do(f"It is {lm.get_date()}. What time is it?")
+'The time is 12:53PM.'
 ```
 
 ### Semantic Search
