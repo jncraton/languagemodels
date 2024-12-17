@@ -363,6 +363,7 @@ models = [
     {
         "name": "Falcon3-3B-Instruct",
         "tuning": "instruct",
+        "languages": ['en', 'fr', 'es', 'pt'],
         "revision": "b183d4d",
         "datasets": [],
         "params": 3.23e9,
@@ -436,6 +437,7 @@ models = [
     {
         "name": "Falcon3-1B-Instruct",
         "tuning": "instruct",
+        "languages": ['en', 'fr', 'es', 'pt'],
         "revision": "74391aa",
         "datasets": [],
         "params": 1.7e9,
