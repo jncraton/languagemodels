@@ -14,6 +14,7 @@
 ### Added
 
 - Support multilingual-e5-small embedding model
+- Support Falcon 3 Instruct 1B and 3B
 
 ## 0.22 - 2024-11-02
 

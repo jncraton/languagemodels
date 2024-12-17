@@ -361,6 +361,23 @@ models = [
         "prompt_fmt": "<|prompt|>{instruction}</s><|answer|>",
     },
     {
+        "name": "Falcon3-3B-Instruct",
+        "tuning": "instruct",
+        "revision": "b183d4d",
+        "datasets": [],
+        "params": 3.23e9,
+        "quantization": "int8",
+        "backend": "ct2",
+        "context_length": 8192,
+        "repetition_penalty": 1.1,
+        "architecture": "decoder-only-transformer",
+        "license": "falcon",
+        "prompt_fmt": (
+            "<|system|>\nAnswer concisely.\n"
+            "<|user|>\n{instruction}\n<|assistant|>\n"
+        ),
+    },
+    {
         "name": "phi-1_5",
         "tuning": "instruct",
         "datasets": ["phi-1_5"],
@@ -414,6 +431,23 @@ models = [
         "prompt_fmt": (
             "<|im_start|>system\nAnswer concisely.<|im_end|>\n"
             "<|im_start|>user\n{instruction}<|im_end|>\n<|im_start|>assistant\n"
+        ),
+    },
+    {
+        "name": "Falcon3-1B-Instruct",
+        "tuning": "instruct",
+        "revision": "74391aa",
+        "datasets": [],
+        "params": 1.7e9,
+        "quantization": "int8",
+        "backend": "ct2",
+        "context_length": 8192,
+        "repetition_penalty": 1.1,
+        "architecture": "decoder-only-transformer",
+        "license": "falcon",
+        "prompt_fmt": (
+            "<|system|>\nAnswer concisely.\n"
+            "<|user|>\n{instruction}\n<|assistant|>\n"
         ),
     },
     {
