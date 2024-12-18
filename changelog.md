@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.24
+
+### Added
+
+- Add support for Granite embedding models
+
 ## 0.23 - 2024-12-17
 
 ### Changed
