@@ -471,7 +471,7 @@ def print_tokens(prompt: str) -> None:
     tokens = list_tokens(prompt)
 
     for token in tokens:
-        print(f"'{token[0].replace('▁',' ')}' (token {token[1]})")
+        print(f"'{token[0].replace('▁', ' ')}' (token {token[1]})")
 
 
 def count_tokens(prompt: str) -> None:
