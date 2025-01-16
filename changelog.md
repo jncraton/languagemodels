@@ -2,6 +2,10 @@
 
 ## 0.24
 
+### Changed
+
+- Remove special capitalization rules
+
 ### Added
 
 - Add support for Granite embedding models

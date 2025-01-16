@@ -78,9 +78,6 @@ def do(prompt, choices=None):
     >>> do("Pick the planet from the list: baseball, Texas, Saturn")
     '...Saturn...'
 
-    >>> do("Answer: What is the capital of England?")
-    '...London...'
-
     >>> do(["Pick the planet from the list: baseball, Texas, Saturn"] * 2)
     ['...Saturn...', '...Saturn...']
 
@@ -102,13 +99,6 @@ def do(prompt, choices=None):
         results = [r[0] for r in rank_instruct(prompts, choices)]
     else:
         results = generate(prompts, max_tokens=config["max_tokens"], topk=1)
-
-        for i, result in enumerate(results):
-            if len(result.split()) == 1:
-                results[i] = result.title()
-
-                if result[-1] not in (".", "!", "?"):
-                    results[i] = results[i] + "."
 
     return results[0] if isinstance(prompt, str) else results
 
