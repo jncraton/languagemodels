@@ -8,7 +8,7 @@
 
 ### Added
 
-- Support Qwen2 2.5 0.5B
+- Support Qwen2 2.5 0.5B and 1.5B
 - Add support for Granite embedding models
 
 ## 0.23 - 2024-12-17
