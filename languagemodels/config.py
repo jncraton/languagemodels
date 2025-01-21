@@ -453,6 +453,25 @@ models = [
         ),
     },
     {
+        "name": "Qwen2.5-0.5B-Instruct",
+        "tuning": "instruct",
+        "languages": ["en", "fr", "es", "pt"],
+        "revision": "554ffe5",
+        "datasets": [],
+        "params": 0.5e9,
+        "quantization": "int8",
+        "backend": "ct2",
+        "context_length": 8192,
+        "repetition_penalty": 1.1,
+        "architecture": "decoder-only-transformer",
+        "license": "apache-2.0",
+        "prompt_fmt": (
+            "<|im_start|>system\nAnswer concisely.<|im_end|>\n"
+            "<|im_start|>user\n{instruction}<|im_end|>\n"
+            "<|im_start|>assistant\n"
+        ),
+    },
+    {
         "name": "SmolLM2-360M-Instruct",
         "tuning": "instruct",
         "revision": "ed9c4fe",
