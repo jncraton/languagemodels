@@ -22,14 +22,8 @@ def get_html_paragraphs(src: str):
     "First, the good news. Netflix reported a record ..."
     """
 
-    class Element:
-        def __init__(self, tag, text):
-            self.tag = tag
-            self.text = unescape(text)
-
-    elements = []
-
-    class MyHTMLParser(HTMLParser):
+    class ParagraphExtractor(HTMLParser):
+        paras = [""]
         ignoring = False
         ignore = ("script", "style", "header", "footer")
         inlines = ("a", "b", "i", "span", "sup", "sub", "strong", "em")
@@ -38,30 +32,26 @@ def get_html_paragraphs(src: str):
             if tag in self.ignore:
                 self.ignoring = True
 
-            if not self.ignoring and tag not in self.inlines:
-                elements.append(Element(tag, ""))
+            if tag not in self.inlines and self.paras[-1]:
+                self.paras.append("")
 
         def handle_endtag(self, tag):
             if tag in self.ignore:
                 self.ignoring = False
 
-            if not self.ignoring and tag not in self.inlines:
-                elements.append(Element("/" + tag, ""))
+            if tag not in self.inlines and self.paras[-1]:
+                self.paras.append("")
 
         def handle_data(self, data):
             if not self.ignoring:
-                if elements and elements[-1].text:
-                    elements[-1].text += data
+                if self.paras and self.paras[-1]:
+                    self.paras[-1] += data
                 else:
-                    elements.append(Element(None, data))
+                    self.paras.append(data)
 
-    parser = MyHTMLParser()
-    parser.feed(src)
+        def get_plain(self):
+            return "\n\n".join([p for p in self.paras if len(p) > 140])
 
-    text = ""
-
-    for el in elements:
-        if not el.tag and len(el.text) > 140:
-            text += el.text.strip() + "\n\n"
-
-    return text.strip()
+    extractor = ParagraphExtractor()
+    extractor.feed(src)
+    return extractor.get_plain()
