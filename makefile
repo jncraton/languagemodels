@@ -22,7 +22,7 @@ test-commercial:
 
 lint:
 	flake8 --max-line-length 88 --extend-ignore E203,F401 languagemodels/__init__.py
-	flake8 --max-line-length 88 --extend-ignore E203 languagemodels/models.py languagemodels/inference.py languagemodels/embeddings.py languagemodels/config.py examples/*.py
+	flake8 --max-line-length 88 --extend-ignore E203 languagemodels/models.py languagemodels/inference.py languagemodels/embeddings.py languagemodels/config.py languagemodels/preprocess.py examples/*.py
 
 format:
 	black languagemodels/*.py examples/*.py test/*.py
