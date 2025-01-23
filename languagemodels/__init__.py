@@ -371,9 +371,9 @@ def get_web(url: str) -> str:
         url, headers={"User-Agent": "Mozilla/5.0 (compatible; languagemodels)"}
     )
 
-    if 'text/plain' in res.raw.getheader("content-type"):
+    if "text/plain" in res.raw.getheader("content-type"):
         return res.text
-    elif 'text/html' in res.raw.getheader("content-type"):
+    elif "text/html" in res.raw.getheader("content-type"):
         return get_html_paragraphs(res.text)
 
     return ""
