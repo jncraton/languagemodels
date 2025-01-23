@@ -18,10 +18,10 @@ def get_html_paragraphs(src: str):
     3. Convert any newly merged text element with at least `min_length`
     characters to a paragraph in the output text.
 
-    >>> get_html_paragraphs(open("test/wp.html").read())
+    >>> get_html_paragraphs(open("test/wp.html", encoding="utf-8").read())
     'Bolu Province (Turkish: Bolu ili) is a province...'
 
-    >>> get_html_paragraphs(open("test/npr.html").read())
+    >>> get_html_paragraphs(open("test/npr.html", encoding="utf-8").read())
     "First, the good news. Netflix reported a record ..."
     """
 
