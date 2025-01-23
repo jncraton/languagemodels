@@ -363,7 +363,7 @@ models = [
     {
         "name": "Falcon3-3B-Instruct",
         "tuning": "instruct",
-        "languages": ['en', 'fr', 'es', 'pt'],
+        "languages": ["en", "fr", "es", "pt"],
         "revision": "b183d4d",
         "datasets": [],
         "params": 3.23e9,
@@ -437,7 +437,7 @@ models = [
     {
         "name": "Falcon3-1B-Instruct",
         "tuning": "instruct",
-        "languages": ['en', 'fr', 'es', 'pt'],
+        "languages": ["en", "fr", "es", "pt"],
         "revision": "74391aa",
         "datasets": [],
         "params": 1.7e9,
@@ -448,14 +448,27 @@ models = [
         "architecture": "decoder-only-transformer",
         "license": "falcon",
         "prompt_fmt": (
-            "<|system|>\nAnswer concisely.\n"
-            "<|user|>\n{instruction}\n<|assistant|>\n"
+            "<|system|>\nAnswer concisely.\n" "<|user|>\n{instruction}\n<|assistant|>\n"
         ),
     },
     {
         "name": "Qwen2.5-1.5B-Instruct",
         "tuning": "instruct",
-        "languages": ["zh", "en", "fr", "es", "pt", "de", "it", "ru", "ja", "ko", "vi", "th", "ar"],
+        "languages": [
+            "zh",
+            "en",
+            "fr",
+            "es",
+            "pt",
+            "de",
+            "it",
+            "ru",
+            "ja",
+            "ko",
+            "vi",
+            "th",
+            "ar",
+        ],
         "revision": "5de22ab",
         "datasets": [],
         "params": 1.5e9,
@@ -474,7 +487,21 @@ models = [
     {
         "name": "Qwen2.5-0.5B-Instruct",
         "tuning": "instruct",
-        "languages": ["zh", "en", "fr", "es", "pt", "de", "it", "ru", "ja", "ko", "vi", "th", "ar"],
+        "languages": [
+            "zh",
+            "en",
+            "fr",
+            "es",
+            "pt",
+            "de",
+            "it",
+            "ru",
+            "ja",
+            "ko",
+            "vi",
+            "th",
+            "ar",
+        ],
         "revision": "554ffe5",
         "datasets": [],
         "params": 0.5e9,
