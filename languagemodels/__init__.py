@@ -259,10 +259,6 @@ def code(prompt: str) -> str:
 def extract_answer(question: str, context: str) -> str:
     """Extract an answer to a `question` from a provided `context`
 
-    The returned answer will always be a substring extracted from `context`.
-    It may not always be a correct or meaningful answer, but it will never be
-    an arbitrary hallucination.
-
     :param question: A question to answer using knowledge from context
     :param context: Knowledge used to answer the question
     :return: Answer to the question.
