@@ -5,6 +5,7 @@ import re
 from typing import overload
 
 from languagemodels.config import config
+from languagemodels.preprocess import get_html_paragraphs
 from languagemodels.inference import (
     generate,
     rank_instruct,
@@ -351,6 +352,33 @@ def get_doc_context(query: str) -> str:
     'Paris is in France.\\n\\nParis is nice.'
     """
     return docs.get_context(query)
+
+
+def get_web(url: str) -> str:
+    """
+    Return the text of paragraphs from a web page
+
+    :param url: The URL to load
+    :return str: Plain text content from the URL
+
+    Note that it is difficult to return only the human-readable
+    content from an HTML page. This function takes a basic and quick
+    approach. It will not work perfectly on all sites, but will
+    often do a reasonable job of returning the plain text content
+    of a page.
+
+    If the `url` points to a plain text page, the page content
+    will be returned verbatim.
+    """
+
+    res = requests.get(url)
+
+    if 'text/plain' in res.raw.getheader("content-type"):
+        return res.text
+    elif 'text/html' in res.raw.getheader("content-type"):
+        return get_html_paragraphs(res.text)
+
+    return ""
 
 
 def get_wiki(topic: str) -> str:
