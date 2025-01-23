@@ -27,20 +27,20 @@ def get_html_paragraphs(src: str):
 
     class ParagraphExtractor(HTMLParser):
         paras = [""]
-        ignoring = False
+        ignoring = []
         ignore = ("script", "style", "header", "footer")
         inlines = ("a", "b", "i", "span", "sup", "sub", "strong", "em")
 
         def handle_starttag(self, tag, attrs):
             if tag in self.ignore:
-                self.ignoring = True
+                self.ignoring.append(tag)
 
             if tag not in self.inlines and self.paras[-1]:
                 self.paras.append("")
 
         def handle_endtag(self, tag):
-            if tag in self.ignore:
-                self.ignoring = False
+            if self.ignoring and self.ignoring[-1] == tag:
+                self.ignoring.pop()
 
             if tag not in self.inlines and self.paras[-1]:
                 self.paras.append("")
