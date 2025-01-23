@@ -367,7 +367,9 @@ def get_web(url: str) -> str:
     will be returned verbatim.
     """
 
-    res = requests.get(url)
+    res = requests.get(
+        url, headers={"User-Agent": "Mozilla/5.0 (compatible; languagemodels)"}
+    )
 
     if 'text/plain' in res.raw.getheader("content-type"):
         return res.text
