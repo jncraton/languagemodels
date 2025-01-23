@@ -8,6 +8,7 @@
 
 ### Added
 
+- Add lm.get_web helper function to load text from web pages
 - Support Qwen2 2.5 0.5B and 1.5B
 - Add support for Granite embedding models
 
