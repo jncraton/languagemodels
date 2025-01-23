@@ -54,7 +54,7 @@ def get_html_paragraphs(src: str):
                     self.paras.append(data)
 
         def get_plain(self):
-            return "\n\n".join([p for p in self.paras if len(p) > 140])
+            return "\n\n".join([p.rstrip() for p in self.paras if len(p) > 140])
 
     extractor = ParagraphExtractor()
     extractor.feed(src)
