@@ -29,10 +29,11 @@ def get_html_paragraphs(src: str):
         paras = [""]
         ignoring = []
         ignore = ("script", "style", "header", "footer")
+        ignore_attrs = {('hidden', 'hidden'),}
         inlines = ("a", "b", "i", "span", "sup", "sub", "strong", "em")
 
         def handle_starttag(self, tag, attrs):
-            if tag in self.ignore:
+            if tag in self.ignore or self.ignore_attrs & set(attrs):
                 self.ignoring.append(tag)
 
             if tag not in self.inlines and self.paras[-1]:
