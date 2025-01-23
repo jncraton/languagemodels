@@ -45,7 +45,7 @@ def get_html_paragraphs(src: str):
         def handle_data(self, data):
             if not self.ignoring:
                 if self.paras and self.paras[-1]:
-                    self.paras[-1] += data
+                    self.paras[-1] += unescape(data)
                 else:
                     self.paras.append(data)
 
