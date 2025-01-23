@@ -374,8 +374,7 @@ models = [
         "architecture": "decoder-only-transformer",
         "license": "falcon",
         "prompt_fmt": (
-            "<|system|>\nAnswer concisely.\n"
-            "<|user|>\n{instruction}\n<|assistant|>\n"
+            "<|system|>\nAnswer concisely.\n<|user|>\n{instruction}\n<|assistant|>\n"
         ),
     },
     {
@@ -448,7 +447,7 @@ models = [
         "architecture": "decoder-only-transformer",
         "license": "falcon",
         "prompt_fmt": (
-            "<|system|>\nAnswer concisely.\n" "<|user|>\n{instruction}\n<|assistant|>\n"
+            "<|system|>\nAnswer concisely.\n<|user|>\n{instruction}\n<|assistant|>\n"
         ),
     },
     {
