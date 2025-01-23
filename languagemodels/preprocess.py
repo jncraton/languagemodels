@@ -6,6 +6,9 @@ def get_html_paragraphs(src: str):
     """
     Return plain text paragraphs from an HTML source
 
+    :param src: HTML document to convert to plain text paragraphs
+    :return: Plain text paragraphs of document
+
     This function is designed to be quick rather than robust.
 
     It follows a simple approach to extracting text:
