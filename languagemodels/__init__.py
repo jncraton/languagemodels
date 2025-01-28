@@ -236,26 +236,6 @@ def chat(prompt: str) -> str:
     return response.strip()
 
 
-def extract_answer(question: str, context: str) -> str:
-    """Extract an answer to a `question` from a provided `context`
-
-    :param question: A question to answer using knowledge from context
-    :param context: Knowledge used to answer the question
-    :return: Answer to the question.
-
-    Examples:
-
-    >>> context = "There is a green ball and a red box"
-    >>> extract_answer("What color is the ball?", context).lower()
-    '...green...'
-
-    >>> extract_answer("Who created Python?", get_wiki('Python')) #doctest: +SKIP
-    '...Guido van Rossum...'
-    """
-
-    return generate([f"{context}\n\n{question}"])[0]
-
-
 def classify(doc: str, label1: str, label2: str) -> str:
     """Performs binary classification on an input
 
