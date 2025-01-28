@@ -1,7 +1,4 @@
 from typing import List
-import requests
-import re
-import os
 import sys
 from time import perf_counter
 
