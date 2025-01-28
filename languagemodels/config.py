@@ -331,9 +331,9 @@ class Config(dict):
     >>> c
     {...'max_ram': 4.0...}
 
-    >>> c = Config({'instruct_model': 'flan-t5-small'})
+    >>> c = Config({'instruct_model': 'flan-t5-base'})
     >>> c
-    {...'instruct_model': 'flan-t5-small'...}
+    {...'instruct_model': 'flan-t5-base'...}
 
     >>> c = Config({'model_license': 'apache|mit|bsd'})
     >>> c
