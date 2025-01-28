@@ -28,19 +28,6 @@ class ModelFilterException(Exception):
 # will be selected
 models = [
     {
-        "name": "openchat-3.5-0106",
-        "tuning": "instruct",
-        "datasets": ["mistral", "openorca", "flan"],
-        "params": 7e9,
-        "quantization": "int8",
-        "backend": "ct2",
-        "architecture": "decoder-only-transformer",
-        "license": "apache-2.0",
-        "prompt_fmt": (
-            "GPT4 Correct User: {instruction}<|end_of_turn|>" "GPT4 Correct Assistant:"
-        ),
-    },
-    {
         "name": "Llama-3.1-8B-Instruct",
         "tuning": "instruct",
         "revision": "d02fc85",
@@ -55,92 +42,6 @@ models = [
             "{instruction}<|eot_id|>"
             "<|start_header_id|>assistant<|end_header_id|>\n\n"
         ),
-    },
-    {
-        "name": "Meta-Llama-3-8B-Instruct",
-        "tuning": "instruct",
-        "datasets": ["llama3"],
-        "params": 8e9,
-        "quantization": "int8",
-        "backend": "ct2",
-        "architecture": "decoder-only-transformer",
-        "license": "llama3",
-        "prompt_fmt": (
-            "<|start_header_id|>user<|end_header_id|>\n\n"
-            "{instruction}<|eot_id|>"
-            "<|start_header_id|>assistant<|end_header_id|>\n\n"
-        ),
-    },
-    {
-        "name": "openchat-3.5-1210",
-        "tuning": "instruct",
-        "datasets": ["mistral", "openorca", "flan"],
-        "params": 7e9,
-        "quantization": "int8",
-        "backend": "ct2",
-        "architecture": "decoder-only-transformer",
-        "license": "apache-2.0",
-        "prompt_fmt": (
-            "GPT4 Correct User: {instruction}<|end_of_turn|>" "GPT4 Correct Assistant:"
-        ),
-    },
-    {
-        "name": "WizardLM-2-7B",
-        "tuning": "instruct",
-        "datasets": ["mistral", "wizardlm"],
-        "params": 7e9,
-        "quantization": "int8",
-        "backend": "ct2",
-        "architecture": "decoder-only-transformer",
-        "license": "apache-2.0",
-        "prompt_fmt": "USER: {instruction} ASSISTANT:",
-    },
-    {
-        "name": "neural-chat-7b-v3-1",
-        "tuning": "instruct",
-        "datasets": ["mistral", "slimorca"],
-        "params": 7e9,
-        "quantization": "int8",
-        "backend": "ct2",
-        "architecture": "decoder-only-transformer",
-        "license": "apache-2.0",
-        "prompt_fmt": (
-            "### System:\n"
-            "Be helpful\n"
-            "### User:\n{instruction}\n"
-            "### Assistant:\n"
-        ),
-    },
-    {
-        "name": "Mistral-7B-Instruct-v0.2",
-        "tuning": "instruct",
-        "datasets": ["mistral"],
-        "params": 7e9,
-        "quantization": "int8",
-        "backend": "ct2",
-        "architecture": "decoder-only-transformer",
-        "license": "apache-2.0",
-        "prompt_fmt": "<s>[INST] {instruction} [/INST]",
-    },
-    {
-        "name": "flan-alpaca-gpt4-xl",
-        "tuning": "instruct",
-        "datasets": ["c4", "flan", "gpt4-alpaca"],
-        "params": 3e9,
-        "quantization": "int8",
-        "backend": "ct2",
-        "architecture": "encoder-decoder-transformer",
-        "license": "apache-2.0",
-    },
-    {
-        "name": "flan-alpaca-xl",
-        "tuning": "instruct",
-        "datasets": ["c4", "flan", "alpaca"],
-        "params": 3e9,
-        "quantization": "int8",
-        "backend": "ct2",
-        "architecture": "encoder-decoder-transformer",
-        "license": "apache-2.0",
     },
     {
         "name": "flan-t5-xl",
@@ -168,16 +69,6 @@ models = [
             "{instruction}<|eot_id|>"
             "<|start_header_id|>assistant<|end_header_id|>\n\n"
         ),
-    },
-    {
-        "name": "fastchat-t5-3b-v1.0",
-        "tuning": "instruct",
-        "datasets": ["c4", "flan", "sharegpt"],
-        "params": 3e9,
-        "quantization": "int8",
-        "backend": "ct2",
-        "architecture": "encoder-decoder-transformer",
-        "license": "apache-2.0",
     },
     {
         "name": "LaMini-Flan-T5-783M",
@@ -239,47 +130,6 @@ models = [
         "license": "apache-2.0",
     },
     {
-        "name": "flan-alpaca-base",
-        "tuning": "instruct",
-        "datasets": ["c4", "flan", "alpaca"],
-        "params": 248e6,
-        "quantization": "int8",
-        "backend": "ct2",
-        "architecture": "encoder-decoder-transformer",
-        "license": "apache-2.0",
-    },
-    {
-        "name": "dialogstudio-t5-base-v1.0",
-        "tuning": "instruct",
-        "datasets": ["c4", "flan", "dialogstudio"],
-        "params": 248e6,
-        "quantization": "int8",
-        "backend": "ct2",
-        "architecture": "encoder-decoder-transformer",
-        "license": "apache-2.0",
-        "prompt_fmt": ("Instruction: Be helpful. <USER> {instruction}"),
-    },
-    {
-        "name": "LaMini-Flan-T5-77M",
-        "tuning": "instruct",
-        "datasets": ["c4", "flan", "lamini"],
-        "params": 77e6,
-        "backend": "ct2",
-        "quantization": "int8",
-        "architecture": "encoder-decoder-transformer",
-        "license": "cc-by-nc-4.0",
-    },
-    {
-        "name": "flan-t5-small",
-        "tuning": "instruct",
-        "datasets": ["c4", "flan"],
-        "params": 77e6,
-        "quantization": "int8",
-        "backend": "ct2",
-        "architecture": "encoder-decoder-transformer",
-        "license": "apache-2.0",
-    },
-    {
         "name": "Phi-3-mini-4k-instruct-20240701",
         "tuning": "instruct",
         "datasets": ["phi-3"],
@@ -304,102 +154,6 @@ models = [
         "repetition_penalty": 1.1,
     },
     {
-        "name": "phi-2",
-        "tuning": "instruct",
-        "datasets": ["phi-2"],
-        "params": 2.7e9,
-        "quantization": "int8",
-        "backend": "ct2",
-        "architecture": "decoder-only-transformer",
-        "license": "microsoft-research-license",
-        "prompt_fmt": "Instruct: {instruction}\nOutput:",
-    },
-    {
-        "name": "gemma-2b-it",
-        "tuning": "instruct",
-        "datasets": ["gemma"],
-        "params": 2.5e9,
-        "quantization": "int8",
-        "backend": "ct2",
-        "architecture": "decoder-only-transformer",
-        "license": "gemma-terms-of-use",
-        "prompt_fmt": "<bos><start_of_turn>user\n"
-        "{instruction}<end_of_turn>\n"
-        "<start_of_turn>model",
-    },
-    {
-        "name": "h2o-danube3-4b-chat",
-        "tuning": "instruct",
-        "datasets": [],
-        "params": 4.0e9,
-        "quantization": "int8",
-        "backend": "ct2",
-        "architecture": "decoder-only-transformer",
-        "license": "apache-2.0",
-        "prompt_fmt": "<|prompt|>{instruction}</s><|answer|>",
-    },
-    {
-        "name": "h2o-danube2-1.8b-chat",
-        "tuning": "instruct",
-        "datasets": [],
-        "params": 1.8e9,
-        "quantization": "int8",
-        "backend": "ct2",
-        "architecture": "decoder-only-transformer",
-        "license": "other",
-        "prompt_fmt": "<|prompt|>{instruction}</s><|answer|>",
-    },
-    {
-        "name": "h2o-danube-1.8b-chat",
-        "tuning": "instruct",
-        "datasets": [],
-        "params": 1.8e9,
-        "quantization": "int8",
-        "backend": "ct2",
-        "architecture": "decoder-only-transformer",
-        "license": "other",
-        "prompt_fmt": "<|prompt|>{instruction}</s><|answer|>",
-    },
-    {
-        "name": "Falcon3-3B-Instruct",
-        "tuning": "instruct",
-        "languages": ["en", "fr", "es", "pt"],
-        "revision": "b183d4d",
-        "datasets": [],
-        "params": 3.23e9,
-        "quantization": "int8",
-        "backend": "ct2",
-        "context_length": 8192,
-        "repetition_penalty": 1.1,
-        "architecture": "decoder-only-transformer",
-        "license": "falcon",
-        "prompt_fmt": (
-            "<|system|>\nAnswer concisely.\n<|user|>\n{instruction}\n<|assistant|>\n"
-        ),
-    },
-    {
-        "name": "phi-1_5",
-        "tuning": "instruct",
-        "datasets": ["phi-1_5"],
-        "params": 1.4e9,
-        "quantization": "int8",
-        "backend": "ct2",
-        "architecture": "decoder-only-transformer",
-        "license": "other",
-        "prompt_fmt": "{instruction}\n\nAnswer:",
-    },
-    {
-        "name": "h2o-danube3-500m-chat",
-        "tuning": "instruct",
-        "datasets": [],
-        "params": 0.5e9,
-        "quantization": "int8",
-        "backend": "ct2",
-        "architecture": "decoder-only-transformer",
-        "license": "apache-2.0",
-        "prompt_fmt": "<|prompt|>{instruction}</s><|answer|>",
-    },
-    {
         "name": "SmolLM2-1.7B-Instruct",
         "tuning": "instruct",
         "revision": "83b1658",
@@ -414,40 +168,6 @@ models = [
         "prompt_fmt": (
             "<|im_start|>system\nAnswer concisely.<|im_end|>\n"
             "<|im_start|>user\n{instruction}<|im_end|>\n<|im_start|>assistant\n"
-        ),
-    },
-    {
-        "name": "SmolLM-1.7B-Instruct",
-        "tuning": "instruct",
-        "revision": "dc3dfe2",
-        "datasets": [],
-        "params": 1.7e9,
-        "quantization": "int8",
-        "backend": "ct2",
-        "context_length": 2048,
-        "repetition_penalty": 1.1,
-        "architecture": "decoder-only-transformer",
-        "license": "apache-2.0",
-        "prompt_fmt": (
-            "<|im_start|>system\nAnswer concisely.<|im_end|>\n"
-            "<|im_start|>user\n{instruction}<|im_end|>\n<|im_start|>assistant\n"
-        ),
-    },
-    {
-        "name": "Falcon3-1B-Instruct",
-        "tuning": "instruct",
-        "languages": ["en", "fr", "es", "pt"],
-        "revision": "74391aa",
-        "datasets": [],
-        "params": 1.7e9,
-        "quantization": "int8",
-        "backend": "ct2",
-        "context_length": 8192,
-        "repetition_penalty": 1.1,
-        "architecture": "decoder-only-transformer",
-        "license": "falcon",
-        "prompt_fmt": (
-            "<|system|>\nAnswer concisely.\n<|user|>\n{instruction}\n<|assistant|>\n"
         ),
     },
     {
@@ -534,23 +254,6 @@ models = [
         ),
     },
     {
-        "name": "SmolLM-360M-Instruct",
-        "tuning": "instruct",
-        "revision": "0b0e861",
-        "datasets": [],
-        "params": 360e6,
-        "quantization": "int8",
-        "backend": "ct2",
-        "context_length": 2048,
-        "repetition_penalty": 1.1,
-        "architecture": "decoder-only-transformer",
-        "license": "apache-2.0",
-        "prompt_fmt": (
-            "<|im_start|>system\nAnswer concisely.<|im_end|>\n"
-            "<|im_start|>user\n{instruction}<|im_end|>\n<|im_start|>assistant\n"
-        ),
-    },
-    {
         "name": "SmolLM2-135M-Instruct",
         "tuning": "instruct",
         "revision": "e52a3dc",
@@ -568,84 +271,6 @@ models = [
         ),
     },
     {
-        "name": "SmolLM-135M-Instruct",
-        "tuning": "instruct",
-        "revision": "90046ba",
-        "datasets": [],
-        "params": 135e6,
-        "quantization": "int8",
-        "backend": "ct2",
-        "context_length": 2048,
-        "repetition_penalty": 1.3,
-        "architecture": "decoder-only-transformer",
-        "license": "apache-2.0",
-        "prompt_fmt": (
-            "<|im_start|>system\nAnswer concisely.<|im_end|>\n"
-            "<|im_start|>user\n{instruction}<|im_end|>\n<|im_start|>assistant\n"
-        ),
-    },
-    {
-        "name": "LaMini-GPT-774M",
-        "tuning": "instruct",
-        "datasets": ["webtext", "lamini"],
-        "params": 774e6,
-        "quantization": "int8",
-        "backend": "ct2",
-        "architecture": "decoder-only-transformer",
-        "license": "mit",
-        "prompt_fmt": (
-            "Below is an instruction that describes a task.\n"
-            "Write a response that completes the request.\n\n"
-            "### Instruction:\n{instruction}\n\n### Response:"
-        ),
-    },
-    {
-        "name": "LaMini-GPT-124M",
-        "tuning": "instruct",
-        "datasets": ["webtext", "lamini"],
-        "params": 124e6,
-        "quantization": "int8",
-        "backend": "ct2",
-        "architecture": "decoder-only-transformer",
-        "license": "mit",
-        "prompt_fmt": (
-            "Below is an instruction that describes a task.\n"
-            "Write a response that completes the request.\n\n"
-            "### Instruction:\n{instruction}\n\n### Response:"
-        ),
-    },
-    {
-        "name": "TinyLlama-1.1B-Chat-v1.0",
-        "tuning": "instruct",
-        "datasets": ["slimpajama", "starcoderdata"],
-        "params": 1.1e9,
-        "quantization": "int8",
-        "backend": "ct2",
-        "architecture": "decoder-only-transformer",
-        "license": "mit",
-        "prompt_fmt": ("<|user|>{instruction}<|assistant|>"),
-    },
-    {
-        "name": "codet5p-770m-py",
-        "tuning": "code",
-        "datasets": ["github-code"],
-        "params": 770e6,
-        "quantization": "int8",
-        "backend": "ct2",
-        "architecture": "encoder-decoder-transformer",
-        "license": "bsd-3-clause",
-    },
-    {
-        "name": "codet5p-220m-py",
-        "tuning": "code",
-        "datasets": ["github-code"],
-        "params": 220e6,
-        "quantization": "int8",
-        "backend": "ct2",
-        "architecture": "encoder-decoder-transformer",
-        "license": "bsd-3-clause",
-    },
-    {
         "name": "all-MiniLM-L6-v2",
         "tuning": "embedding",
         "revision": "28efeb4",
@@ -656,41 +281,13 @@ models = [
         "license": "apache-2.0",
     },
     {
-        "name": "gte-tiny",
+        "name": "granite-embedding-30m-english",
         "tuning": "embedding",
-        "params": 22e6,
+        "params": 30e6,
         "quantization": "int8",
         "backend": "ct2",
         "architecture": "encoder-only-transformer",
-        "license": "mit",
-    },
-    {
-        "name": "gte-small",
-        "tuning": "embedding",
-        "params": 33e6,
-        "quantization": "int8",
-        "backend": "ct2",
-        "architecture": "encoder-only-transformer",
-        "license": "mit",
-    },
-    {
-        "name": "GIST-small-Embedding-v0",
-        "tuning": "embedding",
-        "params": 33e6,
-        "quantization": "int8",
-        "backend": "ct2",
-        "architecture": "encoder-only-transformer",
-        "license": "mit",
-    },
-    {
-        "name": "bge-small-en",
-        "tuning": "embedding",
-        "query_prefix": "Represent this sentence for searching relevant passages: ",
-        "params": 33e6,
-        "quantization": "int8",
-        "backend": "ct2",
-        "architecture": "encoder-only-transformer",
-        "license": "mit",
+        "license": "apache-2.0",
     },
     {
         "name": "e5-small-v2",
@@ -702,25 +299,7 @@ models = [
         "license": "mit",
     },
     {
-        "name": "granite-embedding-125m-english",
-        "tuning": "embedding",
-        "params": 30e6,
-        "quantization": "int8",
-        "backend": "ct2",
-        "architecture": "encoder-only-transformer",
-        "license": "apache-2.0",
-    },
-    {
         "name": "granite-embedding-107m-multilingual",
-        "tuning": "embedding",
-        "params": 30e6,
-        "quantization": "int8",
-        "backend": "ct2",
-        "architecture": "encoder-only-transformer",
-        "license": "apache-2.0",
-    },
-    {
-        "name": "granite-embedding-30m-english",
         "tuning": "embedding",
         "params": 30e6,
         "quantization": "int8",
@@ -820,6 +399,7 @@ class Config(dict):
                     self[model["tuning"] + "_model"] = model["name"]
                     found.add(model["tuning"])
 
+            print(found)
             if len(found) < 3:
                 raise ModelFilterException("Unable to find models to match filters")
 
