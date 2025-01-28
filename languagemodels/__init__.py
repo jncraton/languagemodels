@@ -9,7 +9,6 @@ from languagemodels.preprocess import get_html_paragraphs
 from languagemodels.inference import (
     generate,
     rank_instruct,
-    parse_chat,
     list_tokens,
 )
 from languagemodels import embeddings
@@ -139,101 +138,6 @@ def embed(doc):
     emb = [[float(n) for n in e] for e in embeddings.embed(docs)]
 
     return emb[0] if isinstance(doc, str) else emb
-
-
-def chat(prompt: str) -> str:
-    """Get new message from chat-optimized language model
-
-    The `prompt` for this model is provided as a series of messages as a single
-    plain-text string. Several special tokens are used to delineate chat
-    messages.
-
-    - `system:` - Indicates the start of a system message providing
-    instructions about how the assistant should behave.
-    - `user:` - Indicates the start of a prompter (typically user)
-    message.
-    - `assistant:` - Indicates the start of an assistant message.
-
-    A complete prompt may look something like this:
-
-    ```
-    Assistant is helpful and harmless
-
-    User: What is the capital of Germany?
-
-    Assistant: The capital of Germany is Berlin.
-
-    User: How many people live there?
-
-    Assistant:
-    ```
-
-    The completion from the language model is returned.
-
-    :param message: Prompt using formatting described above
-    :return: Completion returned from the language model
-
-    Examples:
-
-    >>> response = chat('''
-    ...      System: Respond as a helpful assistant. It is 5:00pm.
-    ...
-    ...      User: What time is it?
-    ...
-    ...      Assistant:
-    ...      ''') # doctest: +SKIP
-    "It's 5:00pm."
-    """
-
-    messages = parse_chat(prompt)
-
-    # Suppress starts of all assistant messages to avoid repeat generation
-    suppress = [
-        "Assistant: " + m["content"].split(" ")[0]
-        for m in messages
-        if m["role"] in ["assistant", "user"]
-    ]
-
-    # Suppress all user messages to avoid repeating them
-    suppress += [m["content"] for m in messages if m["role"] == "user"]
-
-    system_msgs = [m for m in messages if m["role"] == "system"]
-    assistant_msgs = [m for m in messages if m["role"] == "assistant"]
-    user_msgs = [m for m in messages if m["role"] == "user"]
-
-    # The current model is tuned on instructions and tends to get
-    # lost if it sees too many questions
-    # Use only the most recent user and assistant message for context
-    # Keep all system messages
-    messages = system_msgs + assistant_msgs[-1:] + user_msgs[-1:]
-
-    rolemap = {
-        "system": "System",
-        "user": "Question",
-        "assistant": "Assistant",
-    }
-
-    messages = [f"{rolemap[m['role']]}: {m['content']}" for m in messages]
-
-    prompt = "\n\n".join(messages) + "\n\n" + "Assistant:"
-
-    if prompt.startswith("System:"):
-        prompt = prompt[7:].strip()
-
-    response = generate(
-        [prompt],
-        max_tokens=config["max_tokens"],
-        temperature=0.3,
-        topk=40,
-        prefix="Assistant:",
-        suppress=suppress,
-    )[0]
-
-    # Remove duplicate assistant being generated
-    if response.startswith("Assistant:"):
-        response = response[10:]
-
-    return response.strip()
 
 
 def store_doc(doc: str, name: str = "") -> None:
