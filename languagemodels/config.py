@@ -399,8 +399,7 @@ class Config(dict):
                     self[model["tuning"] + "_model"] = model["name"]
                     found.add(model["tuning"])
 
-            print(found)
-            if len(found) < 3:
+            if len(found) < 2:
                 raise ModelFilterException("Unable to find models to match filters")
 
     def update(self, other):
@@ -538,7 +537,6 @@ Config.schema = {
     "model_license": ConfigItem(re.compile, ".*"),
     "instruct_model": ConfigItem(Config.validate_model, "LaMini-Flan-T5-248M"),
     "embedding_model": ConfigItem(Config.validate_model, "all-MiniLM-L6-v2"),
-    "code_model": ConfigItem(Config.validate_model, "codet5p-220m-py"),
     "max_prompt_length": ConfigItem(int, 50_000),
 }
 

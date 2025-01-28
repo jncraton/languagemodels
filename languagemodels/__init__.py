@@ -236,26 +236,6 @@ def chat(prompt: str) -> str:
     return response.strip()
 
 
-def code(prompt: str) -> str:
-    """Complete a code prompt
-
-    This assumes that users are expecting Python completions. Default models
-    are fine-tuned on Python where applicable.
-
-    :param prompt: Code context to complete
-    :return: Completion returned from the language model
-
-    Examples:
-
-    >>> code("# Print Hello, world!\\n")
-    'print("Hello, world!")\\n'
-
-    >>> code("def return_4():")
-    '...return 4...'
-    """
-    return generate([prompt], max_tokens=config["max_tokens"], topk=1, model="code")[0]
-
-
 def extract_answer(question: str, context: str) -> str:
     """Extract an answer to a `question` from a provided `context`
 
