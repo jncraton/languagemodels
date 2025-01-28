@@ -19,21 +19,6 @@ print("\n# Completion Test\n")
 
 print(f'{lm.complete("They ran until")=}')
 
-print("\n# Chat Test\n")
-
-print(
-    lm.chat(
-        """
-System: Respond helpfully. It is Monday
-
-User: What day is it?
-
-Assistant:
-"""
-    )
-)
-
-
 print("\n# Instruction Tests\n")
 
 tests = [
