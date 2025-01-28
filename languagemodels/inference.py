@@ -44,89 +44,6 @@ def list_tokens(prompt):
     return list(zip(tokens, ids))
 
 
-def generate_ts(engine, prompt, max_tokens=200):
-    """Generates a single text response for a prompt from a textsynth server
-
-    The server and API key are provided as environment variables:
-
-    LANGUAGEMODELS_TS_SERVER is the server such as http://localhost:8080
-    LANGUAGEMODELS_TS_KEY is the API key
-    """
-    apikey = os.environ.get("LANGUAGEMODELS_TS_KEY") or ""
-    server = os.environ.get("LANGUAGEMODELS_TS_SERVER") or "https://api.textsynth.com"
-
-    response = requests.post(
-        f"{server}/v1/engines/{engine}/completions",
-        headers={"Authorization": f"Bearer {apikey}"},
-        json={"prompt": prompt, "max_tokens": max_tokens},
-    )
-    resp = response.json()
-    if "text" in resp:
-        return resp["text"]
-    else:
-        raise InferenceException(f"TextSynth error: {resp}")
-
-
-def generate_oa(engine, prompt, max_tokens=200, temperature=0):
-    """Generates a single text response for a prompt using OpenAI
-
-    The server and API key are provided as environment variables:
-
-    LANGUAGEMODELS_OA_KEY is the API key
-    """
-    apikey = os.environ.get("LANGUAGEMODELS_OA_KEY")
-
-    response = requests.post(
-        "https://api.openai.com/v1/completions",
-        headers={
-            "Authorization": f"Bearer {apikey}",
-            "Content-Type": "application/json",
-        },
-        json={
-            "model": engine,
-            "prompt": prompt,
-            "max_tokens": max_tokens,
-            "temperature": temperature,
-        },
-    )
-    resp = response.json()
-
-    try:
-        return resp["choices"][0]["text"]
-    except KeyError:
-        raise InferenceException(f"OpenAI error: {resp}")
-
-
-def chat_oa(engine, prompt, max_tokens=200, temperature=0):
-    """Generates a single text response for a prompt using OpenAI
-
-    The server and API key are provided as environment variables:
-
-    LANGUAGEMODELS_OA_KEY is the API key
-    """
-    apikey = os.environ.get("LANGUAGEMODELS_OA_KEY")
-
-    response = requests.post(
-        "https://api.openai.com/v1/chat/completions",
-        headers={
-            "Authorization": f"Bearer {apikey}",
-            "Content-Type": "application/json",
-        },
-        json={
-            "model": engine,
-            "messages": [{"role": "user", "content": prompt}],
-            "max_tokens": max_tokens,
-            "temperature": temperature,
-        },
-    )
-    resp = response.json()
-
-    try:
-        return resp["choices"][0]["message"]["content"]
-    except KeyError:
-        raise InferenceException(f"OpenAI error: {resp}")
-
-
 def stream_results(results, tokenizer):
     """Map a token iterator to a substring iterator"""
     tokens = []
@@ -178,14 +95,6 @@ def generate(
     >>> list(generate(["What is the capital of France?"], stream=True))
     ['...Paris...']
     """
-    if os.environ.get("LANGUAGEMODELS_TS_KEY") or os.environ.get(
-        "LANGUAGEMODELS_TS_SERVER"
-    ):
-        return generate_ts("flan_t5_xxl_q4", instructions, max_tokens).strip()
-
-    if os.environ.get("LANGUAGEMODELS_OA_KEY"):
-        return chat_oa("gpt-3.5-turbo", instructions, max_tokens).strip()
-
     tokenizer, model = get_model(model)
 
     start_time = perf_counter()
