@@ -236,29 +236,6 @@ def chat(prompt: str) -> str:
     return response.strip()
 
 
-def classify(doc: str, label1: str, label2: str) -> str:
-    """Performs binary classification on an input
-
-    :param doc: A plain text input document to classify
-    :param label1: The first label to classify against
-    :param label2: The second label to classify against
-    :return: The closest matching class. The return value will always be
-    `label1` or `label2`
-
-    Examples:
-
-    >>> classify("That book was good.","positive","negative")
-    'positive'
-    >>> classify("That movie was terrible.","positive","negative")
-    'negative'
-    """
-
-    return do(
-        f"Classify as {label1} or {label2}: {doc}\n\nClassification:",
-        choices=[label1, label2],
-    )
-
-
 def store_doc(doc: str, name: str = "") -> None:
     """Store document for later retrieval
 
