@@ -44,19 +44,26 @@ models = [
         ),
     },
     {
-        "name": "flan-t5-xl",
-        "tuning": "instruct",
-        "datasets": ["c4", "flan"],
-        "params": 3e9,
-        "quantization": "int8",
-        "backend": "ct2",
-        "architecture": "encoder-decoder-transformer",
-        "license": "apache-2.0",
-    },
-    {
         "name": "Llama-3.2-3B-Instruct",
         "tuning": "instruct",
         "revision": "5da4ba8",
+        "datasets": ["llama3"],
+        "params": 3e9,
+        "quantization": "int8",
+        "backend": "ct2",
+        "architecture": "decoder-only-transformer",
+        "license": "llama3.2",
+        "repetition_penalty": 1.1,
+        "prompt_fmt": (
+            "<|start_header_id|>user<|end_header_id|>\n\n"
+            "{instruction}<|eot_id|>"
+            "<|start_header_id|>assistant<|end_header_id|>\n\n"
+        ),
+    },
+    {
+        "name": "Llama-3.2-1B-Instruct",
+        "tuning": "instruct",
+        "revision": "6e3e3a1",
         "datasets": ["llama3"],
         "params": 1e9,
         "quantization": "int8",
@@ -69,6 +76,60 @@ models = [
             "{instruction}<|eot_id|>"
             "<|start_header_id|>assistant<|end_header_id|>\n\n"
         ),
+    },
+    {
+        "name": "Qwen2.5-0.5B-Instruct",
+        "tuning": "instruct",
+        "languages": [
+            "zh",
+            "en",
+            "fr",
+            "es",
+            "pt",
+            "de",
+            "it",
+            "ru",
+            "ja",
+            "ko",
+            "vi",
+            "th",
+            "ar",
+        ],
+        "revision": "554ffe5",
+        "datasets": [],
+        "params": 0.5e9,
+        "quantization": "int8",
+        "backend": "ct2",
+        "context_length": 32 * 1024,
+        "repetition_penalty": 1.1,
+        "architecture": "decoder-only-transformer",
+        "license": "apache-2.0",
+        "prompt_fmt": (
+            "<|im_start|>system\nAnswer concisely.<|im_end|>\n"
+            "<|im_start|>user\n{instruction}<|im_end|>\n"
+            "<|im_start|>assistant\n"
+        ),
+    },
+    {
+        "name": "LaMini-Flan-T5-248M",
+        "tuning": "instruct",
+        "revision": "96cfe99",
+        "datasets": ["c4", "flan", "lamini"],
+        "params": 248e6,
+        "quantization": "int8",
+        "backend": "ct2",
+        "architecture": "encoder-decoder-transformer",
+        "license": "cc-by-nc-4.0",
+    },
+    {
+        "name": "flan-t5-xl",
+        "tuning": "instruct",
+        "datasets": ["c4", "flan"],
+        "params": 3e9,
+        "quantization": "int8",
+        "backend": "ct2",
+        "architecture": "encoder-decoder-transformer",
+        "license": "apache-2.0",
     },
     {
         "name": "LaMini-Flan-T5-783M",
@@ -90,34 +151,6 @@ models = [
         "backend": "ct2",
         "architecture": "encoder-decoder-transformer",
         "license": "apache-2.0",
-    },
-    {
-        "name": "Llama-3.2-1B-Instruct",
-        "tuning": "instruct",
-        "revision": "6e3e3a1",
-        "datasets": ["llama3"],
-        "params": 1e9,
-        "quantization": "int8",
-        "backend": "ct2",
-        "architecture": "decoder-only-transformer",
-        "license": "llama3.2",
-        "repetition_penalty": 1.1,
-        "prompt_fmt": (
-            "<|start_header_id|>user<|end_header_id|>\n\n"
-            "{instruction}<|eot_id|>"
-            "<|start_header_id|>assistant<|end_header_id|>\n\n"
-        ),
-    },
-    {
-        "name": "LaMini-Flan-T5-248M",
-        "tuning": "instruct",
-        "revision": "96cfe99",
-        "datasets": ["c4", "flan", "lamini"],
-        "params": 248e6,
-        "quantization": "int8",
-        "backend": "ct2",
-        "architecture": "encoder-decoder-transformer",
-        "license": "cc-by-nc-4.0",
     },
     {
         "name": "flan-t5-base",
@@ -150,39 +183,6 @@ models = [
         "revision": "5de22ab",
         "datasets": [],
         "params": 1.5e9,
-        "quantization": "int8",
-        "backend": "ct2",
-        "context_length": 32 * 1024,
-        "repetition_penalty": 1.1,
-        "architecture": "decoder-only-transformer",
-        "license": "apache-2.0",
-        "prompt_fmt": (
-            "<|im_start|>system\nAnswer concisely.<|im_end|>\n"
-            "<|im_start|>user\n{instruction}<|im_end|>\n"
-            "<|im_start|>assistant\n"
-        ),
-    },
-    {
-        "name": "Qwen2.5-0.5B-Instruct",
-        "tuning": "instruct",
-        "languages": [
-            "zh",
-            "en",
-            "fr",
-            "es",
-            "pt",
-            "de",
-            "it",
-            "ru",
-            "ja",
-            "ko",
-            "vi",
-            "th",
-            "ar",
-        ],
-        "revision": "554ffe5",
-        "datasets": [],
-        "params": 0.5e9,
         "quantization": "int8",
         "backend": "ct2",
         "context_length": 32 * 1024,

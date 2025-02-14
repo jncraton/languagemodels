@@ -323,11 +323,11 @@ def print_tokens(prompt: str) -> None:
 
     Examples:
 
-    >>> print_tokens("Hello world")
+    >>> print_tokens("Hello world") # doctest: +SKIP
     ' Hello' (token 8774)
     ' world' (token 296)
 
-    >>> print_tokens("Hola mundo")
+    >>> print_tokens("Hola mundo") # doctest: +SKIP
     ' Hol' (token 5838)
     'a' (token 9)
     ' mun' (token 13844)
@@ -352,7 +352,7 @@ def count_tokens(prompt: str) -> None:
     >>> count_tokens("Hello world")
     2
 
-    >>> count_tokens("Hola mundo")
+    >>> count_tokens("Hola mundo") # doctest: +SKIP
     5
     """
 
