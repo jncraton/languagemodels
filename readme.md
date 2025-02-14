@@ -149,10 +149,10 @@ Here are the current default models used by the package for a supplied `max_ram`
 | max_ram | Model Name            | Parameters (B)
 | ------- | --------------------- | --------------
 | 0.5     | LaMini-Flan-T5-248M   | 0.248
-| 1.0     | LaMini-Flan-T5-783M   | 0.783
-| 2.0     | LaMini-Flan-T5-783M   | 0.783
-| 4.0     | flan-alpaca-gpt4-xl   | 3.0
-| 8.0     | openchat-3.5-0106     | 7.0
+| 1.0     | Qwen2.5-0.5B-Instruct | 0.500
+| 2.0     | Llama-3.2-1B-Instruct | 1.24
+| 4.0     | Llama-3.2-3B-Instruct | 3.21
+| 10.0    | Llama-3.1-8B-Instruct | 8.03
 
 For code completions, the [CodeT5+](https://arxiv.org/abs/2305.07922) series of models are used.
 

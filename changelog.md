@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0
+
+### Changed
+
+- Changed default models
+
 ## 0.24 - 2024-02-14
 
 ### Changed
