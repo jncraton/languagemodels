@@ -130,47 +130,6 @@ models = [
         "license": "apache-2.0",
     },
     {
-        "name": "Phi-3-mini-4k-instruct-20240701",
-        "tuning": "instruct",
-        "datasets": ["phi-3"],
-        "params": 3.8e9,
-        "quantization": "int8",
-        "backend": "ct2",
-        "architecture": "decoder-only-transformer",
-        "license": "mit",
-        "prompt_fmt": "<|user|>\n{instruction}<|end|>\n<|assistant|>",
-        "repetition_penalty": 1.1,
-    },
-    {
-        "name": "Phi-3-mini-4k-instruct",
-        "tuning": "instruct",
-        "datasets": ["phi-3"],
-        "params": 3.8e9,
-        "quantization": "int8",
-        "backend": "ct2",
-        "architecture": "decoder-only-transformer",
-        "license": "mit",
-        "prompt_fmt": "<|user|>\n{instruction}<|end|>\n<|assistant|>",
-        "repetition_penalty": 1.1,
-    },
-    {
-        "name": "SmolLM2-1.7B-Instruct",
-        "tuning": "instruct",
-        "revision": "83b1658",
-        "datasets": [],
-        "params": 1.7e9,
-        "quantization": "int8",
-        "backend": "ct2",
-        "context_length": 2048,
-        "repetition_penalty": 1.0,
-        "architecture": "decoder-only-transformer",
-        "license": "apache-2.0",
-        "prompt_fmt": (
-            "<|im_start|>system\nAnswer concisely.<|im_end|>\n"
-            "<|im_start|>user\n{instruction}<|im_end|>\n<|im_start|>assistant\n"
-        ),
-    },
-    {
         "name": "Qwen2.5-1.5B-Instruct",
         "tuning": "instruct",
         "languages": [
