@@ -63,12 +63,25 @@ def search(query, docs, count=16):
     :return: List of (doc_num, score) tuples sorted by score descending
     """
 
+
+    def custom_dot(matrix, vector):
+        """
+        Multiplie une matrice par un vecteur de manière manuelle.
+
+        :param matrix: Liste de listes ou tableau 2D (matrice)
+        :param vector: Liste ou tableau 1D (vecteur)
+        :return: Liste des produits scalaires
+        """
+        result = []
+        for row in matrix:
+            # Produit scalaire entre une ligne de la matrice et le vecteur
+            dot_product = np.sum([row[i] * vector[i] for i in range(len(vector))])
+            result.append(dot_product)
+        return result
+
     prefix = get_model_info("embedding").get("query_prefix", "")
-
     query_embedding = embed([f"{prefix}{query}"])[0]
-
-    scores = np.dot([d.embedding for d in docs], query_embedding)
-
+    scores = custom_dot([d.embedding for d in docs], query_embedding)
     return [(i, scores[i]) for i in reversed(np.argsort(scores)[-count:])]
 
 
@@ -325,7 +338,7 @@ class RetrievalContext:
         """
 
         if doc not in self.docs:
-            self.docs.append(Document(doc))
+            self.docs.append(Document(doc,name=name))
             self.store_chunks(doc, name)
 
     def store_chunks(self, doc, name=""):
@@ -345,9 +358,7 @@ class RetrievalContext:
 
         if len(self.chunks) == 0:
             return None
-
         results = search(query, self.chunks)
-
         chunks = []
         tokens = 0
 

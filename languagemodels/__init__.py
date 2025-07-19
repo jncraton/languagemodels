@@ -3,6 +3,7 @@ import datetime
 import json
 import re
 from typing import overload
+from PyPDF2 import PdfReader
 
 from languagemodels.config import config
 from languagemodels.preprocess import get_html_paragraphs
@@ -378,6 +379,35 @@ def get_web(url: str) -> str:
 
     return ""
 
+def extract_text_from_pdf(src: str) -> list:
+    """
+    Return plain text paragraphs from a PDF source as a list of pages
+
+    :param src: PDF document to convert to plain text paragraphs
+    :return: List of plain text paragraphs for each page of the document
+
+    This function uses PyPDF2 to extract text from the PDF.
+
+    >>> extract_text_from_pdf(open("test/sample.pdf", "rb"))
+    ['This is page 1...', 'This is page 2...']
+    """
+    reader = PdfReader(src)
+    pages_text = []
+    for page in reader.pages:
+        text = page.extract_text()
+        if text:
+            # Process text for the page
+            paragraphs = text.strip()
+            paragraphs = re.sub(r"\s+", " ", paragraphs)  # Normalize whitespace
+            paragraphs = paragraphs.replace("\n", " ").strip()  # Replace newlines with spaces
+            
+            # If the text is bigger than 4000 characters, split it and add them to the list
+            if len(paragraphs) > 4000:
+                paragraphs = [paragraphs[i:i + 4000] for i in range(0, len(paragraphs), 4000)]
+            else:
+                paragraphs = [paragraphs]
+            pages_text.extend(paragraphs)
+    return pages_text
 
 def get_wiki(topic: str) -> str:
     """
