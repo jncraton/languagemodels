@@ -9,6 +9,7 @@
 ### Fixed
 
 - Fixed issue allowing duplicate documents to be embedded
+- Correctly store document names
 
 ## 0.24 - 2024-02-14
 
