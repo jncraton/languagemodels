@@ -6,6 +6,10 @@
 
 - Changed default models
 
+### Fixed
+
+- Fixed issue allowing duplicate documents to be embedded
+
 ## 0.24 - 2024-02-14
 
 ### Changed

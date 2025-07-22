@@ -231,6 +231,9 @@ class Document:
         self.embedding = embedding if embedding is not None else embed([content])[0]
         self.name = name
 
+    def __eq__(self, other):
+        return self is other or self.content == other
+
 
 class RetrievalContext:
     """
@@ -322,6 +325,13 @@ class RetrievalContext:
         4
         >>> [c.content for c in rc.chunks]
         ['From Python document: details details details...']
+
+        >>> rc = RetrievalContext()
+        >>> rc.clear()
+        >>> rc.store(' '.join(['details'] * 216), 'Python')
+        >>> rc.store(' '.join(['details'] * 216), 'Python')
+        >>> len(rc.chunks)
+        4
         """
 
         if doc not in self.docs:
