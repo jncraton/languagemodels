@@ -325,7 +325,7 @@ class RetrievalContext:
         """
 
         if doc not in self.docs:
-            self.docs.append(Document(doc,name=name))
+            self.docs.append(Document(doc, name=name))
             self.store_chunks(doc, name)
 
     def store_chunks(self, doc, name=""):
