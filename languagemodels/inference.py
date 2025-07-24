@@ -18,7 +18,8 @@ def truncate_prompt(prompt):
     max_prompt_length = config["max_prompt_length"]
     if len(prompt) > max_prompt_length:
         print(
-            f"Warning: Prompt truncated from {len(prompt)} to {max_prompt_length} characters to avoid OOM."
+            f"Warning: Prompt truncated from {len(prompt)} to "
+            f"{max_prompt_length} characters to avoid OOM."
         )
         return prompt[:max_prompt_length]
     return prompt
