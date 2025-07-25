@@ -13,6 +13,18 @@ class InferenceException(Exception):
     pass
 
 
+def truncate_prompt(prompt):
+    """Truncates a prompt to the maximum length allowed by the config"""
+    max_prompt_length = config["max_prompt_length"]
+    if len(prompt) > max_prompt_length:
+        print(
+            f"Warning: Prompt truncated from {len(prompt)} to "
+            f"{max_prompt_length} characters to avoid OOM."
+        )
+        return prompt[:max_prompt_length]
+    return prompt
+
+
 def list_tokens(prompt):
     """Generates a list of tokens for a supplied prompt
 
@@ -22,6 +34,7 @@ def list_tokens(prompt):
     >>> list_tokens("Hello, world!")
     [('...Hello', ...), ... ('...world', ...), ...]
     """
+    prompt = truncate_prompt(prompt)
     tokenizer, _ = get_model("instruct")
 
     output = tokenizer.encode(prompt, add_special_tokens=False)
@@ -187,7 +200,9 @@ def generate(
         repetition_penalty = model_info.get("repetition_penalty", 1.3)
 
     prompts = [fmt.replace("{instruction}", inst) for inst in instructions]
-    prompts_tok = [tokenizer.encode(p).tokens for p in prompts]
+    truncated_prompts = [truncate_prompt(p) for p in prompts]
+
+    prompts_tok = [tokenizer.encode(p).tokens for p in truncated_prompts]
 
     outputs_ids = []
     if hasattr(model, "translate_batch"):
@@ -283,6 +298,7 @@ def rank_instruct(inputs, targets):
     model_info = get_model_info("instruct")
     fmt = model_info.get("prompt_fmt", "{instruction}")
     inputs = [fmt.replace("{instruction}", inst) for inst in inputs]
+    inputs = [truncate_prompt(i) for i in inputs]
 
     targ_tok = [tokenizer.encode(t, add_special_tokens=False).tokens for t in targets]
     targ_tok *= len(inputs)
