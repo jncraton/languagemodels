@@ -1,4 +1,4 @@
-name: x64 Desktop
+name: Test
 
 on:
   push:
