@@ -215,7 +215,7 @@ def chunk_doc(doc, name="", chunk_size=64, chunk_overlap=8):
                 )
                 chunk = name_tokens + chunk[-overlap:]
 
-    return chunks
+    return [c.strip() for c in chunks]
 
 
 class Document:
