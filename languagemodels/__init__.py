@@ -241,7 +241,9 @@ def get_wiki(topic: str) -> str:
 
     url = "https://api.wikimedia.org/core/v1/wikipedia/en/search/title"
     headers = {
-        "User-Agent": "languagemodels (https://github.com/jncraton/languagemodels) languagemodels"
+        "User-Agent": "languagemodels "
+        "(https://github.com/jncraton/languagemodels) "
+        "languagemodels"
     }
     response = requests.get(
         url,
