@@ -240,13 +240,21 @@ def get_wiki(topic: str) -> str:
     """
 
     url = "https://api.wikimedia.org/core/v1/wikipedia/en/search/title"
-    response = requests.get(url, params={"q": topic, "limit": 5})
+    headers = {
+        "User-Agent": "languagemodels (https://github.com/jncraton/languagemodels) languagemodels"
+    }
+    response = requests.get(
+        url,
+        params={"q": topic, "limit": 5},
+        headers=headers,
+    )
     response = json.loads(response.text)
 
     for page in response["pages"]:
         wiki_result = requests.get(
             f"https://en.wikipedia.org/w/api.php?action=query&prop=extracts|pageprops&"
-            f"exintro&redirects=1&titles={page['title']}&format=json"
+            f"exintro&redirects=1&titles={page['title']}&format=json",
+            headers=headers,
         ).json()
 
         first = wiki_result["query"]["pages"].popitem()[1]
