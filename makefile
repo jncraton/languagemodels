@@ -50,4 +50,5 @@ clean:
 	rm -rf build
 	rm -rf doc
 	rm -rf .ipynb_checkpoints
+	rm -rf .venv
 	rm -rf examples/.ipynb_checkpoints
