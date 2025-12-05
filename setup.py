@@ -23,5 +23,6 @@ setuptools.setup(
         "huggingface_hub",
         "ctranslate2>=4.6.2",
         "tokenizers",
+        "requests",
        ],
 )
