@@ -50,13 +50,11 @@ def complete(prompt: str) -> str:
 
 
 @overload
-def do(prompt: list) -> list:
-    ...
+def do(prompt: list) -> list: ...
 
 
 @overload
-def do(prompt: str) -> str:
-    ...
+def do(prompt: str) -> str: ...
 
 
 def do(prompt, choices=None):
@@ -104,13 +102,11 @@ def do(prompt, choices=None):
 
 
 @overload
-def embed(doc: list) -> list:
-    ...
+def embed(doc: list) -> list: ...
 
 
 @overload
-def embed(doc: str) -> str:
-    ...
+def embed(doc: str) -> str: ...
 
 
 def embed(doc):
