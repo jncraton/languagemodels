@@ -230,6 +230,22 @@ models = [
         ),
     },
     {
+        "name": "gemma-3-270m-it",
+        "tuning": "instruct",
+        "revision": "87f163f",
+        "datasets": ["gemma3"],
+        "params": 270e6,
+        "quantization": "int8",
+        "backend": "ct2",
+        "architecture": "decoder-only-transformer",
+        "license": "gemma",
+        "prompt_fmt": (
+            "<start_of_turn>user\n"
+            "{instruction}\n<end_of_turn>"
+            "<start_of_turn>model\n"
+        ),
+    },
+    {
         "name": "all-MiniLM-L6-v2",
         "tuning": "embedding",
         "revision": "28efeb4",
