@@ -311,7 +311,7 @@ class RetrievalContext:
         >>> len(rc.chunks)
         1
         >>> [c.content for c in rc.chunks]
-        ['From Python document: It is a language.']
+        ['From Python document:...It is a language.']
 
         >>> rc = RetrievalContext()
         >>> rc.clear()
@@ -324,7 +324,7 @@ class RetrievalContext:
         >>> len(rc.chunks)
         4
         >>> [c.content for c in rc.chunks]
-        ['From Python document: details details details...']
+        ['From Python document:...details details details...']
 
         >>> rc = RetrievalContext()
         >>> rc.clear()
