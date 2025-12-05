@@ -1,4 +1,4 @@
-""" A simple assistant
+"""A simple assistant
 
 The assistant uses information retrieval to obtain context from a small set
 of stored documents. The included information is the current weather, current

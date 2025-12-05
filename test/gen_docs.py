@@ -1,4 +1,4 @@
-""" Generates docs for testing 
+"""Generates docs for testing
 
 All documents come from Wikipedia
 """
