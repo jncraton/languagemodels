@@ -5,6 +5,7 @@
 ### Changed
 
 - Changed default models
+- Support only Python 3.10 and above
 
 ### Fixed
 
