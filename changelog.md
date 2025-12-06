@@ -4,6 +4,7 @@
 
 ### Changed
 
+- Default to Gemma-3-270m=it
 - Changed default models
 - Support only Python 3.10 and above
 

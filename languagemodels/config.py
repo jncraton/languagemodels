@@ -78,6 +78,22 @@ models = [
         ),
     },
     {
+        "name": "gemma-3-270m-it",
+        "tuning": "instruct",
+        "revision": "87f163f",
+        "datasets": ["gemma3"],
+        "params": 270e6,
+        "quantization": "int8",
+        "backend": "ct2",
+        "architecture": "decoder-only-transformer",
+        "license": "gemma",
+        "prompt_fmt": (
+            "<start_of_turn>user\n"
+            "{instruction}\n<end_of_turn>"
+            "<start_of_turn>model\n"
+        ),
+    },
+    {
         "name": "Qwen2.5-0.5B-Instruct",
         "tuning": "instruct",
         "languages": [
@@ -227,22 +243,6 @@ models = [
         "prompt_fmt": (
             "<|im_start|>system\nAnswer concisely.<|im_end|>\n"
             "<|im_start|>user\n{instruction}<|im_end|>\n<|im_start|>assistant\n"
-        ),
-    },
-    {
-        "name": "gemma-3-270m-it",
-        "tuning": "instruct",
-        "revision": "87f163f",
-        "datasets": ["gemma3"],
-        "params": 270e6,
-        "quantization": "int8",
-        "backend": "ct2",
-        "architecture": "decoder-only-transformer",
-        "license": "gemma",
-        "prompt_fmt": (
-            "<start_of_turn>user\n"
-            "{instruction}\n<end_of_turn>"
-            "<start_of_turn>model\n"
         ),
     },
     {
@@ -510,7 +510,7 @@ Config.schema = {
     "echo": ConfigItem(int, False),
     "device": ConfigItem(Config.validate_device, "cpu"),
     "model_license": ConfigItem(re.compile, ".*"),
-    "instruct_model": ConfigItem(Config.validate_model, "LaMini-Flan-T5-248M"),
+    "instruct_model": ConfigItem(Config.validate_model, "gemma-3-270m-it"),
     "embedding_model": ConfigItem(Config.validate_model, "all-MiniLM-L6-v2"),
     "max_prompt_length": ConfigItem(int, 50_000),
 }
