@@ -17,7 +17,7 @@ def get_model_info(model_type="instruct"):
     """Gets info about the current model in use
 
     >>> get_model_info('instruct')
-    {'name': 'LaMini-Flan-T5-248M', 'tuning': 'instruct'...
+    {...'tuning': 'instruct'...
     """
     model_name = config[f"{model_type}_model"]
 
@@ -98,7 +98,7 @@ def get_model(model_type, tokenizer_only=False):
     <class 'tokenizers.Tokenizer'>
 
     >>> type(model)
-    <class 'ctranslate2._ext.Translator'>
+    <class 'ctranslate2._ext...'>
 
     >>> tokenizer, model = get_model("embedding")
     >>> type(tokenizer)
