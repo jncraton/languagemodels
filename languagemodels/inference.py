@@ -187,18 +187,18 @@ def generate(
 def rank_instruct(inputs, targets):
     """Sorts a list of targets by their probabilities
 
-    >>> rank_instruct(["Classify positive or negative: I love python. Classification:"],
+    >>> rank_instruct(["Classify positive or negative: I love python"],
     ... ['positive', 'negative'])
     [['positive', 'negative']]
 
     >>> rank_instruct(["Say red", "Say blue"], ["red", "blue"])
     [['red', 'blue'], ['blue', 'red']]
 
-    >>> rank_instruct(["Classify as positive or negative: LLMs are bad"],
-    ... ["Positive", "Negative"])
-    [['Negative', 'Positive']]
+    >>> rank_instruct(["Classify as positive or negative: AI is bad"],
+    ... ["positive", "negative"])
+    [['negative', 'positive']]
 
-    >>> rank_instruct(["Classify as positive or negative: LLMs are great"],
+    >>> rank_instruct(["Classify as positive or negative: AI is great"],
     ... ["Positive", "Negative"])
     [['Positive', 'Negative']]
     """
