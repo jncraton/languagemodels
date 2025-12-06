@@ -154,8 +154,6 @@ Here are the current default models used by the package for a supplied `max_ram`
 | 4.0     | Llama-3.2-3B-Instruct | 3.21
 | 10.0    | Llama-3.1-8B-Instruct | 8.03
 
-For code completions, the [CodeT5+](https://arxiv.org/abs/2305.07922) series of models are used.
-
 Commercial Use
 --------------
 
