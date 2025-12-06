@@ -146,13 +146,13 @@ Sensible default models are provided. The package should improve over time as st
 
 Here are the current default models used by the package for a supplied `max_ram` value:
 
-| max_ram | Model Name            | Parameters (B)
-| ------- | --------------------- | --------------
-| 0.5     | gemma-3-270m-it       | 0.270
-| 1.0     | Qwen2.5-0.5B-Instruct | 0.500
-| 2.0     | Llama-3.2-1B-Instruct | 1.24
-| 4.0     | Llama-3.2-3B-Instruct | 3.21
-| 10.0    | Llama-3.1-8B-Instruct | 8.03
+| max_ram | Model Name               | Parameters (B)
+| ------- | ------------------------ | --------------
+| 0.5     | gemma-3-270m-it          | 0.270
+| 1.0     | Qwen3-0.6B (no thinking) | 0.600
+| 2.0     | Llama-3.2-1B-Instruct    | 1.24
+| 4.0     | Llama-3.2-3B-Instruct    | 3.21
+| 10.0    | Llama-3.1-8B-Instruct    | 8.03
 
 Commercial Use
 --------------

@@ -94,7 +94,7 @@ models = [
         ),
     },
     {
-        "name": "Qwen2.5-0.5B-Instruct",
+        "name": "Qwen3-0.6B",
         "tuning": "instruct",
         "languages": [
             "zh",
@@ -111,7 +111,7 @@ models = [
             "th",
             "ar",
         ],
-        "revision": "554ffe5",
+        "revision": "2c231d9",
         "datasets": [],
         "params": 0.5e9,
         "quantization": "int8",
@@ -124,6 +124,7 @@ models = [
             "<|im_start|>system\nAnswer concisely.<|im_end|>\n"
             "<|im_start|>user\n{instruction}<|im_end|>\n"
             "<|im_start|>assistant\n"
+            "<think>\n\n</think>\n\n"
         ),
     },
     {
