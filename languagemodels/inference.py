@@ -191,13 +191,16 @@ def rank_instruct(inputs, targets):
     ... ['positive', 'negative'])
     [['positive', 'negative']]
 
-    >>> rank_instruct(["Classify fantasy or documentary: "
-    ... "The wizard raised their wand. Classification:"],
-    ... ['fantasy', 'documentary'])
-    [['fantasy', 'documentary']]
+    >>> rank_instruct(["Say red", "Say blue"], ["red", "blue"])
+    [['red', 'blue'], ['blue', 'red']]
 
-    >>> rank_instruct(["Say six", "Say seven"], ["six", "seven"])
-    [['six', 'seven'], ['seven', 'six']]
+    >>> rank_instruct(["Classify as positive or negative: LLMs are bad"],
+    ... ["Positive", "Negative"])
+    [['Negative', 'Positive']]
+
+    >>> rank_instruct(["Classify as positive or negative: LLMs are great"],
+    ... ["Positive", "Negative"])
+    [['Positive', 'Negative']]
     """
     tokenizer, model = get_model("instruct")
 
