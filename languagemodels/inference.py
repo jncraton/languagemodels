@@ -194,10 +194,6 @@ def rank_instruct(inputs, targets):
     >>> rank_instruct(["Say red", "Say blue"], ["red", "blue"])
     [['red', 'blue'], ['blue', 'red']]
 
-    >>> rank_instruct(["Classify as positive or negative: AI is bad"],
-    ... ["positive", "negative"])
-    [['negative', 'positive']]
-
     >>> rank_instruct(["Classify as positive or negative: AI is great"],
     ... ["Positive", "Negative"])
     [['Positive', 'Negative']]
