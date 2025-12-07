@@ -180,39 +180,6 @@ models = [
         "license": "apache-2.0",
     },
     {
-        "name": "Qwen2.5-1.5B-Instruct",
-        "tuning": "instruct",
-        "languages": [
-            "zh",
-            "en",
-            "fr",
-            "es",
-            "pt",
-            "de",
-            "it",
-            "ru",
-            "ja",
-            "ko",
-            "vi",
-            "th",
-            "ar",
-        ],
-        "revision": "5de22ab",
-        "datasets": [],
-        "params": 1.5e9,
-        "quantization": "int8",
-        "backend": "ct2",
-        "context_length": 32 * 1024,
-        "repetition_penalty": 1.1,
-        "architecture": "decoder-only-transformer",
-        "license": "apache-2.0",
-        "prompt_fmt": (
-            "<|im_start|>system\nAnswer concisely.<|im_end|>\n"
-            "<|im_start|>user\n{instruction}<|im_end|>\n"
-            "<|im_start|>assistant\n"
-        ),
-    },
-    {
         "name": "all-MiniLM-L6-v2",
         "tuning": "embedding",
         "revision": "28efeb4",
