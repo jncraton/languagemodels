@@ -213,40 +213,6 @@ models = [
         ),
     },
     {
-        "name": "SmolLM2-360M-Instruct",
-        "tuning": "instruct",
-        "revision": "ed9c4fe",
-        "datasets": [],
-        "params": 360e6,
-        "quantization": "int8",
-        "backend": "ct2",
-        "context_length": 2048,
-        "repetition_penalty": 1.0,
-        "architecture": "decoder-only-transformer",
-        "license": "apache-2.0",
-        "prompt_fmt": (
-            "<|im_start|>system\nAnswer concisely.<|im_end|>\n"
-            "<|im_start|>user\n{instruction}<|im_end|>\n<|im_start|>assistant\n"
-        ),
-    },
-    {
-        "name": "SmolLM2-135M-Instruct",
-        "tuning": "instruct",
-        "revision": "e52a3dc",
-        "datasets": [],
-        "params": 135e6,
-        "quantization": "int8",
-        "backend": "ct2",
-        "context_length": 2048,
-        "repetition_penalty": 1.0,
-        "architecture": "decoder-only-transformer",
-        "license": "apache-2.0",
-        "prompt_fmt": (
-            "<|im_start|>system\nAnswer concisely.<|im_end|>\n"
-            "<|im_start|>user\n{instruction}<|im_end|>\n<|im_start|>assistant\n"
-        ),
-    },
-    {
         "name": "all-MiniLM-L6-v2",
         "tuning": "embedding",
         "revision": "28efeb4",
