@@ -73,11 +73,11 @@ def do(prompt, choices=None):
     >>> do("Translate Spanish to English: Hola mundo!") #doctest: +SKIP
     'Hello world!'
 
-    >>> do("Pick the planet from the list: baseball, Texas, Saturn")
-    '...Saturn...'
+    >>> do("What is the capital of Germany?")
+    '...Berlin...'
 
-    >>> do(["Pick the planet from the list: baseball, Texas, Saturn"] * 2)
-    ['...Saturn...', '...Saturn...']
+    >>> do(["What is the capital of Germany?"] * 2)
+    ['...Berlin...', '...Berlin...']
 
     >>> do(["Say red", "Say blue"], choices=["red", "blue"])
     ['red', 'blue']
