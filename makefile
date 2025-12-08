@@ -4,7 +4,7 @@ all: lint test
 
 test-base:
 	python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/*.py
-	env LANGUAGEMODELS_MODEL_LICENSE="apache|mit|bsd" python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/__init__.py
+	LANGUAGEMODELS_INSTRUCT_MODEL="LaMini-Flan-T5-248M" python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/inference.py
 	LANGUAGEMODELS_INSTRUCT_MODEL="Qwen3-0.6B" python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/inference.py
 
 test: test-base
