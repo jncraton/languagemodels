@@ -80,7 +80,7 @@ models = [
         "tuning": "instruct",
         "revision": "4d92852",
         "datasets": [],
-        "params": 0.5e9,
+        "params": 1.7e9,
         "quantization": "int8",
         "backend": "ct2",
         "context_length": 32 * 1024,
