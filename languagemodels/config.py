@@ -28,53 +28,35 @@ class ModelFilterException(Exception):
 # will be selected
 models = [
     {
-        "name": "Llama-3.1-8B-Instruct",
+        "name": "gemma-3-4b-it",
         "tuning": "instruct",
-        "revision": "d02fc85",
-        "datasets": ["llama3"],
-        "params": 8e9,
+        "revision": "23515ad",
+        "datasets": ["gemma3"],
+        "params": 4e9,
         "quantization": "int8",
         "backend": "ct2",
         "architecture": "decoder-only-transformer",
-        "license": "llama3",
+        "license": "gemma",
         "prompt_fmt": (
-            "<|start_header_id|>user<|end_header_id|>\n\n"
-            "{instruction}<|eot_id|>"
-            "<|start_header_id|>assistant<|end_header_id|>\n\n"
+            "<start_of_turn>user\n"
+            "{instruction}\n<end_of_turn>"
+            "<start_of_turn>model\n"
         ),
     },
     {
-        "name": "Llama-3.2-3B-Instruct",
+        "name": "gemma-3-1b-it",
         "tuning": "instruct",
-        "revision": "5da4ba8",
-        "datasets": ["llama3"],
-        "params": 3e9,
-        "quantization": "int8",
-        "backend": "ct2",
-        "architecture": "decoder-only-transformer",
-        "license": "llama3.2",
-        "repetition_penalty": 1.1,
-        "prompt_fmt": (
-            "<|start_header_id|>user<|end_header_id|>\n\n"
-            "{instruction}<|eot_id|>"
-            "<|start_header_id|>assistant<|end_header_id|>\n\n"
-        ),
-    },
-    {
-        "name": "Llama-3.2-1B-Instruct",
-        "tuning": "instruct",
-        "revision": "6e3e3a1",
-        "datasets": ["llama3"],
+        "revision": "f27ed35",
+        "datasets": ["gemma3"],
         "params": 1e9,
         "quantization": "int8",
         "backend": "ct2",
         "architecture": "decoder-only-transformer",
-        "license": "llama3.2",
-        "repetition_penalty": 1.1,
+        "license": "gemma",
         "prompt_fmt": (
-            "<|start_header_id|>user<|end_header_id|>\n\n"
-            "{instruction}<|eot_id|>"
-            "<|start_header_id|>assistant<|end_header_id|>\n\n"
+            "<start_of_turn>user\n"
+            "{instruction}\n<end_of_turn>"
+            "<start_of_turn>model\n"
         ),
     },
     {
