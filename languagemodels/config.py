@@ -76,6 +76,25 @@ models = [
         ),
     },
     {
+        "name": "Qwen3-1.7B",
+        "tuning": "instruct",
+        "revision": "4d92852",
+        "datasets": [],
+        "params": 0.5e9,
+        "quantization": "int8",
+        "backend": "ct2",
+        "context_length": 32 * 1024,
+        "repetition_penalty": 1.1,
+        "architecture": "decoder-only-transformer",
+        "license": "apache-2.0",
+        "prompt_fmt": (
+            "<|im_start|>system\nAnswer concisely.<|im_end|>\n"
+            "<|im_start|>user\n{instruction}<|im_end|>\n"
+            "<|im_start|>assistant\n"
+            "<think>\n\n</think>\n\n"
+        ),
+    },
+    {
         "name": "Qwen3-0.6B",
         "tuning": "instruct",
         "revision": "2c231d9",
