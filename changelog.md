@@ -10,7 +10,7 @@
 
 ### Fixed
 
-- Fixed issue allowing duplicate documents to be embedded
+- Fix issue allowing duplicate documents to be embedded
 - Correctly store document names
 - Fix User-Agent to prevent blocking on `get_wiki` requests
 
