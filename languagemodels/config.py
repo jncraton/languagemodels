@@ -132,6 +132,20 @@ models = [
         ),
     },
     {
+        "name": "t5gemma-s-s-prefixlm-it",
+        "tuning": "instruct",
+        "revision": "f43d66a",
+        "datasets": ["gemma"],
+        "params": 248e6,
+        "quantization": "int8",
+        "backend": "ct2",
+        "architecture": "encoder-decoder-transformer",
+        "license": "cc-by-nc-4.0",
+        "prompt_fmt": (
+            "<start_of_turn>user\n{instruction}<end_of_turn>\n<start_of_turn>model\n"
+        ),
+    },
+    {
         "name": "LaMini-Flan-T5-248M",
         "tuning": "instruct",
         "revision": "96cfe99",
