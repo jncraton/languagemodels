@@ -21,7 +21,7 @@ setuptools.setup(
     python_requires='>=3.10',
     install_requires=[
         "huggingface_hub",
-        "ctranslate2>=4.6.2",
+        "ctranslate2>=4.6.3",
         "tokenizers",
         "requests",
        ],
