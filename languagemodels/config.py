@@ -136,7 +136,7 @@ models = [
         "tuning": "instruct",
         "revision": "f43d66a",
         "datasets": ["gemma"],
-        "params": 248e6,
+        "params": 300e6,
         "quantization": "int8",
         "backend": "ct2",
         "architecture": "encoder-decoder-transformer",
