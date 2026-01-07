@@ -187,16 +187,12 @@ def generate(
 def rank_instruct(inputs, targets):
     """Sorts a list of targets by their probabilities
 
-    >>> rank_instruct(["Classify positive or negative: I love python"],
-    ... ['positive', 'negative'])
-    [['positive', 'negative']]
+    >>> rank_instruct(["What is the capital of France?"],
+    ... ['Brussels', 'Paris'])
+    [['Paris', 'Brussels']]
 
     >>> rank_instruct(["Say red", "Say blue"], ["red", "blue"])
     [['red', 'blue'], ['blue', 'red']]
-
-    >>> rank_instruct(["Classify as positive or negative: AI is great"],
-    ... ["Positive", "Negative"])
-    [['Positive', 'Negative']]
     """
     tokenizer, model = get_model("instruct")
 

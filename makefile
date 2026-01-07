@@ -3,6 +3,7 @@ all: lint test
 .PHONY: test test-base lint format spellcheck upload clean
 
 test-base:
+	LANGUAGEMODELS_INSTRUCT_MODEL="t5gemma-s-s-prefixlm-it" python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/inference.py
 	python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/*.py
 	LANGUAGEMODELS_INSTRUCT_MODEL="LaMini-Flan-T5-248M" python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/inference.py
 	LANGUAGEMODELS_INSTRUCT_MODEL="Qwen3-0.6B" python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE languagemodels/inference.py
