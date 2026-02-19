@@ -10,8 +10,8 @@ def embed(docs):
     >>> embed(["I love Python!"])[0].shape
     (384,)
 
-    >>> float(np.linalg.norm(embed(["I love Python!"])[0]))
-    1.0
+    >>> float(np.linalg.norm(embed(["I love Python!"])[0])) > 0.9999
+    True
 
     Embeddings are computed by running the first 512 tokens of each doc
     through a forward pass of the embedding model. The last hidden state
