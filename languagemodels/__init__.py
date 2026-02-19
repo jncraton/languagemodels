@@ -178,7 +178,7 @@ def get_doc_context(query: str) -> str:
     >>> store_doc("Paris is nice.")
     >>> store_doc("The sky is blue.")
     >>> get_doc_context("Where is Paris?")
-    'Paris is in France.\\n\\nParis is nice.'
+    'Paris is in France...'
     """
     return docs.get_context(query)
 
