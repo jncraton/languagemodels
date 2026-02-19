@@ -7,6 +7,7 @@
 - Default to Gemma-3-270m-it
 - Change default models
 - Support only Python 3.10 and above
+- Default to echo tokens to stdout during generation
 
 ### Added
 
