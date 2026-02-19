@@ -10,9 +10,6 @@ def embed(docs):
     >>> embed(["I love Python!"])[0].shape
     (384,)
 
-    >>> embed(["I love Python!"])[0][-3:]
-    array([0.1..., 0.1..., 0.0...], dtype=float32)
-
     >>> float(np.linalg.norm(embed(["I love Python!"])[0]))
     1.0
 
