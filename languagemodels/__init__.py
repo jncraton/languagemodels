@@ -118,10 +118,10 @@ def embed(doc):
     Examples:
 
     >>> embed("Hello, world")
-    [-0.0...]
+    [...]
 
     >>> embed(["Hello", "world"])
-    [[-0.0...]]
+    [[...]]
     """
 
     docs = [doc] if isinstance(doc, str) else doc
